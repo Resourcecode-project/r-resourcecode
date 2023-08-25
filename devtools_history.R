@@ -17,3 +17,4 @@ usethis::use_description()
 
 usethis::use_build_ignore("dev/")
 usethis::use_git()
+usethis::use_github()

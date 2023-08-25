@@ -8,18 +8,18 @@ The goal of resourcecode is to provide an easy access to the Resourcecode hindca
 
 ## Installation
 
-You can install the development version of `{resourcecode}` like so:
+The package is not yet on CRAN. Meanwhile, you can install the development version of `{resourcecode}` like so:
 
-``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+```{r}
+devtools::install_github('NRaillard/resourcecode')
 ```
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+Plot the bathymetry used in the projet
 
-``` r
+```{r}
 library(resourcecode)
-## basic example code
+resourcecode::rscd_mapplot(resourcecode::rscd_field$depth)
 ```
 
