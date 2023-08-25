@@ -14,12 +14,18 @@ The package is not yet on CRAN. Meanwhile, you can install the development versi
 devtools::install_github('NRaillard/resourcecode')
 ```
 
-## Example
+## Examples
 
-Plot the bathymetry used in the projet
+Plot the bathymetry used in the project
 
 ```{r}
 library(resourcecode)
 resourcecode::rscd_mapplot(resourcecode::rscd_field$depth)
 ```
+See the variables available in the database
+
+```{r}
+rscd_variables
+```
+
 
