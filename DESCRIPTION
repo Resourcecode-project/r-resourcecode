@@ -1,0 +1,22 @@
+Package: resourcecode
+Title: Access to the RESOURCECODE hindcast database
+Version: 0.0.0.9000
+Authors@R: 
+    person("Nicolas", "Raillard", , "nicolas.raillard@ifremer.fr", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-3385-5104"))
+Description: WThis package provides utility functions to download data
+    from the RESOURCECODE database, along with facilities to plot and
+    analyse such data.
+License: GPL (>= 3)
+Depends: 
+    R (>= 3.5)
+Imports: 
+    ggplot2,
+    rlang,
+    sf,
+    tibble
+Encoding: UTF-8
+LazyData: true
+LazyDataCompression: bzip2
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
