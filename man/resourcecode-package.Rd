@@ -8,6 +8,14 @@
 \description{
 WThis package provides utility functions to download data from the RESOURCECODE database, along with facilities to plot and analyse such data.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/NRaillard/resourcecode}
+  \item Report bugs at \url{https://github.com/NRaillard/resourcecode/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Nicolas Raillard \email{nicolas.raillard@ifremer.fr} (\href{https://orcid.org/0000-0003-3385-5104}{ORCID})
 

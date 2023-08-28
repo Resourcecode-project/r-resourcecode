@@ -18,3 +18,12 @@ usethis::use_description()
 usethis::use_build_ignore("dev/")
 usethis::use_git()
 usethis::use_github()
+
+rcd_cassandra_url = "https://resourcecode-datacharts.ifremer.fr/"
+rscd_hindcast_start_date=as.POSIXct("1994-01-01Z00:00:00")
+rscd_hindcast_end_date=as.POSIXct("2022-12-31Z23:00:00")
+
+rscd_casandra_start_date=as.POSIXct("1994-01-01Z00:00:00")
+rscd_casandra_end_date=as.POSIXct("2020-12-31Z23:00:00")
+
+usethis::use_data(rcd_cassandra_url,rscd_hindcast_start_date,rscd_hindcast_end_date,rscd_casandra_start_date,rscd_casandra_end_date,internal = TRUE,overwrite = TRUE)
