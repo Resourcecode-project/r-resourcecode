@@ -98,7 +98,7 @@ convert_spectrum_2D1D = function(spec,...){
   spec$th1m = (atan2(b1,a1)*180/pi + 180) %% 360
   spec$th2m = (atan2(b2,a2)*180/pi + 180) %% 360
   spec$sth1m = sqrt(.5 * (1 - sqrt((a1^2+b1^2)/ spec$ef^2)))*180/pi
-  spec$sth1m = sqrt(.5 * (1 - sqrt((a2^2+b2^2)/ spec$ef^2)))*180/pi
+  spec$sth2m = sqrt(.5 * (1 - sqrt((a2^2+b2^2)/ spec$ef^2)))*180/pi
 
   #Removes the 2D directional spectrum
   spec$efth = NULL
