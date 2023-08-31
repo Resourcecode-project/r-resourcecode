@@ -56,7 +56,6 @@ get_2Dspectrum_raw = function(point,year,month){
 
   out$longitude = out$longitude[1]
   out$latitude = out$latitude[1]
-
   out$freq = freq
   out$dir = dir[dir_ordred]
 
@@ -69,6 +68,7 @@ get_2Dspectrum_raw = function(point,year,month){
   out$efth <- 10^(out$efth) - 1e-12
   out$efth = out$efth[dir_ordred,,]
 
+  out$station=point
   out
 }
 
@@ -121,6 +121,7 @@ get_1Dspectrum_raw = function(point,year,month){
 
   out$forcings=tibble::tibble(time=time, tibble::as_tibble(forcings))
 
+  out$station=point
   out
 }
 

@@ -57,13 +57,52 @@ dispersion = function(frequencies,depth,iter_max=200,tol=1e-6){
 
 #' Converts a 2D spectrum time series to a 1D spectrum
 #'
-#' @param x a structure with the needed fields, as an output from 'get_2Dspectrum' for example
+#' @param spec a structure with the needed fields, as an output from 'get_2Dspectrum' for example
 #' @param ... unused yet
 #'
 #' @return a structure comparable to 'get_1Dspectrum'.
 #' @export
 #'
 #' @examples
-convert_spectrum_2D1D = function(x,...){
+#'  spec = get_2Dspectrum("SEMREVO",start="1994-01-01",end="1994-02-28")
+#'  spec1D_RSCD = get_1Dspectrum("SEMREVO",start="1994-01-01",end="1994-02-28")
+#'  spec1D = convert_spectrum_2D1D(spec)
+#'  #Check the differences, should be low
+#'  max(abs(spec1D_RSCD$ef-spec1D$ef))
+#'
+#'  #Plot the different spectrum
+#'  plot(spec1D$freq,spec1D$ef[,1],type='l',log='xy')
+#'  lines(spec1D_RSCD$freq,spec1D_RSCD$ef[,1],col='red')
+convert_spectrum_2D1D = function(spec,...){
 
+  ddir = diff(spec$dir)[1]*pi/180 #computes the discretization in direction
+
+  #Averages the directional spectrum along the direction
+  #Simple sum is preferred to pracma::trapz for consistency with WWIII internals
+  spec$ef = apply(spec$efth*ddir,seq_along(dim(spec$efth))[-1],sum)
+
+  #Computes the Mean directions and directionnal spreadings
+  # (see 2.229 to 2.236 of WWIII user manual for the definitions
+
+  c1 = sweep(spec$efth,1,cos(spec$dir*pi/180),FUN = '*') # cos(theta)*F(theta,f)
+  s1 = sweep(spec$efth,1,sin(spec$dir*pi/180),FUN = '*') # sin*F(theta,f)
+  c2 = sweep(spec$efth,1,cos(2*spec$dir*pi/180),FUN = '*') # cos(2*theta)*F(theta,f)
+  s2 = sweep(spec$efth,1,sin(2*spec$dir*pi/180),FUN = '*') # sin(2*theta)*F(theta,f)
+
+  #Same notation as the definitions above
+  a1 = apply(c1*ddir,c(2,3),sum)
+  b1 = apply(s1*ddir,c(2,3),sum)
+  a2 = apply(c2*ddir,c(2,3),sum)
+  b2 = apply(s2*ddir,c(2,3),sum)
+
+  spec$th1m = (atan2(b1,a1)*180/pi + 180) %% 360
+  spec$th2m = (atan2(b2,a2)*180/pi + 180) %% 360
+  spec$sth1m = sqrt(.5 * (1 - sqrt((a1^2+b1^2)/ spec$ef^2)))*180/pi
+  spec$sth1m = sqrt(.5 * (1 - sqrt((a2^2+b2^2)/ spec$ef^2)))*180/pi
+
+  #Removes the 2D directional spectrum
+  spec$efth = NULL
+  spec$dir=NULL
+
+  spec
 }

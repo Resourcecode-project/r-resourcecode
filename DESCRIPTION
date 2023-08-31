@@ -21,7 +21,8 @@ Imports:
     ncdf4,
     rlang,
     sf,
-    tibble
+    tibble,
+    tidyr
 Encoding: UTF-8
 LazyData: true
 LazyDataCompression: bzip2
