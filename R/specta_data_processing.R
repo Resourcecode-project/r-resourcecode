@@ -97,12 +97,35 @@ convert_spectrum_2D1D = function(spec,...){
 
   spec$th1m = (atan2(b1,a1)*180/pi + 180) %% 360
   spec$th2m = (atan2(b2,a2)*180/pi + 180) %% 360
-  spec$sth1m = sqrt(.5 * (1 - sqrt((a1^2+b1^2)/ spec$ef^2)))*180/pi
-  spec$sth2m = sqrt(.5 * (1 - sqrt((a2^2+b2^2)/ spec$ef^2)))*180/pi
+  spec$sth1m = sqrt(2 * (1 - sqrt((a1^2+b1^2)/ spec$ef^2)))*180/pi
+  spec$sth2m = sqrt(2 * (1 - sqrt((a2^2+b2^2)/ spec$ef^2)))*180/pi
 
   #Removes the 2D directional spectrum
   spec$efth = NULL
   spec$dir=NULL
 
-  spec
+  #reorder the elements to match the output from `get_1D_spectra`
+  spec[c(1:4,8:12,5:7)]
+}
+
+#' Compute sea_state parameter from wave directional spectrum
+#'
+#' @param spec either a 1D or 2D spectrum
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
+compute_sea_state = function(spec,...){
+
+  #Define an internal function that will do the job for a time-step
+  # spectrum: 2D spectrum
+  sea_state = function(spectrum,depth,freq){
+
+    m0 = pracma::trapz(x=freq,spectrum)
+
+
+  }
+
 }
