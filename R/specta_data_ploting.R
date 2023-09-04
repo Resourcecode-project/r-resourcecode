@@ -23,7 +23,6 @@ plot_2Dspecta = function(spec,time=1L,normalize=TRUE,trim=0.01,cut_off=.4,...){
   if("POSIXct" %in% class(time)){
     time = which(time == spec$forcings$time)
   }
-  print(time)
 
   df_freq = tidyr::expand_grid(frequency1=1:36,dir=spec$dir)
 

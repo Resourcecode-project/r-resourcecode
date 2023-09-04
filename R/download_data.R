@@ -65,14 +65,16 @@ get_parameters = function(parameters="hs",node=42,start=as.POSIXct("1994-01-01Z0
 
   stopifnot(all(parameters %in% c("tp",resourcecode::rscd_variables$name)))
 
+  node = as.integer(node)
+
   stopifnot(length(node)==1)
   stopifnot(node %in% resourcecode::rscd_field$node)
 
-  if(is.character(start)){start=as.POSIXct(start)}
-  if(is.character(end)){start=as.POSIXct(end)}
+  if(is.character(start)){start=as.POSIXct(start,tz="UTC")}
+  if(is.character(end)){end=as.POSIXct(end,tz="UTC")}
 
-  if(is.numeric(start)){start=as.POSIXct(start)}
-  if(is.numeric(end)){start=as.POSIXct(end)}
+  if(is.numeric(start)){start=as.POSIXct(start,tz="UTC")}
+  if(is.numeric(end)){end=as.POSIXct(end,tz="UTC")}
 
   stopifnot(start>=rscd_casandra_start_date)
   stopifnot(end<=rscd_casandra_end_date)
