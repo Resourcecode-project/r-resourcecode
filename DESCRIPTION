@@ -22,6 +22,7 @@ Imports:
     pracma,
     rlang,
     sf,
+    stats,
     tibble,
     tidyr
 Encoding: UTF-8

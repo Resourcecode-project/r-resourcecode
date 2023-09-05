@@ -19,6 +19,3 @@ a list with the sea-state 1D spectrum and forcings
 \description{
 No consistency checks are made, this function should not be called directly by the user
 }
-\examples{
-get_1Dspectrum_raw("SEMREVO","1994","04")
-}

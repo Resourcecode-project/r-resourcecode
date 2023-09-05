@@ -22,8 +22,7 @@ jonswap = function(hs, tp, gamma=3.3, freq){
 #' @param month the month number, as a string,
 #'
 #' @return a list with the sea-state spectrum and forcings
-#'
-#' @examples get_2Dspectrum_raw("SEMREVO","1994","04")
+#' @keyword Internal
 get_2Dspectrum_raw = function(point,year,month){
   base = "ftp://ftp.ifremer.fr/ifremer/dataref/ww3/resourcecode/HINDCAST/"
   url = paste0(base
@@ -81,8 +80,7 @@ get_2Dspectrum_raw = function(point,year,month){
 #' @param month the month number, as a string,
 #'
 #' @return a list with the sea-state 1D spectrum and forcings
-#'
-#' @examples get_1Dspectrum_raw("SEMREVO","1994","04")
+#' @keyword Internal
 get_1Dspectrum_raw = function(point,year,month){
   base = "ftp://ftp.ifremer.fr/ifremer/dataref/ww3/resourcecode/HINDCAST/"
   url = paste0(base
@@ -150,10 +148,10 @@ get_2Dspectrum = function(point,start="1994-01-01",end="1994-02-28"){
   years = format(dates,format = "%Y")
   months = format(dates,format = "%m")
 
-  out = resourcecode:::get_2Dspectrum_raw(point,years[1],months[1])
+  out = get_2Dspectrum_raw(point,years[1],months[1])
 
   for(m in seq_along(years[-1])){
-    temp = resourcecode:::get_2Dspectrum_raw(point,years[m+1],months[m+1])
+    temp = get_2Dspectrum_raw(point,years[m+1],months[m+1])
     out$efth = abind::abind(out$efth,temp$efth,along = 3)
     out$forcings = rbind(out$forcings,temp$forcings)
   }
@@ -187,10 +185,10 @@ get_1Dspectrum = function(point,start="1994-01-01",end="1994-02-28"){
   years = format(dates,format = "%Y")
   months = format(dates,format = "%m")
 
-  out = resourcecode:::get_1Dspectrum_raw(point,years[1],months[1])
+  out = get_1Dspectrum_raw(point,years[1],months[1])
 
   for(m in seq_along(years[-1])){
-    temp = resourcecode:::get_1Dspectrum_raw(point,years[m+1],months[m+1])
+    temp = get_1Dspectrum_raw(point,years[m+1],months[m+1])
     out$ef = abind::abind(out$ef,temp$ef,along = 2)
     out$th1m = abind::abind(out$th1m,temp$th1m,along = 2)
     out$th2m = abind::abind(out$th2m,temp$th2m,along = 2)

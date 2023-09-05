@@ -78,9 +78,18 @@ dispersion = function(frequencies,depth,iter_max=200,tol=1e-6){
 #'  lims = c(0,360)
 #'  r <- as.POSIXct(round(range(spec1D$forcings$time), "hours"))
 #'  par(mfcol=c(2,1))
-#'  image(spec1D$forcings$time,spec1D$freq,t(spec1D$th1m),zlim=lims,xlab="Time",ylab="Freq (Hz)", xaxt = "n",main="Directionnal spreading")
+#'  image(spec1D$forcings$time,spec1D$freq,t(spec1D$th1m),
+#'        zlim=lims,
+#'        xlab="Time",
+#'        ylab="Freq (Hz)",
+#'        xaxt = "n",
+#'        main="Directionnal spreading")
 #'  axis.POSIXct(1,spec1D$forcings$time,at=seq(r[1], r[2], by = "week"),format = "%Y-%m-%d",las=2)
-#'  image(spec1D_RSCD$forcings$time,spec1D_RSCD$freq,t(spec1D_RSCD$th1m),zlim=lims,xlab="Time",ylab="Freq (Hz)", xaxt = "n")
+#'  image(spec1D_RSCD$forcings$time,spec1D_RSCD$freq,t(spec1D_RSCD$th1m),
+#'         zlim=lims,
+#'         xlab="Time",
+#'         ylab="Freq (Hz)",
+#'         xaxt = "n")
 #'  axis.POSIXct(1,spec1D$forcings$time,at=seq(r[1], r[2], by = "week"),format = "%Y-%m-%d",las=2)
 convert_spectrum_2D1D = function(spec,...){
 
@@ -119,14 +128,17 @@ convert_spectrum_2D1D = function(spec,...){
 
 #' Compute sea_state parameter from wave directional spectrum
 #'
-#' @param spec either a 1D or 2D spectrum
-#' @param ...
+#' @param spec 2D spectrum data, e.g. from `get_2Dspectrum`
+#' @param ... currently unused
 #'
 #' @return a tibble with the sea-state parameters computed from the time series of 2D spectrum
 #' @export
 #'
 #' @examples
-#' rscd_params = get_parameters(node='119947',start="1994-01-01",end="1994-02-28 23:00:00",parameters = c('hs','tp','cge','t01','dp','dir'))
+#' rscd_params = get_parameters(node='119947',
+#'                              start="1994-01-01",
+#'                              end="1994-02-28 23:00:00",
+#'                              parameters = c('hs','tp','cge','t01','dp','dir'))
 #' spec = get_2Dspectrum("SEMREVO",start="1994-01-01",end="1994-02-28")
 #' param_calc = compute_sea_state_2Dspectrum(spec)
 #' par(mfcol=c(2,2))
@@ -163,8 +175,8 @@ compute_sea_state_2Dspectrum = function(spec,...){
 
   # fp evaluaton using spline fitting around Ef peak
   nk = length(spec$freq)
-  freqp = approx(1:nk,spec$freq,xout = seq(from=1,to=nk,length=30*nk)) #Augment frequency resolution by 30
-  Efp = apply(Ef,2,\(y){spline(x=spec$freq,xout=freqp$y,method="natural",y)$y})# natural (i.e. "cubic") spline
+  freqp = stats::approx(1:nk,spec$freq,xout = seq(from=1,to=nk,length=30*nk)) #Augment frequency resolution by 30
+  Efp = apply(Ef,2,\(y){stats::spline(x=spec$freq,xout=freqp$y,method="natural",y)$y})# natural (i.e. "cubic") spline
 
   fp = freqp$y[apply(Efp,2,which.max)]
   out$tp = 1 / fp
@@ -220,6 +232,97 @@ compute_sea_state_2Dspectrum = function(spec,...){
   Qpf = apply(sweep(spec$efth^2,1,spec$freq,FUN = "*")*ddir,c(2,3),sum)
   MQ =  apply(Qpf,2,pracma::trapz,x=spec$freq)
   out$qp = ((2 * MQ / (m0^2)) * 180 / pi) %% 360
+
+  out
+}
+
+#' Compute sea_state parameter from wave spectrum
+#'
+#' @param spec 1D spectrum data, e.g. from `get_1Dspectrum`
+#' @param ... currently unused
+#'
+#' @return a tibble with the sea-state parameters computed from the time series of 2D spectrum
+#' @export
+#'
+#' @examples
+#' rscd_params = get_parameters(node='119947',
+#'                              start="1994-01-01",
+#'                              end="1994-02-28 23:00:00",
+#'                              parameters = c('hs','tp','cge','t01','dp','dir'))
+#' spec = get_1Dspectrum("SEMREVO",start="1994-01-01",end="1994-02-28")
+#' param_calc = compute_sea_state_1Dspectrum(spec)
+#' par(mfcol=c(2,2))
+#' plot(param_calc$time,param_calc$hs,type='l',xlab="Time",ylab="Hs (m)")
+#' lines(rscd_params$time,rscd_params$hs,col='red')
+#' plot(param_calc$time,param_calc$cge,type='l',xlab="Time",ylab="CgE (kW/m)")
+#' lines(rscd_params$time,rscd_params$cge,col='red')
+#' plot(param_calc$time,param_calc$tp,type='l',xlab="Time",ylab="Tp (s)")
+#' lines(rscd_params$time,rscd_params$tp,col='red')
+#' plot(param_calc$time,param_calc$dp ,type='l',xlab="Time",ylab="Peak direction (°)")
+#' lines(rscd_params$time,rscd_params$dp,col='red')
+compute_sea_state_1Dspectrum = function(spec,...){
+
+  water_density = 1026
+  g = 9.81
+
+  #Compute spectral moments
+  m0 = apply(spec$ef,2,pracma::trapz,x=spec$freq)
+  m1 = apply(sweep(spec$ef,1,spec$freq,FUN = "*"),2,pracma::trapz,x=spec$freq)
+  m2 = apply(sweep(spec$ef,1,spec$freq^2,FUN = "*"),2,pracma::trapz,x=spec$freq)
+  me = apply(sweep(spec$ef,1,1/spec$freq,FUN = "*"),2,pracma::trapz,x=spec$freq)
+
+  out = tibble::tibble(time=spec$forcings$time,
+                       hs = 4 * sqrt(m0),
+                       t01 = m0/m1,
+                       t02 = sqrt(m0/m2),
+                       te = me/m0)
+
+  # fp evaluaton using spline fitting around Ef peak
+  nk = length(spec$freq)
+  freqp = stats::approx(1:nk,spec$freq,xout = seq(from=1,to=nk,length=30*nk)) #Augment frequency resolution by 30
+  Efp = apply(spec$ef,2,\(y){stats::spline(x=spec$freq,xout=freqp$y,method="natural",y)$y})# natural (i.e. "cubic") spline
+
+  fp = freqp$y[apply(Efp,2,which.max)]
+  out$tp = 1 / fp
+
+  #Get the forcings fields
+  out$dpt = spec$forcings$dpt
+  out$wnd = spec$forcings$wnd
+  out$wnddir = spec$forcings$wnddir
+  out$cur = spec$forcings$cur
+  out$curdir = spec$forcings$curdir
+
+  # Spectral Bandwidth and Peakedness parameter (Goda 1970)
+  out$nu = sqrt( (m0*m2) / (m1^2) -1)
+  out$mu = sqrt( 1 - m1^2 / (m0*m2) )
+
+  #wave length
+  disper_V = Vectorize(dispersion,vectorize.args = c("depth"))
+  k = disper_V(spec$freq, spec$forcings$dpt, iter_max =200, tol=1e-6)
+  kd = k * spec$forcings$dpt
+
+  out$km =apply(k * spec$ef,2,pracma::trapz, x=spec$freq) / m0
+  out$lm = 2 * pi / out$km
+
+  # Group velocity
+  c1 = 1 + 2 * kd / sinh(2 * kd)
+  c2 = sqrt(g * tanh(kd) / k)
+  cg = 0.5 * c1 * c2
+
+  # Energy flux
+  out$cge = water_density * g *  apply(cg * spec$ef,2,pracma::trapz, x=spec$freq) /1000 #convert to kW/m to be consistent with outputs from WWIII
+
+  #Compute mean direction from  and spreading (°)
+
+  out$dir = apply(spec$th1m,2,pracma::trapz,x=spec$freq) #possibly wrong
+  out$spr = apply(spec$sth1m,2,pracma::trapz,x=spec$freq) #possibly wrong
+
+  #mean direction at peak frequency (°)
+  iEfm = apply(spec$ef,2,which.max) #peak of the spectrum
+  dp = vector("numeric",dim(spec$ef)[2])
+
+  for(t in 1:dim(spec$ef)[2]){dp[t] <- spec$th1m[iEfm[t],t]} #dont know how to avoid the loop, maybe using slice.index?
+  out$dp = dp
 
   out
 }

@@ -3,6 +3,7 @@
 export("%nin%")
 export(closest_point_FIELD)
 export(closest_point_GRID)
+export(compute_sea_state_1Dspectrum)
 export(compute_sea_state_2Dspectrum)
 export(convert_spectrum_2D1D)
 export(dispersion)
