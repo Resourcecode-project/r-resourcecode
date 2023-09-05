@@ -34,7 +34,7 @@ devtools::install_github('NRaillard/resourcecode')
 
 Plot the bathymetry used in the project
 
-```{r plot-bathymetry}
+```{r plot-bathymetry,fig.retina=2}
 library(resourcecode)
 resourcecode::rscd_mapplot(resourcecode::rscd_field$depth)
 ```
