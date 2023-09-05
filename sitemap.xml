@@ -7,6 +7,12 @@
     <loc>https://nraillard.github.io/resourcecode/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://nraillard.github.io/resourcecode/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://nraillard.github.io/resourcecode/articles/resourcecode.html</loc>
+  </url>
+  <url>
     <loc>https://nraillard.github.io/resourcecode/authors.html</loc>
   </url>
   <url>
@@ -19,7 +25,7 @@
     <loc>https://nraillard.github.io/resourcecode/reference/closest_point_FIELD.html</loc>
   </url>
   <url>
-    <loc>https://nraillard.github.io/resourcecode/reference/closest_point_GRID.html</loc>
+    <loc>https://nraillard.github.io/resourcecode/reference/closest_point_SPEC.html</loc>
   </url>
   <url>
     <loc>https://nraillard.github.io/resourcecode/reference/compute_sea_state_1Dspectrum.html</loc>
