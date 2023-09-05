@@ -5,6 +5,7 @@
 
 <!-- badges: start -->
 
+[![R-CMD-check](https://github.com/NRaillard/resourcecode/workflows/R-CMD-check/badge.svg)](https://github.com/NRaillard/resourcecode/actions)
 <!-- badges: end -->
 
 The goal of `{resourcecode}` is to provide an easy access to the
