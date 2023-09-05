@@ -7,6 +7,7 @@
 ^docs$
 ^pkgdown$
 ^\.github$
+^logos$
 ^README\.Rmd$
 ^resourcecode_logo\.png$
 ^rscd\.png$

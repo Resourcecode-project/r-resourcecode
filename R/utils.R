@@ -42,7 +42,7 @@ closest_point_FIELD = function(x,lat=NULL,closest=1L,...){
   )
 }
 
-#' Find the closest point of the GRID grid to the specified position
+#' Find the closest point of the SPEC grid to the specified position
 #'
 #' @param x vector of coordinates in the form longitude/latitude data frame
 #' @param lat alternatively, x and lat can be vector of the same length
@@ -52,10 +52,10 @@ closest_point_FIELD = function(x,lat=NULL,closest=1L,...){
 #' @return a list with two components: the closest point(s) of the grid and the distance (s).
 #' @export
 #'
-#' @examples semrev_west = closest_point_GRID(c(-2.786,47.239))
+#' @examples semrev_west = closest_point_SPEC(c(-2.786,47.239))
 #' semrev_west
 #'  rscd_spectral[semrev_west[[1]],]
-closest_point_GRID = function(x,lat=NULL,closest=1L,...){
+closest_point_SPEC= function(x,lat=NULL,closest=1L,...){
   if(!is.null(lat)){
     stopifnot(length(x)==length(lat))
     return(closest_point_FIELD(cbind(x,lat)))

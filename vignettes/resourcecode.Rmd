@@ -1,0 +1,72 @@
+---
+title: "Introduction to `{resourcecode}`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to `{resourcecode}`}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "100%",
+  fig.align = "center"
+)
+```
+
+The goal of `{resourcecode}` is to provide an easy access to the Resourcecode hindcast database of sea-states. More information on the database can be found [here](https://resourcecode.ifremer.fr). We will explain in this vignette the way to retrieve data from this data base and some the functionalities offered by this package.
+
+```{r setup}
+library(resourcecode)
+library(ggplot2)
+```
+
+## Database configuration: nodes, bathymetry...
+
+There are two grids in the Resource**CODE** hindcast database: the full, dense, **FIELD** grid, which is the grid where the numerical WWIII model is run and where sea-state parameters and only 1D spectra are available. The second grid, **SPEC**, is coarser, but contains the full 2D spectral data at each node.
+
+- **FIELD** grid
+
+The variable `rscd_field` contains the coordinates of the FIELD grid, alors with the depth of these points and `d50`, the bottom sediment type. 
+
+```{r}
+str(rscd_field)
+head(rscd_field)
+```
+
+At each location, a large number of sea-state parameters are available, described in `rscd_variables`:
+
+```{r}
+str(rscd_variables)
+head(rscd_variables)
+```
+
+The available location can be plot on a map using the following code. It can be notices here that the variables `rscd_coastline` and `rscd_islands` contains the path of the coast line and the islands, respectively.
+
+```{r, fig.retina=3}
+lim_lon = c(-5.25, -4.25)
+lim_lat = c(47.75, 48.75)
+field_BZH = ggplot(rscd_field,aes(x=longitude,y=latitude))+
+    geom_point(shape='.',col='lightblue')+
+    geom_path(data=rscd_coastline,linewidth=.2)+
+    geom_path(data=rscd_islands,aes(group=.data$ID),linewidth=.2)+
+    coord_sf(xlim=lim_lon,ylim=lim_lat,expand=F,crs = sf::st_crs(4326))+
+    theme_void()
+field_BZH
+```
+
+- **SPEC** grid
+
+The spectral grid, or **SPEC** grid is coarser, with more than 24,000 nodes where the full 2D spectra are available. The grid can be add to the previous plot to see the diferences in the spatial coverage.
+
+```{r, fig.retina=3}
+field_BZH + geom_point(data=rscd_spectral,col='orange',shape='.')
+```
+
+## Helpers
+
+We one is interested in some location, we also provide helpers to find the closest point in each of the grid, via the `closest_point_FIELD()` and `closest_point_SPEC()` functions.
+
+
