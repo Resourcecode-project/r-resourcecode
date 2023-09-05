@@ -36,7 +36,7 @@ usethis::use_pkgdown_github_pages()
 #Hex Logo
 library(showtext)
 font_add_google("Exo 2", "Exo 2")
-hexSticker::sticker("logo.png", package="resourceCODE", p_size=20, s_x=1, s_y=.75, s_width=.55,
+hexSticker::sticker("rscd.png", package="resourceCODE", p_size=20, s_x=1, s_y=.75, s_width=.55,
                     p_family="Exo 2",
                     p_color = '#756662',
                     h_fill = "white",
