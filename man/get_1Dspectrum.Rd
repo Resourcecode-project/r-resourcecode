@@ -20,5 +20,5 @@ A list with the data read from the downloaded netCDF file.
 Download the 1D spectrum data from IFREMER ftp
 }
 \examples{
-spec = get_1Dspectrum("SEMREVO",start="1994-01-01",end="1994-02-28")
+  spec = get_1Dspectrum("SEMREVO",start="1994-01-01",end="1994-02-28")
 }

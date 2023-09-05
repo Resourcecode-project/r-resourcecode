@@ -27,7 +27,7 @@ rscd_mapplot = function(z,name="Depth (m)"){
     geom_polygon(data=xyzgz,aes(.data$x, .data$y, group = .data$g, fill = .data$z,col=.data$z))+
     scale_fill_distiller(name=name,palette = "YlOrRd",na.value = "transparent")+
     scale_color_distiller(guide='none',palette = "YlOrRd",na.value = "transparent")+
-    theme(legend.position = c(.8, 0.15),
+    theme(legend.position = c(.8, 0.2),
           #legend.direction = "horizontal",
           legend.margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "pt"),
           plot.margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "pt"),

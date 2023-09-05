@@ -6,12 +6,15 @@
 \alias{resourcecode-package}
 \title{resourcecode: Access to the RESOURCECODE hindcast database}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 WThis package provides utility functions to download data from the RESOURCECODE database, along with facilities to plot and analyse such data.
 }
 \seealso{
 Useful links:
 \itemize{
   \item \url{https://github.com/NRaillard/resourcecode}
+  \item \url{https://nraillard.github.io/resourcecode/}
   \item Report bugs at \url{https://github.com/NRaillard/resourcecode/issues}
 }
 

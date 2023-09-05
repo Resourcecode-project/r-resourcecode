@@ -22,7 +22,7 @@ jonswap = function(hs, tp, gamma=3.3, freq){
 #' @param month the month number, as a string,
 #'
 #' @return a list with the sea-state spectrum and forcings
-#' @keyword Internal
+#' @keywords internal
 get_2Dspectrum_raw = function(point,year,month){
   base = "ftp://ftp.ifremer.fr/ifremer/dataref/ww3/resourcecode/HINDCAST/"
   url = paste0(base
@@ -80,7 +80,7 @@ get_2Dspectrum_raw = function(point,year,month){
 #' @param month the month number, as a string,
 #'
 #' @return a list with the sea-state 1D spectrum and forcings
-#' @keyword Internal
+#' @keywords internal
 get_1Dspectrum_raw = function(point,year,month){
   base = "ftp://ftp.ifremer.fr/ifremer/dataref/ww3/resourcecode/HINDCAST/"
   url = paste0(base

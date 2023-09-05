@@ -19,3 +19,4 @@ a list with the sea-state 1D spectrum and forcings
 \description{
 No consistency checks are made, this function should not be called directly by the user
 }
+\keyword{internal}
