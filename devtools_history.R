@@ -28,6 +28,9 @@ rscd_casandra_end_date=as.POSIXct("2020-12-31Z23:00:00")
 
 usethis::use_data(rcd_cassandra_url,rscd_hindcast_start_date,rscd_hindcast_end_date,rscd_casandra_start_date,rscd_casandra_end_date,internal = TRUE,overwrite = TRUE)
 
+#set up automatic "check" on several plateforms
+usethis::use_github_action()
+
 #Now set up pkgdown to have a nice page
 usethis::use_pkgdown()
 pkgdown::build_site()
