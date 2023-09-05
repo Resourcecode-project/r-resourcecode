@@ -84,7 +84,7 @@ We have two different sources of data, the FIELD grid, and the SPEC grid. We wil
 
 For example, if one is interested in the time series of sea-state parameters some location, the following code can be adapted:
 
-```{r, fig.height=4,fig.width=8}
+```{r, fig.height=4,fig.width=8,warning=FALSE,message=FALSE}
 point_of_interest = c( longitude=-4.6861533,latitude=48.3026514)
 node = closest_point_FIELD(point_of_interest)
 node
