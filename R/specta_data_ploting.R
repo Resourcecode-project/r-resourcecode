@@ -13,7 +13,7 @@
 #' @examples
 #'   spec = get_2Dspectrum("SEMREVO",start="1994-01-01",end="1994-02-28")
 #'   plot_2Dspecta(spec,1)
-#' @importFrom ggplot2 ggplot geom_rect scale_x_continuous scale_y_continuous coord_polar scale_color_distiller scale_fill_distiller labs expansion
+#' @importFrom ggplot2 ggplot geom_rect scale_x_continuous scale_y_continuous theme_bw coord_polar scale_color_distiller scale_fill_distiller labs expansion
 plot_2Dspecta = function(spec,time=1L,normalize=TRUE,trim=0.01,cut_off=.4,...){
 
   if(is.character(time)){

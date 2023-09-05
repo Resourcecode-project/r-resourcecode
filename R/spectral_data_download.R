@@ -137,7 +137,7 @@ get_2Dspectrum = function(point,start="1994-01-01",end="1994-02-28"){
 
   stopifnot(length(point)==1)
 
-  if(is.integer(point)){point = rscd_spectral[point,"name"]}
+  if(is.integer(point)){point =  resourcecode::rscd_spectral[point,"name"]}
 
   stopifnot(point %in% resourcecode::rscd_spectral$name)
 
@@ -179,7 +179,7 @@ get_1Dspectrum = function(point,start="1994-01-01",end="1994-02-28"){
 
   stopifnot(length(point)==1)
 
-  if(is.integer(point)){point = rscd_spectral[point,"name"]}
+  if(is.integer(point)){point =  resourcecode::rscd_spectral[point,"name"]}
 
   stopifnot(point %in% resourcecode::rscd_spectral$name)
 

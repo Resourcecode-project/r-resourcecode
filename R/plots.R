@@ -22,8 +22,8 @@ rscd_mapplot = function(z,name="Depth (m)"){
     geom_polygon()+
     scale_fill_distiller(name=name,palette = "YlOrRd",na.value = "transparent")+
     scale_color_distiller(guide='none',palette = "YlOrRd",na.value = "transparent")+
-    geom_path(resourcecode::rscd_coastline,aes(x=.data$longitude,y=.data$latitude),linewidth=.2,inherit.aes = FALSE)+
-    geom_path(data=resourcecode::rscd_islands,aes(group=.data$ID),linewidth=.2,inherit.aes = FALSE)+
+    geom_path(data=resourcecode::rscd_coastline,aes(x=.data$longitude,y=.data$latitude),linewidth=.2,inherit.aes = FALSE)+
+    geom_path(data=resourcecode::rscd_islands,aes(x=.data$longitude,y=.data$latitude,group=.data$ID),linewidth=.2,inherit.aes = FALSE)+
     coord_sf(expand=F,crs = sf::st_crs(4326))+
     theme_void()+
     theme(legend.position = c(.8, 0.2),
