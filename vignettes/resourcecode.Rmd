@@ -120,10 +120,10 @@ spec2D = get_2Dspectrum(node_SPEC$point,start="1994-01-01",end="1994-02-28")
 str(spec1D)
 ```
 
-in addition, it is possible to plot the wave elevation directional spectra for any given time:
+in addition, it is possible to plot the wave elevation directional spectra for any given time, which can be specified by the time index of directly the date:
 
 ```{r,warning=FALSE, fig.height=8,fig.width=8}
-plot_2Dspecta(spec2D)
+plot_2Dspecta(spec2D,"1994-01-15 18:00")
 ```
 
 
