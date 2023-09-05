@@ -136,112 +136,90 @@ convert_spectrum_2D1D = function(spec,...){
 #' lines(rscd_params$time,rscd_params$cge,col='red')
 #' plot(param_calc$time,param_calc$tp,type='l',xlab="Time",ylab="Tp (s)")
 #' lines(rscd_params$time,rscd_params$tp,col='red')
-#' plot(param_calc$time,param_calc$dir,type='l',xlab="Time",ylab="Peak direction (°)")
-#' lines(rscd_params$time,rscd_params$dir,col='red')
+#' plot(param_calc$time,param_calc$dp,type='l',xlab="Time",ylab="Peak direction (°)")
+#' lines(rscd_params$time,rscd_params$dp,col='red')
 compute_sea_state_2Dspectrum = function(spec,...){
-
 
   #Define an internal function that will do the job for a time-step
   # spectrum: 1D spectrum
-  sea_state_2d_raw = function(spec2D,depth,freq,dir){
+  water_density = 1026
+  g = 9.81
 
-    water_density = 1026
-    g = 9.81
+  #Compute 1d spectrum
+  ddir = diff(spec$dir)[1]*pi/180
+  Ef = apply(spec$efth*ddir,c(2,3),sum)
 
-    #Compute 1d spectrum
-    ddir = diff(dir)[1]*pi/180
-    Ef = apply(spec2D*ddir,2,sum)
+  #Compute spectral moments
+  m0 = apply(Ef,2,pracma::trapz,x=spec$freq)
+  m1 = apply(sweep(Ef,1,spec$freq,FUN = "*"),2,pracma::trapz,x=spec$freq)
+  m2 = apply(sweep(Ef,1,spec$freq^2,FUN = "*"),2,pracma::trapz,x=spec$freq)
+  me = apply(sweep(Ef,1,1/spec$freq,FUN = "*"),2,pracma::trapz,x=spec$freq)
 
-    #Compute spectral moments
-    m0 = pracma::trapz(x=freq,Ef)
-    m1 = pracma::trapz(x=freq,freq*Ef)
-    m2 = pracma::trapz(x=freq,freq^2*Ef)
-    me = pracma::trapz(x=freq,freq^(-1)*Ef)
+  out = tibble::tibble(time=spec$forcings$time,
+                       hs = 4 * sqrt(m0),
+                       t01 = m0/m1,
+                       t02 = sqrt(m0/m2),
+                       te = me/m0)
 
-    hs = 4 * sqrt(m0)
-    T01 = m0/m1
-    T02 = sqrt(m0/m2)
-    Te = me/m0
+  # fp evaluaton using spline fitting around Ef peak
+  nk = length(spec$freq)
+  freqp = approx(1:nk,spec$freq,xout = seq(from=1,to=nk,length=30*nk)) #Augment frequency resolution by 30
+  Efp = apply(Ef,2,\(y){spline(x=spec$freq,xout=freqp$y,method="natural",y)$y})# natural (i.e. "cubic") spline
 
-    # fp evaluaton using spline fitting around Ef peak
-    nk = length(freq)
-    freqp = approx(1:nk,freq,xout = seq(from=1,to=nk,length=30*nk)) #Augment frequency resolution by 30
-    Efp = spline(freq,Ef,xout = freqp$y,method = "natural") # natural (i.e. "cubic") spline
+  fp = freqp$y[apply(Efp,2,which.max)]
+  out$tp = 1 / fp
 
-    fp = Efp$x[which.max(Efp$y)]
-    Tp = 1 / fp
+  #Get the forcings fields
+  out$dpt = spec$forcings$dpt
+  out$wnd = spec$forcings$wnd
+  out$wnddir = spec$forcings$wnddir
+  out$cur = spec$forcings$cur
+  out$curdir = spec$forcings$curdir
 
-    # Spectral Bandwidth and Peakedness parameter (Goda 1970)
-    nu = sqrt( (m0*m2) / (m1^2) -1)
-    mu = sqrt( 1 - m1^2 / (m0*m2) )
+  # Spectral Bandwidth and Peakedness parameter (Goda 1970)
+  out$nu = sqrt( (m0*m2) / (m1^2) -1)
+  out$mu = sqrt( 1 - m1^2 / (m0*m2) )
 
-    #wave length
-    k = dispersion(freq, depth, iter_max =200, tol=1e-6)
-    kd = k * depth
-    km = pracma::trapz(k * Ef, x=freq) / m0
-    lm = 2 * pi / km
+  #wave length
+  disper_V = Vectorize(dispersion,vectorize.args = c("depth"))
+  k = disper_V(spec$freq, spec$forcings$dpt, iter_max =200, tol=1e-6)
+  kd = k * spec$forcings$dpt
 
-    # Group velocity
-    c1 = 1 + 2 * kd / sinh(2 * kd)
-    c2 = sqrt(g * tanh(kd) / k)
-    cg = 0.5 * c1 * c2
+  out$km =apply(k * Ef,2,pracma::trapz, x=spec$freq) / m0
+  out$lm = 2 * pi / out$km
 
-    # Energy flux
-    cgef = pracma::trapz(cg * Ef, x=freq)
-    CgE = water_density * g * cgef /1000 #convert to kW/m to be consistent with outputs from WWIII
+  # Group velocity
+  c1 = 1 + 2 * kd / sinh(2 * kd)
+  c2 = sqrt(g * tanh(kd) / k)
+  cg = 0.5 * c1 * c2
 
+  # Energy flux
+  out$cge = water_density * g *  apply(cg * Ef,2,pracma::trapz, x=spec$freq) /1000 #convert to kW/m to be consistent with outputs from WWIII
 
-    #Compute direction from  and spreading (°)
-    aa = sweep(spec2D,1,as.array(cos(dir*pi/180)),FUN = '*')
-    bb = sweep(spec2D,1,as.array(sin(dir*pi/180)),FUN = '*')
+  #Compute mean direction from  and spreading (°)
+  aa = sweep(spec$efth,1,as.array(cos(spec$dir*pi/180)),FUN = '*')
+  bb = sweep(spec$efth,1,as.array(sin(spec$dir*pi/180)),FUN = '*')
 
-    af = apply(aa*ddir,2,sum)
-    bf = apply(bb*ddir,2,sum)
+  am = apply(apply(aa*ddir,c(2,3),sum),2,pracma::trapz,x=spec$freq)
+  bm = apply(apply(bb*ddir,c(2,3),sum),2,pracma::trapz,x=spec$freq)
 
-    am = pracma::trapz(af,x=freq)
-    bm = pracma::trapz(bf,x=freq)
+  out$dir = (atan2(bm,am) * 180/pi +180) %% 360
+  out$spr = (sqrt( 2 * (1 - sqrt((am^2 + bm^2)/m0^2) )) * 180/pi) %% 360
 
-    dir_m = (atan2(bm,am) * 180/pi) %% 360
-    spr = sqrt( 2 * (1 - sqrt((am^2 + bm^2)/m0^2) ))
-    spr = (spr * 180/pi) %% 360
+  #Compute mean direction and spreading at peak frequency (°)
+  iEfm = apply(Ef,2,which.max) #peak of the spectrum
+  Efm = array(0,dim=c(36,dim(spec$efth)[3]))
 
-    #Compute mean direction at peak frequency (°)
-    iEfm = which.max(Ef) #peak of the spectrum
-    aap = spec2D[,iEfm]*cos(dir*pi/180)
-    bbp = spec2D[,iEfm]*sin(dir*pi/180)
+  for(t in 1:dim(spec$efth)[3]){Efm[,t] <- spec$efth[,iEfm[t],t]} #do knwo how to avoid the loop, maybe using slice.index ?
 
-    apm = sum(aap*ddir)
-    bpm = sum(bbp*ddir)
+  apm = apply(sweep(Efm,1,as.array(cos(spec$dir*pi/180)),"*")*ddir,2,sum)
+  bpm = apply(sweep(Efm,1,as.array(sin(spec$dir*pi/180)),"*")*ddir,2,sum)
 
-    dir_p = (atan2(bpm, apm) * 180 / pi) %% 360
+  out$dp = (atan2(bpm, apm) * 180 / pi + 180 ) %% 360
 
-    S2 = spec2D^2
-    Qpf = apply(sweep(S2,1,freq,FUN = "*")*ddir,2,sum)
-    MQ = pracma::trapz(Qpf,x=freq)
-    Qp = ((2 * MQ / (m0^2)) * 180 / pi) %% 360
+  Qpf = apply(sweep(spec$efth^2,1,spec$freq,FUN = "*")*ddir,c(2,3),sum)
+  MQ =  apply(Qpf,2,pracma::trapz,x=spec$freq)
+  out$qp = ((2 * MQ / (m0^2)) * 180 / pi) %% 360
 
-    tibble::tibble(hs=hs,
-                   tp=Tp,
-                   t01 = T01,
-                   t02=T02,
-                   t0m1=Te,
-                   dpt=depth,
-                   dir=(dir_m+180)%%360,
-                   dp = (dir_p+180)%%360,
-                   spr = spr,
-                   qp =Qp,
-                   mu=mu,
-                   nu=nu,
-                   cge = CgE,
-                   km=km,
-                   lm=lm
-                   )
-  }
-
-  #We want to apply the function for each time step, we reorder to have the correct inputs
-  spec_reordrerd = tibble::tibble(tibble::as_tibble_col(purrr::array_branch(spec$efth,3),column_name = "spec2D"),depth=spec$forcings$dpt)
-
-  out = purrr::list_rbind(purrr:::pmap(spec_reordrerd,.f = sea_state_2d_raw,freq=spec$freq,dir=spec$dir))
-
-  cbind(time = spec$forcings$time,out)
+  out
 }

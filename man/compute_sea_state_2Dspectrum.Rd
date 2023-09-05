@@ -28,6 +28,6 @@ plot(param_calc$time,param_calc$cge,type='l',xlab="Time",ylab="CgE (kW/m)")
 lines(rscd_params$time,rscd_params$cge,col='red')
 plot(param_calc$time,param_calc$tp,type='l',xlab="Time",ylab="Tp (s)")
 lines(rscd_params$time,rscd_params$tp,col='red')
-plot(param_calc$time,param_calc$dir,type='l',xlab="Time",ylab="Peak direction (°)")
-lines(rscd_params$time,rscd_params$dir,col='red')
+plot(param_calc$time,param_calc$dp,type='l',xlab="Time",ylab="Peak direction (°)")
+lines(rscd_params$time,rscd_params$dp,col='red')
 }

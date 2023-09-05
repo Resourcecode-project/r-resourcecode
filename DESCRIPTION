@@ -20,7 +20,6 @@ Imports:
     jsonlite,
     ncdf4,
     pracma,
-    purrr,
     rlang,
     sf,
     tibble,
