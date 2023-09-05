@@ -125,7 +125,7 @@ get_1Dspectrum_raw = function(point,year,month){
 
 #' Download the 2D spectrum data from IFREMER ftp
 #'
-#' @param point the location name (string) requested. The consistency is checked internally.
+#' @param point the location name (string) requested. Alternatively, the node nnumber. The consistency is checked internally.
 #' @param start the starting date (as a string). The consistency is checked internally.
 #' @param end the ending date as a string
 #'
@@ -134,6 +134,10 @@ get_1Dspectrum_raw = function(point,year,month){
 #'
 #' @examples spec = get_2Dspectrum("SEMREVO",start="1994-01-01",end="1994-02-28")
 get_2Dspectrum = function(point,start="1994-01-01",end="1994-02-28"){
+
+  stopifnot(length(point)==1)
+
+  if(is.integer(point)){point = rscd_spectral[point,"name"]}
 
   stopifnot(point %in% resourcecode::rscd_spectral$name)
 
@@ -172,6 +176,10 @@ get_2Dspectrum = function(point,start="1994-01-01",end="1994-02-28"){
 #' @examples
 #'   spec = get_1Dspectrum("SEMREVO",start="1994-01-01",end="1994-02-28")
 get_1Dspectrum = function(point,start="1994-01-01",end="1994-02-28"){
+
+  stopifnot(length(point)==1)
+
+  if(is.integer(point)){point = rscd_spectral[point,"name"]}
 
   stopifnot(point %in% resourcecode::rscd_spectral$name)
 

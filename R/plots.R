@@ -18,15 +18,14 @@ rscd_mapplot = function(z,name="Depth (m)"){
                                 z = z[resourcecode::rscd_triangles],
                                 g = rep(seq_len(ncol(resourcecode::rscd_triangles)), each = nrow(resourcecode::rscd_triangles)))
 
-  ggplot(resourcecode::rscd_coastline,aes(x=.data$longitude,y=.data$latitude))+
-    geom_path(linewidth=.2)+
-    geom_path(data=resourcecode::rscd_islands,aes(group=.data$ID),linewidth=.2)+
-    coord_sf(expand=F,crs = sf::st_crs(4326))+
-    #labs(subtitle="Yearly maximal Hs - mean value",caption = "Source: Resourcecode hindcast database. Period: 1994—2021")+
-    theme_void()+
-    geom_polygon(data=xyzgz,aes(.data$x, .data$y, group = .data$g, fill = .data$z,col=.data$z))+
+  ggplot(data=xyzgz,aes(.data$x, .data$y, group = .data$g, fill = .data$z,col=.data$z))+
+    geom_polygon()+
     scale_fill_distiller(name=name,palette = "YlOrRd",na.value = "transparent")+
     scale_color_distiller(guide='none',palette = "YlOrRd",na.value = "transparent")+
+    geom_path(resourcecode::rscd_coastline,aes(x=.data$longitude,y=.data$latitude),linewidth=.2,inherit.aes = FALSE)+
+    geom_path(data=resourcecode::rscd_islands,aes(group=.data$ID),linewidth=.2,inherit.aes = FALSE)+
+    coord_sf(expand=F,crs = sf::st_crs(4326))+
+    theme_void()+
     theme(legend.position = c(.8, 0.2),
           #legend.direction = "horizontal",
           legend.margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "pt"),
