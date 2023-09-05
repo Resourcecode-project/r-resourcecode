@@ -169,7 +169,8 @@ get_2Dspectrum = function(point,start="1994-01-01",end="1994-02-28"){
 #' @return A list with the data read from the downloaded netCDF file.
 #' @export
 #'
-#' @examples spec = get_1Dspectrum("SEMREVO",start="1994-01-01",end="1994-02-28")
+#' @examples
+#'   spec = get_1Dspectrum("SEMREVO",start="1994-01-01",end="1994-02-28")
 get_1Dspectrum = function(point,start="1994-01-01",end="1994-02-28"){
 
   stopifnot(point %in% resourcecode::rscd_spectral$name)

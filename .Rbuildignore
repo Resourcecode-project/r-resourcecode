@@ -3,3 +3,7 @@
 ^devtools_history\.R$
 ^LICENSE\.md$
 ^dev$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$

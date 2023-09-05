@@ -5,3 +5,5 @@
 .DS_Store
 .quarto
 resourcecode.Rproj
+docs
+logo.png

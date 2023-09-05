@@ -1,5 +1,5 @@
 
-# resourcecode
+# resourcecode <a href="https://nraillard.github.io/resourcecode/"><img src="man/figures/logo.png" align="right" height="139" alt="resourcecode website" /></a>
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -10,7 +10,7 @@ The goal of resourcecode is to provide an easy access to the Resourcecode hindca
 
 The package is not yet on CRAN. Meanwhile, you can install the development version of `{resourcecode}` like so:
 
-```{r}
+``` r
 devtools::install_github('NRaillard/resourcecode')
 ```
 
@@ -18,13 +18,13 @@ devtools::install_github('NRaillard/resourcecode')
 
 Plot the bathymetry used in the project
 
-```{r}
+``` r
 library(resourcecode)
 resourcecode::rscd_mapplot(resourcecode::rscd_field$depth)
 ```
 See the variables available in the database
 
-```{r}
+``` r
 rscd_variables
 ```
 

@@ -27,3 +27,22 @@ rscd_casandra_start_date=as.POSIXct("1994-01-01Z00:00:00")
 rscd_casandra_end_date=as.POSIXct("2020-12-31Z23:00:00")
 
 usethis::use_data(rcd_cassandra_url,rscd_hindcast_start_date,rscd_hindcast_end_date,rscd_casandra_start_date,rscd_casandra_end_date,internal = TRUE,overwrite = TRUE)
+
+#Now set up pkgdown to have a nice page
+usethis::use_pkgdown()
+pkgdown::build_site()
+usethis::use_pkgdown_github_pages()
+
+#Hex Logo
+library(showtext)
+font_add_google("Exo 2", "Exo 2")
+hexSticker::sticker("logo.png", package="resourceCODE", p_size=20, s_x=1, s_y=.75, s_width=.55,
+                    p_family="Exo 2",
+                    p_color = '#756662',
+                    h_fill = "white",
+                    h_color = "#00AAE1",
+                    url = "https://resourcecode.ifremer.fr",
+                    u_family="Exo 2",
+                    u_size = 5,
+        filename="resourcecode_logo.png")
+usethis::use_logo("resourcecode_logo.png")
