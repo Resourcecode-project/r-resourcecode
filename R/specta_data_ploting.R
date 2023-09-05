@@ -52,13 +52,18 @@ plot_2Dspecta = function(spec,time=1L,normalize=TRUE,trim=0.01,cut_off=.4,...){
   ggplot(df,aes(xmin=.data$frequency1,xmax=.data$frequency2,ymin=dir-5,ymax=dir+5,fill=.data$ef,col=.data$ef))+
     geom_rect()+
     scale_x_continuous(name="Frequency (Hz)",expand = expansion(),limits = c(0,cut_off))+
-    scale_y_continuous(name="Direction from (\u00b0)",expand = expansion(),breaks=c(0, 90, 180, 270), labels = c("N", "E", "S", "W"),minor_breaks = seq(from=0,to=360,by=30))+
+    scale_y_continuous(name="Direction from (\u00b0)",expand = expansion(),
+                       breaks=c(0, 90, 180, 270),
+                       labels = c("N", "E", "S", "W"),
+                       minor_breaks = seq(from=0,to=360,by=30))+
     coord_polar(theta='y',start=-5*pi/180)+
     scale_color_distiller(palette = "PuBu",direction = 1,name=legend.text,na.value="transparent")+
     scale_fill_distiller(palette = "PuBu",direction = 1,name=legend.text,na.value="transparent")+
     labs(title=paste('Directional Wave energy spectrum at location',spec$station),
          subtitle=format(spec$forcings$time[time],format="%Y-%m-%d %H:%M"),
-         caption="Source: Resourcecode hindcast database\nresourcecode.ifremer.fr")
+         caption="Source: Resourcecode hindcast database\nresourcecode.ifremer.fr")+
+    theme_bw()+
+    theme(legend.position="bottom")
 }
 
 
