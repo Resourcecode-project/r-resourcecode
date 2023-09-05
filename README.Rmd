@@ -18,7 +18,8 @@ knitr::opts_chunk$set(
 # Resource**code** <a href="https://nraillard.github.io/resourcecode/"><img src="man/figures/logo.png" align="right" height="139" alt="resourcecode website" /></a>
 
 <!-- badges: start -->
-  <!-- badges: end -->
+[![R-CMD-check](https://github.com/NRaillard/resourcecode/workflows/R-CMD-check/badge.svg)](https://github.com/NRaillard/resourcecode/actions) 
+<!-- badges: end -->
 
 The goal of `{resourcecode}` is to provide an easy access to the Resourcecode hindcast database of sea-states. More information on the database can be found [here](https://resourcecode.ifremer.fr). This website only contains information about the way to retrieve data from this data base and the functionalities offred by this package.
 
