@@ -58,7 +58,7 @@ closest_point_FIELD = function(x,lat=NULL,closest=1L,...){
 closest_point_SPEC= function(x,lat=NULL,closest=1L,...){
   if(!is.null(lat)){
     stopifnot(length(x)==length(lat))
-    return(closest_point_FIELD(cbind(x,lat)))
+    return(closest_point_SPEC(cbind(x,lat)))
   }
 
   stopifnot(is.integer(closest) & closest>=1L)
