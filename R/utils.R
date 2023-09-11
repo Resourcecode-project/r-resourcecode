@@ -71,3 +71,28 @@ closest_point_SPEC= function(x,lat=NULL,closest=1L,...){
   )
   )
 }
+
+#' Vector conversion
+#'
+#' Converts wind or current zonal and meridional velocity components to
+#' magnitude and direction according to meteorological convention.
+#'
+#' @param u zonal velocity (1D vector) or matrix with zonal and meridional velocity (Nx2 matrix)
+#' @param v meridional velocity (1D vector)
+#'
+#' @return
+#' @export
+#'
+#' @examples
+zmcomp2metconv = function(u,v=NULL){
+  if(is.vector(u)){
+    stopifnot(length(v)==length(u))
+    u = cbind(u,v)
+  }
+
+  stopifnot(is.matrix(u) & dim(u)[2]==2)
+
+  V = sqrt(u[,1]^2+u[,2]^2)
+  D = (270 - atan2(u[,2],u[,1])*180/pi)%%360
+  return(cbind(V,D))
+}

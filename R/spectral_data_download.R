@@ -146,6 +146,7 @@ get_2Dspectrum = function(point,start="1994-01-01",end="1994-02-28"){
 
   stopifnot(format(start,"%Y") >= format(rscd_hindcast_start_date,"%Y"))
   stopifnot(format(end,"%Y") <= format(rscd_hindcast_end_date,"%Y"))
+  stopifnot(end>start)
 
 
   dates = seq.POSIXt(from=start,to=end,by = "month")

@@ -59,7 +59,7 @@ get_parameters_raw = function(parameter="hs",node=42,start=as.POSIXct("1994-01-0
 #' @export
 #'
 #' @examples ts = get_parameters(parameters=c("hs","tp"))
-get_parameters = function(parameters="hs",node=42,start=as.POSIXct("1994-01-01Z00:00:00"),end=as.POSIXct("1994-12-31Z23:00:00")){
+get_parameters = function(parameters="hs",node=42,start=as.POSIXct("1994-01-01 00:00:00"),end=as.POSIXct("1994-12-31 23:00:00")){
 
   parameters = tolower(parameters)
 
@@ -73,8 +73,8 @@ get_parameters = function(parameters="hs",node=42,start=as.POSIXct("1994-01-01Z0
   if(is.character(start)){start=as.POSIXct(start,tz="UTC")}
   if(is.character(end)){end=as.POSIXct(end,tz="UTC")}
 
-  if(is.numeric(start)){start=as.POSIXct(start,tz="UTC")}
-  if(is.numeric(end)){end=as.POSIXct(end,tz="UTC")}
+  if(is.numeric(start)){start=as.POSIXct(start,tz="UTC",origin=as.POSIXct("1970-01-01 00:00:00 UTC"))}
+  if(is.numeric(end)){end=as.POSIXct(end,tz="UTC",origin=as.POSIXct("1970-01-01 23:00:00 UTC"))}
 
   stopifnot(start>=rscd_casandra_start_date)
   stopifnot(end<=rscd_casandra_end_date)
