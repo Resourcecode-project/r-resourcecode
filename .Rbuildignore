@@ -11,3 +11,4 @@
 ^README\.Rmd$
 ^resourcecode_logo\.png$
 ^rscd\.png$
+^codecov\.yml$

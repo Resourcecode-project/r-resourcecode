@@ -6,6 +6,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/NRaillard/resourcecode/workflows/R-CMD-check/badge.svg)](https://github.com/NRaillard/resourcecode/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/NRaillard/resourcecode/branch/main/graph/badge.svg)](https://app.codecov.io/gh/NRaillard/resourcecode?branch=main)
 <!-- badges: end -->
 
 The goal of `{resourcecode}` is to provide an easy access to the

@@ -54,3 +54,8 @@ usethis::use_vignette("resourcecode")
 #tests
 devtools::test()
 usethis::use_test("test_utils")
+
+#code ceverage
+usethis::use_coverage(type = "codecov")
+devtools::build_readme()
+usethis::use_github_action("test-coverage")
