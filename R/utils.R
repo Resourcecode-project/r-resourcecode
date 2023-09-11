@@ -80,10 +80,12 @@ closest_point_SPEC= function(x,lat=NULL,closest=1L,...){
 #' @param u zonal velocity (1D vector) or matrix with zonal and meridional velocity (Nx2 matrix)
 #' @param v meridional velocity (1D vector)
 #'
-#' @return
+#' @return a Nx2 matrix with the norm and direction (meteorological convention)
 #' @export
 #'
 #' @examples
+#'  u = matrix(rnorm(200),nrow=100,ncol=2)
+#'  vdir = zmcomp2metconv(u)
 zmcomp2metconv = function(u,v=NULL){
   if(is.vector(u)){
     stopifnot(length(v)==length(u))

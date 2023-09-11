@@ -20,11 +20,11 @@ usethis::use_git()
 usethis::use_github()
 
 rcd_cassandra_url = "https://resourcecode-datacharts.ifremer.fr/"
-rscd_hindcast_start_date=as.POSIXct("1994-01-01Z00:00:00")
-rscd_hindcast_end_date=as.POSIXct("2022-12-31Z23:00:00")
+rscd_hindcast_start_date=as.POSIXct("1994-01-01 00:00:00 UTC")
+rscd_hindcast_end_date=as.POSIXct("2022-12-31 23:00:00 UTC")
 
-rscd_casandra_start_date=as.POSIXct("1994-01-01Z00:00:00")
-rscd_casandra_end_date=as.POSIXct("2020-12-31Z23:00:00")
+rscd_casandra_start_date=as.POSIXct("1994-01-01 00:00:00 UTC")
+rscd_casandra_end_date=as.POSIXct("2020-12-31 23:00:00 UTC")
 
 usethis::use_data(rcd_cassandra_url,rscd_hindcast_start_date,rscd_hindcast_end_date,rscd_casandra_start_date,rscd_casandra_end_date,internal = TRUE,overwrite = TRUE)
 
@@ -50,3 +50,7 @@ hexSticker::sticker("rscd.png", package="resourceCODE", p_size=20, s_x=1, s_y=.7
         filename="resourcecode_logo.png")
 usethis::use_logo("resourcecode_logo.png")
 usethis::use_vignette("resourcecode")
+
+#tests
+devtools::test()
+usethis::use_test("test_utils")

@@ -43,7 +43,7 @@ get_parameters_raw = function(parameter="hs",node=42,start=as.POSIXct("1994-01-0
     data[,2] = 1 / data[,2]
   }
 
-  data$time = as.POSIXct(data$time/1000, origin="1970-01-01 00:00:00",tz="UTC") #Convert from UNIX time (in millisecond) to POSIXct format
+  data$time = as.POSIXct(data$time/1000, origin="1970-01-01",tz="UTC") #Convert from UNIX time (in millisecond) to POSIXct format
   attr(data,"node")=node
   data
 }
@@ -59,7 +59,7 @@ get_parameters_raw = function(parameter="hs",node=42,start=as.POSIXct("1994-01-0
 #' @export
 #'
 #' @examples ts = get_parameters(parameters=c("hs","tp"))
-get_parameters = function(parameters="hs",node=42,start=as.POSIXct("1994-01-01 00:00:00 UTC"),end=as.POSIXct("1994-12-31 23:00:00 UTC")){
+get_parameters = function(parameters="hs",node=42,start=as.POSIXct("1994-01-01 00:00:00",tz="UTC"),end=as.POSIXct("1994-12-31 23:00:00",tz="UTC")){
 
   parameters = tolower(parameters)
 
@@ -73,8 +73,8 @@ get_parameters = function(parameters="hs",node=42,start=as.POSIXct("1994-01-01 0
   if(is.character(start)){start=as.POSIXct(start,tz="UTC")}
   if(is.character(end)){end=as.POSIXct(end,tz="UTC")}
 
-  if(is.numeric(start)){start=as.POSIXct(start,tz="UTC",origin=as.POSIXct("1970-01-01 00:00:00 UTC"))}
-  if(is.numeric(end)){end=as.POSIXct(end,tz="UTC",origin=as.POSIXct("1970-01-01 23:00:00 UTC"))}
+  if(is.numeric(start)){start=as.POSIXct(start,tz="UTC",origin=as.POSIXct("1970-01-01 00:00:00",tz="UTC"))}
+  if(is.numeric(end)){end=as.POSIXct(end,tz="UTC",origin=as.POSIXct("1970-01-01 00:00:00",tz="UTC"))}
 
   stopifnot(start>=rscd_casandra_start_date)
   stopifnot(end<=rscd_casandra_end_date)

@@ -7,8 +7,8 @@
 get_parameters(
   parameters = "hs",
   node = 42,
-  start = as.POSIXct("1994-01-01Z00:00:00"),
-  end = as.POSIXct("1994-12-31Z23:00:00")
+  start = as.POSIXct("1994-01-01 00:00:00", tz = "UTC"),
+  end = as.POSIXct("1994-12-31 23:00:00", tz = "UTC")
 )
 }
 \arguments{
