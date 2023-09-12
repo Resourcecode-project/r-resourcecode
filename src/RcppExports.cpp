@@ -12,15 +12,15 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // fastTrapz
-arma::vec fastTrapz(arma::vec X, arma::mat Y, int dim);
-RcppExport SEXP _resourcecode_fastTrapz(SEXP XSEXP, SEXP YSEXP, SEXP dimSEXP) {
+arma::vec fastTrapz(arma::vec x, arma::mat Y, int dim);
+RcppExport SEXP _resourcecode_fastTrapz(SEXP xSEXP, SEXP YSEXP, SEXP dimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::vec >::type X(XSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type x(xSEXP);
     Rcpp::traits::input_parameter< arma::mat >::type Y(YSEXP);
     Rcpp::traits::input_parameter< int >::type dim(dimSEXP);
-    rcpp_result_gen = Rcpp::wrap(fastTrapz(X, Y, dim));
+    rcpp_result_gen = Rcpp::wrap(fastTrapz(x, Y, dim));
     return rcpp_result_gen;
 END_RCPP
 }

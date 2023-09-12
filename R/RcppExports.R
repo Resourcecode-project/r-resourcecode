@@ -6,10 +6,14 @@
 #' Compute the area of a multivariate function with (matrix) values Y at the points x.
 #'
 #' @param x x-coordinates of points on the x-axis (vector)
-#' @param y y-coordinates of function values (matrix)
+#' @param Y y-coordinates of function values (matrix)
 #' @param dim an integer giving the subscripts which the function will be applied over. 1 indicates rows, 2 indicates columns
 #' @export
-fastTrapz <- function(X, Y, dim) {
-    .Call(`_resourcecode_fastTrapz`, X, Y, dim)
+#' @examples
+#' x = 1:10
+#' Y = sin(pi/10*matrix(1:10,ncol=10,nrow=10))
+#' fastTrapz(x*pi/10,Y,2)
+fastTrapz <- function(x, Y, dim) {
+    .Call(`_resourcecode_fastTrapz`, x, Y, dim)
 }
 

@@ -4,15 +4,20 @@
 \alias{fastTrapz}
 \title{Fast implementation of pracma::trapz from the Armadillo C++ library}
 \usage{
-fastTrapz(X, Y, dim)
+fastTrapz(x, Y, dim)
 }
 \arguments{
-\item{dim}{an integer giving the subscripts which the function will be applied over. 1 indicates rows, 2 indicates columns}
-
 \item{x}{x-coordinates of points on the x-axis (vector)}
 
-\item{y}{y-coordinates of function values (matrix)}
+\item{Y}{y-coordinates of function values (matrix)}
+
+\item{dim}{an integer giving the subscripts which the function will be applied over. 1 indicates rows, 2 indicates columns}
 }
 \description{
 Compute the area of a multivariate function with (matrix) values Y at the points x.
+}
+\examples{
+x = 1:10
+Y = sin(pi/10*matrix(1:10,ncol=10,nrow=10))
+fastTrapz(x*pi/10,Y,2)
 }
