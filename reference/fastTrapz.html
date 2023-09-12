@@ -54,24 +54,42 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fastTrapz</span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span>, <span class="va">dim</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fastTrapz</span><span class="op">(</span><span class="va">x</span>, <span class="va">Y</span>, <span class="va">dim</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>dim</dt>
-<dd><p>an integer giving the subscripts which the function will be applied over. 1 indicates rows, 2 indicates columns</p></dd>
-
-
-<dt>x</dt>
+    <dl><dt>x</dt>
 <dd><p>x-coordinates of points on the x-axis (vector)</p></dd>
 
 
-<dt>y</dt>
+<dt>Y</dt>
 <dd><p>y-coordinates of function values (matrix)</p></dd>
+
+
+<dt>dim</dt>
+<dd><p>an integer giving the subscripts which the function will be applied over. 1 indicates rows, 2 indicates columns</p></dd>
 
 </dl></div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span></span>
+<span class="r-in"><span><span class="va">Y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="va">pi</span><span class="op">/</span><span class="fl">10</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,ncol<span class="op">=</span><span class="fl">10</span>,nrow<span class="op">=</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">fastTrapz</span><span class="op">(</span><span class="va">x</span><span class="op">*</span><span class="va">pi</span><span class="op">/</span><span class="fl">10</span>,<span class="va">Y</span>,<span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               [,1]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] 8.737250e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] 1.661924e+00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] 2.287442e+00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] 2.689049e+00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] 2.827433e+00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] 2.689049e+00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] 2.287442e+00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] 1.661924e+00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] 8.737250e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] 3.462607e-16</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
