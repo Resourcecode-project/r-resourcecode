@@ -125,7 +125,7 @@ get_1Dspectrum_raw = function(point,year,month){
 
 #' Download the 2D spectrum data from IFREMER ftp
 #'
-#' @param point the location name (string) requested. Alternatively, the node nnumber. The consistency is checked internally.
+#' @param point the location name (string) requested. Alternatively, the node number. The consistency is checked internally.
 #' @param start the starting date (as a string). The consistency is checked internally.
 #' @param end the ending date as a string
 #'
@@ -137,16 +137,19 @@ get_2Dspectrum = function(point,start="1994-01-01",end="1994-02-28"){
 
   stopifnot(length(point)==1)
 
-  if(is.integer(point)){point =  resourcecode::rscd_spectral[point,"name"]}
+  if(is.numeric(point)){point =  resourcecode::rscd_spectral[point,"name"]}
 
   stopifnot(point %in% resourcecode::rscd_spectral$name)
 
-  start = as.POSIXct(start,tz="UTC")
-  end =as.POSIXct(end,tz="UTC")
+  if(is.character(start)){start=as.POSIXct(start,tz="UTC")}
+  if(is.character(end)){end=as.POSIXct(end,tz="UTC")}
+
+  if(is.numeric(start)){start=as.POSIXct(start,tz="UTC",origin=as.POSIXct("1970-01-01 00:00:00",tz="UTC"))}
+  if(is.numeric(end)){end=as.POSIXct(end,tz="UTC",origin=as.POSIXct("1970-01-01 00:00:00",tz="UTC"))}
 
   stopifnot(format(start,"%Y") >= format(rscd_hindcast_start_date,"%Y"))
   stopifnot(format(end,"%Y") <= format(rscd_hindcast_end_date,"%Y"))
-  stopifnot(end>start)
+  stopifnot(end>=start)
 
 
   dates = seq.POSIXt(from=start,to=end,by = "month")
@@ -167,7 +170,7 @@ get_2Dspectrum = function(point,start="1994-01-01",end="1994-02-28"){
 
 #' Download the 1D spectrum data from IFREMER ftp
 #'
-#' @param point the location name (string) requested. The consistency is checked internally.
+#' @param point the location name (string) requested. Alternatively, the node number. The consistency is checked internally.
 #' @param start the starting date (as a string). The consistency is checked internally.
 #' @param end the ending date as a string
 #'
@@ -180,16 +183,19 @@ get_1Dspectrum = function(point,start="1994-01-01",end="1994-02-28"){
 
   stopifnot(length(point)==1)
 
-  if(is.integer(point)){point =  resourcecode::rscd_spectral[point,"name"]}
+  if(is.numeric(point)){point =  resourcecode::rscd_spectral[point,"name"]}
 
   stopifnot(point %in% resourcecode::rscd_spectral$name)
 
-  start = as.POSIXct(start,tz="UTC")
-  end =as.POSIXct(end,tz="UTC")
+  if(is.character(start)){start=as.POSIXct(start,tz="UTC")}
+  if(is.character(end)){end=as.POSIXct(end,tz="UTC")}
+
+  if(is.numeric(start)){start=as.POSIXct(start,tz="UTC",origin=as.POSIXct("1970-01-01 00:00:00",tz="UTC"))}
+  if(is.numeric(end)){end=as.POSIXct(end,tz="UTC",origin=as.POSIXct("1970-01-01 00:00:00",tz="UTC"))}
 
   stopifnot(format(start,"%Y") >= format(rscd_hindcast_start_date,"%Y"))
   stopifnot(format(end,"%Y") <= format(rscd_hindcast_end_date,"%Y"))
-
+  stopifnot(end>=start)
 
   dates = seq.POSIXt(from=start,to=end,by = "month")
   years = format(dates,format = "%Y")

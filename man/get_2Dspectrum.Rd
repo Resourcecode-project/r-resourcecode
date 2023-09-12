@@ -7,7 +7,7 @@
 get_2Dspectrum(point, start = "1994-01-01", end = "1994-02-28")
 }
 \arguments{
-\item{point}{the location name (string) requested. Alternatively, the node nnumber. The consistency is checked internally.}
+\item{point}{the location name (string) requested. Alternatively, the node number. The consistency is checked internally.}
 
 \item{start}{the starting date (as a string). The consistency is checked internally.}
 
