@@ -190,8 +190,8 @@ get_1Dspectrum = function(point,start="1994-01-01",end="1994-02-28"){
   if(is.character(start)){start=as.POSIXct(start,tz="UTC")}
   if(is.character(end)){end=as.POSIXct(end,tz="UTC")}
 
-  if(is.numeric(start)){start=as.POSIXct(start,tz="UTC",origin=as.POSIXct("1970-01-01 00:00:00",tz="UTC"))}
-  if(is.numeric(end)){end=as.POSIXct(end,tz="UTC",origin=as.POSIXct("1970-01-01 00:00:00",tz="UTC"))}
+  if(is.numeric(start)){start=as.POSIXct(start,tz="UTC",origin=as.POSIXct("1970-01-01",tz="UTC"))}
+  if(is.numeric(end)){end=as.POSIXct(end,tz="UTC",origin=as.POSIXct("1970-01-01",tz="UTC"))}
 
   stopifnot(format(start,"%Y") >= format(rscd_hindcast_start_date,"%Y"))
   stopifnot(format(end,"%Y") <= format(rscd_hindcast_end_date,"%Y"))
