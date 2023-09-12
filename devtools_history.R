@@ -59,3 +59,6 @@ usethis::use_test("test_utils")
 usethis::use_coverage(type = "codecov")
 devtools::build_readme()
 usethis::use_github_action("test-coverage")
+
+#Rcpp Armadillo for fast multivariate trapz
+usethis::use_rcpp_armadillo("fast_trapz.cpp")
