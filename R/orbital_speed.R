@@ -10,6 +10,7 @@
 #' @export
 #'
 #' @examples
+#'
 calc_obtital_speeds = function(S,freq,z=0,depth=Inf,spec=FALSE){
   # z: distance above sea floor
 
@@ -23,7 +24,7 @@ calc_obtital_speeds = function(S,freq,z=0,depth=Inf,spec=FALSE){
 
   #Compute k efficiently when depth is discretized
 
-  k = outer(freq,unique(depth),Vectorize(disper,vectorize.args = c("freq","depth")))
+  k = outer(freq,unique(depth),Vectorize(resourcecode::dispersion,vectorize.args = c("frequencies","depth")))
   mat_k = t(k[,match(depth,unique(depth))])
 
   mat_d = matrix(depth,nrow=n_time,ncol=n_freq)

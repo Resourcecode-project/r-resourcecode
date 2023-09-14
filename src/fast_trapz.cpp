@@ -1,6 +1,8 @@
 #include <RcppArmadillo.h>
 using namespace Rcpp;
 
+// [[Rcpp::depends(RcppArmadillo)]]
+
 //' Fast implementation of pracma::trapz from the Armadillo C++ library
 //'
 //' Compute the area of a multivariate function with (matrix) values Y at the points x.
@@ -14,7 +16,7 @@ using namespace Rcpp;
 //' Y = sin(pi/10*matrix(1:10,ncol=10,nrow=10))
 //' fastTrapz(x*pi/10,Y,2)
 // [[Rcpp::export]]
-arma::vec fastTrapz( arma::vec x, arma::mat Y, int dim ) {
-  arma::mat res   = trapz(x,Y,dim-1);
+arma::mat fastTrapz(arma::vec x, arma::mat Y, int dim=1 ) {
+  arma::mat res   = trapz(x,Y,dim-1L);
   return res;
 }

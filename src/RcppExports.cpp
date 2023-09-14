@@ -12,7 +12,7 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // fastTrapz
-arma::vec fastTrapz(arma::vec x, arma::mat Y, int dim);
+arma::mat fastTrapz(arma::vec x, arma::mat Y, int dim);
 RcppExport SEXP _resourcecode_fastTrapz(SEXP xSEXP, SEXP YSEXP, SEXP dimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;

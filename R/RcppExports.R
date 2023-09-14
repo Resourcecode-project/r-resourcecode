@@ -13,7 +13,7 @@
 #' x = 1:10
 #' Y = sin(pi/10*matrix(1:10,ncol=10,nrow=10))
 #' fastTrapz(x*pi/10,Y,2)
-fastTrapz <- function(x, Y, dim) {
+fastTrapz <- function(x, Y, dim = 1L) {
     .Call(`_resourcecode_fastTrapz`, x, Y, dim)
 }
 

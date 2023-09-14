@@ -23,3 +23,11 @@ test_that("Node selection works",{
   expect_equal(closest_point_SPEC(point_test)$point,2124)
   expect_equal(closest_point_SPEC(point_test[1],point_test[2])$point,2124)
 })
+
+test_that("Fast trapz works",{
+  n <- 101
+  x <- seq(0,pi,length.out=n)
+  Y1 <- sin(matrix(x,ncol=n,nrow=n,byrow = F))
+  Y2 <- sin(matrix(x,ncol=n,nrow=n,byrow = T))
+  expect_equal(fastTrapz(x,Y1,1),t(fastTrapz(x,Y2,2)))
+})

@@ -4,7 +4,7 @@
 \alias{fastTrapz}
 \title{Fast implementation of pracma::trapz from the Armadillo C++ library}
 \usage{
-fastTrapz(x, Y, dim)
+fastTrapz(x, Y, dim = 1L)
 }
 \arguments{
 \item{x}{x-coordinates of points on the x-axis (vector)}
