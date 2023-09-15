@@ -122,6 +122,9 @@ convert_spectrum_2D1D = function(spec,...){
   spec$efth = NULL
   spec$dir=NULL
 
+  #In 1D spectra, the current direction is taken as "going to"
+  spec$forcings$curdir =  (spec$forcings$curdir+180)%%360
+
   #reorder the elements to match the output from `get_1D_spectra`
   spec[c(1:4,8:12,5:7)]
 }
@@ -186,7 +189,7 @@ compute_sea_state_2Dspectrum = function(spec,...){
   out$wnd = spec$forcings$wnd
   out$wnddir = spec$forcings$wnddir
   out$cur = spec$forcings$cur
-  out$curdir = spec$forcings$curdir
+  out$curdir = (spec$forcings$curdir+180)%%360 #In 1D spectral data, the current is "going to cf user manual
 
   # Spectral Bandwidth and Peakedness parameter (Goda 1970)
   out$nu = sqrt( (m0*m2) / (m1^2) -1)
