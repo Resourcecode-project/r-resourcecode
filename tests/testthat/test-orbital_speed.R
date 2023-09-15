@@ -1,0 +1,10 @@
+test_that("obital speed computation works",{
+  S = t(sapply(1:10, \(h) jonswap(h,tp=12)$spec))
+  orb_speed_bottom = calc_obtital_speeds(S,rscd_freq,depth=50,z=0)
+  orb_speed_half = calc_obtital_speeds(S,rscd_freq,depth=50,z=25)
+  orb_speed_top = calc_obtital_speeds(S,rscd_freq,depth=50,z=50)
+  expect_equal(orb_speed_bottom[,2],rep(0,10))
+  expect_snapshot_value(orb_speed_bottom,style="serialize")
+  expect_snapshot_value(orb_speed_half,style="serialize")
+  expect_snapshot_value(orb_speed_top,style="serialize")
+})

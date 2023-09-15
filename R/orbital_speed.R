@@ -32,7 +32,6 @@ calc_obtital_speeds = function(S,freq,z=0,depth=Inf,spec=FALSE){
   stopifnot(all(z<=depth))
 
   #Compute k efficiently when depth is discretized
-
   k = outer(freq,unique(depth),Vectorize(resourcecode::dispersion,vectorize.args = c("frequencies","depth")))
   mat_k = t(k[,match(depth,unique(depth))])
 

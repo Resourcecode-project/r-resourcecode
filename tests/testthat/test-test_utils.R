@@ -33,7 +33,9 @@ test_that("Fast trapz works",{
 })
 
 test_that("JONSWAP computation works",{
+  expect_vector(jonswap())
+  expect_vector(jonswap(hs=1,tp=15))
   expect_snapshot_output(jonswap())
   expect_snapshot_output(jonswap(fmax=0.95,df=0.003))
-  expect_error(jonswap(tp=15,fmax=0.95))
+  expect_error(jonswap(hs=4,tp=15,fmax=0.95))
 })

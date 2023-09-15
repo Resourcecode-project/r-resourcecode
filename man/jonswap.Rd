@@ -4,7 +4,7 @@
 \alias{jonswap}
 \title{JONWSAP spectrum}
 \usage{
-jonswap(hs = 5, tp = 15, fmax = resourcecode::rscd_freq, df, gam = 3.3)
+jonswap(hs = 5, tp = 15, fmax = resourcecode::rscd_freq, df = NULL, gam = 3.3)
 }
 \arguments{
 \item{hs}{Hs (default: 5m)}
