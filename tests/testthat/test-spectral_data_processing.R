@@ -1,6 +1,6 @@
 test_that("dispersion is computed correctly",{
   expect_equal(dispersion(0,Inf),0)
-  expect_snapshot_value(dispersion(1/100*(0:50),depth = 30))
+  expect_snapshot_value(dispersion(1/100*(0:50),depth = 30),style = "serialize")
 })
 
 test_path("Conversion between 2D and 1D spectra works",{
