@@ -10,8 +10,9 @@ rscd_coastline = arrow::read_feather("\\\\datawork\\datawork-resourcecode\\EFTP\
 rscd_islands = arrow::read_feather("\\\\datawork\\datawork-resourcecode\\EFTP\\RESULTS\\stats\\islands.arrow")
 rscd_triangles = t(arrow::read_feather("\\\\datawork\\datawork-resourcecode\\EFTP\\RESULTS\\stats\\triangles.arrow"))
 rscd_variables = arrow::read_feather("\\\\datawork\\datawork-resourcecode\\EFTP\\RESULTS\\stats\\variables.arrow")
-
-usethis::use_data(rscd_field,rscd_spectral,rscd_coastline,rscd_islands,rscd_triangles,rscd_variables,version=3,overwrite = TRUE)
+rscd_freq = array(0.0339*1.1^(0:35))
+rscd_dir = array(seq(from=0,to=350,by=10))
+usethis::use_data(rscd_field,rscd_spectral,rscd_coastline,rscd_islands,rscd_triangles,rscd_variables,rscd_freq,rscd_dir,version=3,overwrite = TRUE)
 
 usethis::use_description()
 
