@@ -11,15 +11,25 @@ calc_obtital_speeds(S, freq, z = 0, depth = Inf, spec = FALSE)
 
 \item{freq}{the M frequencies}
 
-\item{z}{distance above the flood at which we want the orbital speed}
+\item{z}{distance above the floor at which we want the orbital speed (single numeric)}
 
-\item{depth}{depth time series (vector length T)}
+\item{depth}{depth time series (vector length T. Recycled if a single value is given)}
 
-\item{spec}{TRUE if the spectral speed are needed. Oterwise, returns the RMSE (default)}
+\item{spec}{TRUE if the spectral speed are needed. Otherwise, returns the RMS (default)}
 }
 \value{
 depending on spec, a lsit or a data.frame
 }
 \description{
 Compute the orbital speed at a given depth from the wave elevation 1D spectra
+}
+\examples{
+ # Compute orbital speed for varying Hs
+ S = t(sapply(1:10, \(h) jonswap(h)$spec))
+ orb_speeds = calc_obtital_speeds(S,rscd_freq,depth=100,z=10)
+ plot(1:10,orb_speeds[,1],type='l'
+    ,ylim=range(orb_speeds),
+    xlab="Hs (m)",
+    ylab="Orbital speed RMS (m/s)")
+ lines(1:10,orb_speeds[,2],type='l',col='red')
 }

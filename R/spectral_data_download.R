@@ -1,18 +1,3 @@
-#' Compute Jonswap spectrum with f (Hz) formulation (Sf = 2*pi*Sw)
-#'
-#' @param hs Significant wave height (m)
-#' @param tp Peak period (s)
-#' @param gamma the peakness factor (e.g. 1 or 3.3)
-#' @param freq the frequency vector where the spectrum is to be computed (Hz)
-#'
-#' @return a vector containing the spectrum on input freq
-#' @export
-#'
-#' @examples Sp = jonswap(1,10,3.3)
-jonswap = function(hs, tp, gamma=3.3, freq){
-
-}
-
 #' Download the 2D spectrum data from IFREMER ftp for a single data.
 #'
 #' No consistency checks are made, this function should not be called directly by the user

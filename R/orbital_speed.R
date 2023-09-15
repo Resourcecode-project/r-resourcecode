@@ -2,21 +2,30 @@
 #'
 #' @param S 1D spectral data: TxM matrix
 #' @param freq the M frequencies
-#' @param z distance above the flood at which we want the orbital speed
-#' @param depth depth time series (vector length T)
-#' @param spec TRUE if the spectral speed are needed. Oterwise, returns the RMSE (default)
+#' @param z distance above the floor at which we want the orbital speed (single numeric)
+#' @param depth depth time series (vector length T. Recycled if a single value is given)
+#' @param spec TRUE if the spectral speed are needed. Otherwise, returns the RMS (default)
 #'
 #' @return depending on spec, a lsit or a data.frame
 #' @export
 #'
 #' @examples
-#'
+#'  # Compute orbital speed for varying Hs
+#'  S = t(sapply(1:10, \(h) jonswap(h)$spec))
+#'  orb_speeds = calc_obtital_speeds(S,rscd_freq,depth=100,z=10)
+#'  plot(1:10,orb_speeds[,1],type='l'
+#'     ,ylim=range(orb_speeds),
+#'     xlab="Hs (m)",
+#'     ylab="Orbital speed RMS (m/s)")
+#'  lines(1:10,orb_speeds[,2],type='l',col='red')
 calc_obtital_speeds = function(S,freq,z=0,depth=Inf,spec=FALSE){
   # z: distance above sea floor
 
   dims = dim(S)
   n_time =dims[1]
   n_freq= dims[2]
+
+  if(length(depth)==1){depth=rep(depth,n_time)}
 
   stopifnot(n_freq==length(freq))
   stopifnot(all(z>=0))
