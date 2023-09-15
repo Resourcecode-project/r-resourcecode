@@ -68,15 +68,15 @@
 
 
 <dt>z</dt>
-<dd><p>distance above the flood at which we want the orbital speed</p></dd>
+<dd><p>distance above the floor at which we want the orbital speed (single numeric)</p></dd>
 
 
 <dt>depth</dt>
-<dd><p>depth time series (vector length T)</p></dd>
+<dd><p>depth time series (vector length T. Recycled if a single value is given)</p></dd>
 
 
 <dt>spec</dt>
-<dd><p>TRUE if the spectral speed are needed. Oterwise, returns the RMSE (default)</p></dd>
+<dd><p>TRUE if the spectral speed are needed. Otherwise, returns the RMS (default)</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -86,6 +86,19 @@
 <p>depending on spec, a lsit or a data.frame</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span> <span class="co"># Compute orbital speed for varying Hs</span></span></span>
+<span class="r-in"><span> <span class="va">S</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, \<span class="op">(</span><span class="va">h</span><span class="op">)</span> <span class="fu"><a href="jonswap.html">jonswap</a></span><span class="op">(</span><span class="va">h</span><span class="op">)</span><span class="op">$</span><span class="va">spec</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="va">orb_speeds</span> <span class="op">=</span> <span class="fu">calc_obtital_speeds</span><span class="op">(</span><span class="va">S</span>,<span class="va">rscd_freq</span>,depth<span class="op">=</span><span class="fl">100</span>,z<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="va">orb_speeds</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>,type<span class="op">=</span><span class="st">'l'</span></span></span>
+<span class="r-in"><span>    ,ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">orb_speeds</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    xlab<span class="op">=</span><span class="st">"Hs (m)"</span>,</span></span>
+<span class="r-in"><span>    ylab<span class="op">=</span><span class="st">"Orbital speed RMS (m/s)"</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="va">orb_speeds</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>,type<span class="op">=</span><span class="st">'l'</span>,col<span class="op">=</span><span class="st">'red'</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="calc_obtital_speeds-1.png" alt="" width="700" height="433"></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
