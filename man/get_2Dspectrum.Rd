@@ -20,5 +20,10 @@ A list with the data read from the downloaded netCDF file.
 Download the 2D spectrum data from IFREMER ftp
 }
 \examples{
-spec = get_2Dspectrum("SEMREVO",start="1994-01-01",end="1994-02-28")
+\dontshow{if (curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+    spec2D = get_2Dspectrum("SEMREVO",start="1994-01-01",end="1994-02-28")
+    image(spec2D$dir,spec2D$freq,spec2D$efth[,,1],
+        xlab="Direction (°)",
+        ylab="Frequency (Hz")
+\dontshow{\}) # examplesIf}
 }

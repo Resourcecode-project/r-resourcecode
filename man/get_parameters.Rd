@@ -27,5 +27,7 @@ a tibble with as many rows as needed and as \code{length(parameters)} columns.
 Download time series of sea-state parameters from RESOURCECODE database
 }
 \examples{
-ts = get_parameters(parameters=c("hs","tp"))
+\dontrun{
+   ts = get_parameters(parameters=c("hs","tp"),node=42)
+   }
 }

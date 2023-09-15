@@ -58,7 +58,10 @@ get_parameters_raw = function(parameter="hs",node=42,start=as.POSIXct("1994-01-0
 #' @return a tibble with as many rows as needed and as `length(parameters)` columns.
 #' @export
 #'
-#' @examples ts = get_parameters(parameters=c("hs","tp"))
+#' @examples
+#' \dontrun{
+#'    ts = get_parameters(parameters=c("hs","tp"),node=42)
+#'    }
 get_parameters = function(parameters="hs",node=42,start=as.POSIXct("1994-01-01 00:00:00",tz="UTC"),end=as.POSIXct("1994-12-31 23:00:00",tz="UTC")){
 
   parameters = tolower(parameters)

@@ -117,7 +117,11 @@ get_1Dspectrum_raw = function(point,year,month){
 #' @return A list with the data read from the downloaded netCDF file.
 #' @export
 #'
-#' @examples spec = get_2Dspectrum("SEMREVO",start="1994-01-01",end="1994-02-28")
+#' @examplesIf curl::has_internet()
+#'     spec2D = get_2Dspectrum("SEMREVO",start="1994-01-01",end="1994-02-28")
+#'     image(spec2D$dir,spec2D$freq,spec2D$efth[,,1],
+#'         xlab="Direction (°)",
+#'         ylab="Frequency (Hz")
 get_2Dspectrum = function(point,start="1994-01-01",end="1994-02-28"){
 
   stopifnot(length(point)==1)
@@ -162,8 +166,14 @@ get_2Dspectrum = function(point,start="1994-01-01",end="1994-02-28"){
 #' @return A list with the data read from the downloaded netCDF file.
 #' @export
 #'
-#' @examples
-#'   spec = get_1Dspectrum("SEMREVO",start="1994-01-01",end="1994-02-28")
+#' @examplesIf curl::has_internet()
+#'    spec1D = get_1Dspectrum("SEMREVO",start="1994-01-01",end="1994-02-28")
+#'    r <- as.POSIXct(round(range(spec1D$forcings$time), "month"))
+#'    image(spec1D$forcings$time,spec1D$freq,t(spec1D$ef),
+#'           xaxt = "n",xlab='Time',
+#'           ylab = "Frequency (Hz)")
+#'    axis.POSIXct(1,spec1D$forcings$time,at=seq(r[1], r[2], by = "week"),
+#'    format = "%Y-%m-%d",las=2)
 get_1Dspectrum = function(point,start="1994-01-01",end="1994-02-28"){
 
   stopifnot(length(point)==1)

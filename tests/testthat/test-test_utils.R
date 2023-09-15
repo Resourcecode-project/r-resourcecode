@@ -35,4 +35,5 @@ test_that("Fast trapz works",{
 test_that("JONSWAP computation works",{
   expect_snapshot_output(jonswap())
   expect_snapshot_output(jonswap(fmax=0.95,df=0.003))
+  expect_error(jonswap(tp=15,fmax=0.95))
 })
