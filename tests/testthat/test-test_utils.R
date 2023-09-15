@@ -31,3 +31,8 @@ test_that("Fast trapz works",{
   Y2 <- sin(matrix(x,ncol=n,nrow=n,byrow = T))
   expect_equal(fastTrapz(x,Y1,1),t(fastTrapz(x,Y2,2)))
 })
+
+test_that("JONSWAP computation works",{
+  expect_snapshot_output(jonswap())
+  expect_snapshot_output(jonswap(fmax=0.95,df=0.003))
+})
