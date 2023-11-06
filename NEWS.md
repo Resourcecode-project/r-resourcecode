@@ -1,5 +1,7 @@
 # `{resourcecode}` (development version)
 
+- Typos in the documentation (@jlegrand35)
+
 ## Initial version with very crude functionalities
 
 - Database configuration: coastline, depth, output variables, grids...
