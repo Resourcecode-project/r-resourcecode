@@ -29,7 +29,7 @@ The goal of `{resourcecode}` is to provide an easy access to the Resourcecode hi
 The package is not yet on CRAN. Meanwhile, you can install the development version of `{resourcecode}` like so:
 
 ```{r install, eval=F}
-devtools::install_github('NRaillard/resourcecode')
+devtools::install_github('Resourcecode-project/r-resourcecode')
 ```
 
 ## Examples
@@ -47,4 +47,9 @@ See the variables available in the database:
 rscd_variables
 ```
 
-
+Download a time series of significant wave height next to the coast of Finistère:
+```{r data_fetcher}
+data = get_parameters(node="134865",parameters = "hs")
+str(data)
+plot(data,type='l')
+```

@@ -22,7 +22,7 @@ The package is not yet on CRAN. Meanwhile, you can install the
 development version of `{resourcecode}` like so:
 
 ``` r
-devtools::install_github('NRaillard/resourcecode')
+devtools::install_github('Resourcecode-project/r-resourcecode')
 ```
 
 ## Examples
@@ -55,3 +55,18 @@ rscd_variables
 #> 10 wlv       sea surface height above sea level "m"           
 #> # ℹ 78 more rows
 ```
+
+Download a time series of significant wave height next to the coast of
+Finistère:
+
+``` r
+data = get_parameters(node="134865",parameters = "hs")
+str(data)
+#> tibble [8,760 × 2] (S3: tbl_df/tbl/data.frame)
+#>  $ time: POSIXct[1:8760], format: "1994-01-01 01:00:00" "1994-01-01 02:00:00" ...
+#>  $ hs  : num [1:8760] 4.98 5.19 5.37 5.48 5.52 ...
+#>  - attr(*, "node")= num 134864
+plot(data,type='l')
+```
+
+<img src="man/figures/README-data_fetcher-1.png" width="100%" style="display: block; margin: auto;" />
