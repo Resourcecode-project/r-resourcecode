@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/NRaillard/resourcecode/workflows/R-CMD-check/badge.svg)](https://github.com/NRaillard/resourcecode/actions)
+[![R-CMD-check](https://github.com/Resourcecode-project/r-resourcecode/workflows/R-CMD-check/badge.svg?branch=main)](https://github.com/Resourcecode-project/r-resourcecode/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/NRaillard/resourcecode/branch/main/graph/badge.svg)](https://app.codecov.io/gh/NRaillard/resourcecode?branch=main)
 <!-- badges: end -->
