@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The goal of `{resourcecode}` is to provide an easy access to the Resourcecode hindcast database of sea-states. More information on the database can be found [here](https://resourcecode.ifremer.fr). We will explain in this vignette the way to retrieve data from this data base and some the functionalities offered by this package.
+The goal of `{resourcecode}` is to provide an easy access to the ResourceCODE hindcast database of sea-states. More information on the database can be found [here](https://resourcecode.ifremer.fr). We will explain in this vignette the way to retrieve data from this database and some the functionalities offered by this package.
 
 ```{r setup}
 library(resourcecode)
@@ -30,7 +30,7 @@ There are two grids in the Resource**CODE** hindcast database: the full, dense, 
 
 - **FIELD** grid
 
-The variable `rscd_field` contains the coordinates of the FIELD grid, alors with the depth of these points and `d50`, the bottom sediment type. 
+The variable `rscd_field` contains the coordinates of the FIELD grid, along with the depth of these points and `d50`, the bottom sediment type. 
 
 ```{r}
 str(rscd_field)
@@ -44,7 +44,7 @@ str(rscd_variables)
 head(rscd_variables)
 ```
 
-The available location can be plot on a map using the following code. It can be notices here that the variables `rscd_coastline` and `rscd_islands` contains the path of the coast line and the islands, respectively.
+The available location can be plotted on a map using the following code. It can be noticed here that the variables `rscd_coastline` and `rscd_islands` contain the path of the coast line and the islands, respectively.
 
 ```{r, fig.retina=3}
 lim_lon = c(-5.25, -4.25)
@@ -60,7 +60,7 @@ field_BZH
 
 - **SPEC** grid
 
-The spectral grid, or **SPEC** grid is coarser, with more than 24,000 nodes where the full 2D spectra are available. The grid can be add to the previous plot to see the diferences in the spatial coverage.
+The spectral grid, or **SPEC** grid is coarser, with more than 24,000 nodes where the full 2D spectra are available. The grid can be added to the previous plot to see the differences in the spatial coverage.
 
 ```{r}
 str(rscd_spectral)
@@ -74,7 +74,7 @@ field_BZH + geom_point(data=rscd_spectral,col='orange',size=.1)
 
 - Helpers to find points
 
-We one is interested in some location, we also provide helpers to find the closest point in each of the grid, via the `closest_point_FIELD()` and `closest_point_SPEC()` functions.
+When one is interested in some location, we also provide helpers to find the closest point in each of the grid, via the `closest_point_FIELD()` and `closest_point_SPEC()` functions.
 
 ## Getting data
 
@@ -82,7 +82,7 @@ We have two different sources of data, the FIELD grid, and the SPEC grid. We wil
 
 - Sea-state parameters from the FIELD can be retrieved using the `get_parameters()` function, which allows to download a time series easily at a given location. For the moment (Sept. 2023), the 1D spectra on this grid are not available to direct download.
 
-For example, if one is interested in the time series of sea-state parameters some location, the following code can be adapted:
+For example, if one is interested in the time series of sea-state parameters at some location, the following code can be adapted:
 
 ```{r, fig.height=4,fig.width=8,warning=FALSE,message=FALSE}
 point_of_interest = c( longitude=-4.6861533,latitude=48.3026514)
@@ -100,13 +100,13 @@ ggplot(tidyr::pivot_longer(ts,-1),aes(x=time,y=value,col=name))+
         axis.text.x=element_text(angle=60, hjust=1))
 ```
 
-- 1D and 2D spectra of the SPEC grid can be download directly from IFREMER FTP using functions `get_1Dspectrum()` and `get_2Dspectrum()`. We also provide a plotting function for the 2D spectrum.
+- 1D and 2D spectra of the SPEC grid can be downloaded directly from IFREMER FTP using functions `get_1Dspectrum()` and `get_2Dspectrum()`. We also provide a plotting function for the 2D spectrum.
 
 ```{r}
 node_SPEC = closest_point_SPEC(point_of_interest)
 ```
 
-Then one can extract the 1D spectrum time-series and see the contents of this downloaded data.
+Then one can extract the 1D spectrum time-series and see the contents of these downloaded data.
 
 ```{r}
 spec1D = get_1Dspectrum(node_SPEC$point,start="1994-01-01",end="1994-02-28")
@@ -120,7 +120,7 @@ spec2D = get_2Dspectrum(node_SPEC$point,start="1994-01-01",end="1994-02-28")
 str(spec1D)
 ```
 
-in addition, it is possible to plot the wave elevation directional spectra for any given time, which can be specified by the time index of directly the date:
+In addition, it is possible to plot the wave elevation directional spectra for any given time, which can be specified by the time index or directly the date:
 
 ```{r,warning=FALSE, fig.height=8,fig.width=8}
 plot_2Dspecta(spec2D,"1994-01-15 18:00")
