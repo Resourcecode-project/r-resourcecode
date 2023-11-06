@@ -85,9 +85,9 @@
     
     
 <p>The goal of <a href="https://github.com/NRaillard/resourcecode" class="external-link">resourcecode</a> is to provide an easy access
-to the Resourcecode hindcast database of sea-states. More information on
+to the ResourceCODE hindcast database of sea-states. More information on
 the database can be found <a href="https://resourcecode.ifremer.fr" class="external-link">here</a>. We will explain in this
-vignette the way to retrieve data from this data base and some the
+vignette the way to retrieve data from this database and some the
 functionalities offered by this package.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/NRaillard/resourcecode" class="external-link">resourcecode</a></span><span class="op">)</span></span>
@@ -106,7 +106,7 @@ data at each node.</p>
 <strong>FIELD</strong> grid</li>
 </ul>
 <p>The variable <code>rscd_field</code> contains the coordinates of the
-FIELD grid, alors with the depth of these points and <code>d50</code>,
+FIELD grid, along with the depth of these points and <code>d50</code>,
 the bottom sediment type.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">rscd_field</span><span class="op">)</span></span>
@@ -143,10 +143,10 @@ available, described in <code>rscd_variables</code>:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> MAPSTA    status map       <span style="color: #949494;">"</span>1<span style="color: #949494;">"</span>           </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> dpt       depth            <span style="color: #949494;">"</span>m<span style="color: #949494;">"</span>           </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ucur      eastward current <span style="color: #949494;">"</span>m s-1<span style="color: #949494;">"</span></span></span></code></pre></div>
-<p>The available location can be plot on a map using the following code.
-It can be notices here that the variables <code>rscd_coastline</code>
-and <code>rscd_islands</code> contains the path of the coast line and
-the islands, respectively.</p>
+<p>The available location can be plotted on a map using the following
+code. It can be noticed here that the variables
+<code>rscd_coastline</code> and <code>rscd_islands</code> contain the
+path of the coast line and the islands, respectively.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lim_lon</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5.25</span>, <span class="op">-</span><span class="fl">4.25</span><span class="op">)</span></span>
 <span><span class="va">lim_lat</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">47.75</span>, <span class="fl">48.75</span><span class="op">)</span></span>
@@ -164,7 +164,7 @@ the islands, respectively.</p>
 </ul>
 <p>The spectral grid, or <strong>SPEC</strong> grid is coarser, with
 more than 24,000 nodes where the full 2D spectra are available. The grid
-can be add to the previous plot to see the diferences in the spatial
+can be added to the previous plot to see the differences in the spatial
 coverage.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">rscd_spectral</span><span class="op">)</span></span>
@@ -189,7 +189,7 @@ coverage.</p>
 <ul>
 <li>Helpers to find points</li>
 </ul>
-<p>We one is interested in some location, we also provide helpers to
+<p>When one is interested in some location, we also provide helpers to
 find the closest point in each of the grid, via the
 <code><a href="../reference/closest_point_FIELD.html">closest_point_FIELD()</a></code> and <code><a href="../reference/closest_point_SPEC.html">closest_point_SPEC()</a></code>
 functions.</p>
@@ -206,7 +206,7 @@ series easily at a given location. For the moment (Sept. 2023), the 1D
 spectra on this grid are not available to direct download.</li>
 </ul>
 <p>For example, if one is interested in the time series of sea-state
-parameters some location, the following code can be adapted:</p>
+parameters at some location, the following code can be adapted:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">point_of_interest</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> longitude<span class="op">=</span><span class="op">-</span><span class="fl">4.6861533</span>,latitude<span class="op">=</span><span class="fl">48.3026514</span><span class="op">)</span></span>
 <span><span class="va">node</span> <span class="op">=</span> <span class="fu"><a href="../reference/closest_point_FIELD.html">closest_point_FIELD</a></span><span class="op">(</span><span class="va">point_of_interest</span><span class="op">)</span></span>
@@ -228,7 +228,7 @@ parameters some location, the following code can be adapted:</p>
 <span>        axis.text.x<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle<span class="op">=</span><span class="fl">60</span>, hjust<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="resourcecode_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;"></p>
 <ul>
-<li>1D and 2D spectra of the SPEC grid can be download directly from
+<li>1D and 2D spectra of the SPEC grid can be downloaded directly from
 IFREMER FTP using functions <code><a href="../reference/get_1Dspectrum.html">get_1Dspectrum()</a></code> and
 <code><a href="../reference/get_2Dspectrum.html">get_2Dspectrum()</a></code>. We also provide a plotting function for
 the 2D spectrum.</li>
@@ -236,7 +236,7 @@ the 2D spectrum.</li>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">node_SPEC</span> <span class="op">=</span> <span class="fu"><a href="../reference/closest_point_SPEC.html">closest_point_SPEC</a></span><span class="op">(</span><span class="va">point_of_interest</span><span class="op">)</span></span></code></pre></div>
 <p>Then one can extract the 1D spectrum time-series and see the contents
-of this downloaded data.</p>
+of these downloaded data.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spec1D</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_1Dspectrum.html">get_1Dspectrum</a></span><span class="op">(</span><span class="va">node_SPEC</span><span class="op">$</span><span class="va">point</span>,start<span class="op">=</span><span class="st">"1994-01-01"</span>,end<span class="op">=</span><span class="st">"1994-02-28"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">spec1D</span><span class="op">)</span></span>
@@ -328,8 +328,8 @@ of this downloaded data.</p>
 <span><span class="co">#&gt;   ..$ dir   : num [1:1416] 239 239 239 240 241 ...</span></span>
 <span><span class="co">#&gt;   ..$ spr   : num [1:1416] 19.6 19.5 18.8 18 17.4 ...</span></span>
 <span><span class="co">#&gt;  $ station   : chr "W004679N48304"</span></span></code></pre></div>
-<p>in addition, it is possible to plot the wave elevation directional
-spectra for any given time, which can be specified by the time index of
+<p>In addition, it is possible to plot the wave elevation directional
+spectra for any given time, which can be specified by the time index or
 directly the date:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_2Dspecta.html">plot_2Dspecta</a></span><span class="op">(</span><span class="va">spec2D</span>,<span class="st">"1994-01-15 18:00"</span><span class="op">)</span></span></code></pre></div>
