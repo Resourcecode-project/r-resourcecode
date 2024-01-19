@@ -4,6 +4,7 @@
 #' @param z the data ro plot: a vector of the same size as the grid (328,030 rows).
 #' @param name name of the variable plored, to be included in the legend.
 #' @param zlim limits of the scale. See \code{\link[ggplot2]{continuous_scale}} for details.
+#' @param palette If a string, will use that named palette. See \code{\link[ggplot2]{scale_colour_brewer}} for other options.
 #'
 #' @return a ggplot2 object
 #' @export
@@ -12,7 +13,7 @@
 #'\dontrun{
 #'  rscd_mapplot(rscd_field$depth)
 #'}
-rscd_mapplot = function(z,name="Depth (m)",zlim = NULL){
+rscd_mapplot = function(z,name="Depth (m)",zlim = NULL,palette="YlOrRd"){
 
   xyzgz <- tibble::tibble(x = resourcecode::rscd_field$longitude[resourcecode::rscd_triangles],
                                 y = resourcecode::rscd_field$latitude[resourcecode::rscd_triangles],
@@ -21,8 +22,8 @@ rscd_mapplot = function(z,name="Depth (m)",zlim = NULL){
 
   ggplot(data=xyzgz,aes(.data$x, .data$y, group = .data$g, fill = .data$z,col=.data$z))+
     geom_polygon()+
-    scale_fill_distiller(name=name,palette = "YlOrRd",na.value = "transparent",limits=zlim)+
-    scale_color_distiller(guide='none',palette = "YlOrRd",na.value = "transparent",limits=zlim)+
+    scale_fill_distiller(name=name,palette = palette,na.value = "transparent",limits=zlim,direction=-1)+
+    scale_color_distiller(guide='none',palette = palette,na.value = "transparent",limits=zlim,direction=-1)+
     geom_path(data=resourcecode::rscd_coastline,aes(x=.data$longitude,y=.data$latitude),linewidth=.2,inherit.aes = FALSE)+
     geom_path(data=resourcecode::rscd_islands,aes(x=.data$longitude,y=.data$latitude,group=.data$ID),linewidth=.2,inherit.aes = FALSE)+
     coord_sf(expand=F,crs = sf::st_crs(4326))+

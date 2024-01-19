@@ -4,7 +4,7 @@
 \alias{rscd_mapplot}
 \title{Create a map of the provided variable on the RESOURCECODE field grid}
 \usage{
-rscd_mapplot(z, name = "Depth (m)", zlim = NULL)
+rscd_mapplot(z, name = "Depth (m)", zlim = NULL, palette = "YlOrRd")
 }
 \arguments{
 \item{z}{the data ro plot: a vector of the same size as the grid (328,030 rows).}
@@ -12,6 +12,8 @@ rscd_mapplot(z, name = "Depth (m)", zlim = NULL)
 \item{name}{name of the variable plored, to be included in the legend.}
 
 \item{zlim}{limits of the scale. See \code{\link[ggplot2]{continuous_scale}} for details.}
+
+\item{palette}{If a string, will use that named palette. See \code{\link[ggplot2]{scale_colour_brewer}} for other options.}
 }
 \value{
 a ggplot2 object
