@@ -13,7 +13,7 @@
 #'\dontrun{
 #'  rscd_mapplot(rscd_field$depth)
 #'}
-rscd_mapplot = function(z,name="Depth (m)",zlim = NULL,palette="YlOrRd"){
+rscd_mapplot = function(z,name="Depth (m)",zlim = NULL,palette="YlOrRd",direction=1){
 
   xyzgz <- tibble::tibble(x = resourcecode::rscd_field$longitude[resourcecode::rscd_triangles],
                                 y = resourcecode::rscd_field$latitude[resourcecode::rscd_triangles],
@@ -22,8 +22,8 @@ rscd_mapplot = function(z,name="Depth (m)",zlim = NULL,palette="YlOrRd"){
 
   ggplot(data=xyzgz,aes(.data$x, .data$y, group = .data$g, fill = .data$z,col=.data$z))+
     geom_polygon()+
-    scale_fill_distiller(name=name,palette = palette,na.value = "transparent",limits=zlim,direction=-1)+
-    scale_color_distiller(guide='none',palette = palette,na.value = "transparent",limits=zlim,direction=-1)+
+    scale_fill_distiller(name=name,palette = palette,na.value = "transparent",limits=zlim,direction=direction)+
+    scale_color_distiller(guide='none',palette = palette,na.value = "transparent",limits=zlim,direction=direction)+
     geom_path(data=resourcecode::rscd_coastline,aes(x=.data$longitude,y=.data$latitude),linewidth=.2,inherit.aes = FALSE)+
     geom_path(data=resourcecode::rscd_islands,aes(x=.data$longitude,y=.data$latitude,group=.data$ID),linewidth=.2,inherit.aes = FALSE)+
     coord_sf(expand=F,crs = sf::st_crs(4326))+
