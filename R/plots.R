@@ -5,6 +5,7 @@
 #' @param name name of the variable plored, to be included in the legend.
 #' @param zlim limits of the scale. See \code{\link[ggplot2]{continuous_scale}} for details.
 #' @param palette If a string, will use that named palette. See \code{\link[ggplot2]{scale_colour_brewer}} for other options.
+#' @param direction Sets the order of colours in the scale. See \code{\link[ggplot2]{scale_colour_brewer}} for details.
 #'
 #' @return a ggplot2 object
 #' @export
