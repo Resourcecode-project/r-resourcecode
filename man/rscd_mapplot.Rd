@@ -9,7 +9,8 @@ rscd_mapplot(
   name = "Depth (m)",
   zlim = NULL,
   palette = "YlOrRd",
-  direction = 1
+  direction = 1,
+  transform = "identity"
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ rscd_mapplot(
 \item{palette}{If a string, will use that named palette. See \code{\link[ggplot2]{scale_colour_brewer}} for other options.}
 
 \item{direction}{Sets the order of colours in the scale. See \code{\link[ggplot2]{scale_colour_brewer}} for details.}
+
+\item{transform}{Transformation to apply to the color scale. See \code{\link[ggplot2]{continuous_scale}} for details.}
 }
 \value{
 a ggplot2 object

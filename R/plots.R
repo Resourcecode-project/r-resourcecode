@@ -6,6 +6,7 @@
 #' @param zlim limits of the scale. See \code{\link[ggplot2]{continuous_scale}} for details.
 #' @param palette If a string, will use that named palette. See \code{\link[ggplot2]{scale_colour_brewer}} for other options.
 #' @param direction Sets the order of colours in the scale. See \code{\link[ggplot2]{scale_colour_brewer}} for details.
+#' @param transform  Transformation to apply to the color scale. See \code{\link[ggplot2]{continuous_scale}} for details.
 #'
 #' @return a ggplot2 object
 #' @export
@@ -14,7 +15,7 @@
 #'\dontrun{
 #'  rscd_mapplot(rscd_field$depth)
 #'}
-rscd_mapplot = function(z,name="Depth (m)",zlim = NULL,palette="YlOrRd",direction=1){
+rscd_mapplot = function(z,name="Depth (m)",zlim = NULL,palette="YlOrRd",direction=1,transform='identity'){
 
   xyzgz <- tibble::tibble(x = resourcecode::rscd_field$longitude[resourcecode::rscd_triangles],
                                 y = resourcecode::rscd_field$latitude[resourcecode::rscd_triangles],
@@ -23,8 +24,8 @@ rscd_mapplot = function(z,name="Depth (m)",zlim = NULL,palette="YlOrRd",directio
 
   ggplot(data=xyzgz,aes(.data$x, .data$y, group = .data$g, fill = .data$z,col=.data$z))+
     geom_polygon()+
-    scale_fill_distiller(name=name,palette = palette,na.value = "transparent",limits=zlim,direction=direction)+
-    scale_color_distiller(guide='none',palette = palette,na.value = "transparent",limits=zlim,direction=direction)+
+    scale_fill_distiller(name=name,palette = palette,na.value = "transparent",limits=zlim,direction=direction,transform=transform)+
+    scale_color_distiller(guide='none',palette = palette,na.value = "transparent",limits=zlim,direction=direction,transform=transform)+
     geom_path(data=resourcecode::rscd_coastline,aes(x=.data$longitude,y=.data$latitude),linewidth=.2,inherit.aes = FALSE)+
     geom_path(data=resourcecode::rscd_islands,aes(x=.data$longitude,y=.data$latitude,group=.data$ID),linewidth=.2,inherit.aes = FALSE)+
     coord_sf(expand=F,crs = sf::st_crs(4326))+
