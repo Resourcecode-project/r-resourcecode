@@ -31,7 +31,7 @@ Plot the bathymetry used in the project
 
 ``` r
 library(resourcecode)
-resourcecode::rscd_mapplot(resourcecode::rscd_field$depth)
+resourcecode::rscd_mapplot(resourcecode::rscd_field$depth,name = "Depth (m)",transform = "sqrt")
 ```
 
 <img src="man/figures/README-plot-bathymetry-1.png" width="100%" style="display: block; margin: auto;" />
