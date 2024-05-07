@@ -27,7 +27,7 @@ rscd_hindcast_end_date=as.POSIXct("2022-12-31 23:00:00 UTC",tz='UTC')
 rscd_casandra_start_date=as.POSIXct("1994-01-01 00:00:00 UTC",tz='UTC')
 rscd_casandra_end_date=as.POSIXct("2020-12-31 23:00:00 UTC",tz='UTC')
 
-usethis::use_data(rcd_cassandra_url,rscd_hindcast_start_date,rscd_hindcast_end_date,rscd_casandra_start_date,rscd_casandra_end_date,internal = TRUE,overwrite = TRUE)
+usethis::use_data(rcd_cassandra_url,rscd_hindcast_start_date,rscd_hindcast_end_date,rscd_casandra_start_date,rscd_casandra_end_date,internal = TRUE,version=3,overwrite = TRUE)
 
 #set up automatic "check" on several plateforms
 usethis::use_github_action()
