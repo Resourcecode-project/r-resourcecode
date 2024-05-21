@@ -34,7 +34,7 @@ Plot a wave density 2D spectrum
 }
 \examples{
 \dontshow{if (curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-  spec = get_2Dspectrum("SEMREVO",start="1994-01-01",end="1994-01-31")
-  plot_2Dspecta(spec,1)
+spec <- get_2Dspectrum("SEMREVO", start = "1994-01-01", end = "1994-01-31")
+plot_2Dspecta(spec, 1)
 \dontshow{\}) # examplesIf}
 }

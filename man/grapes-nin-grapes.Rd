@@ -18,6 +18,6 @@ the opposite of x \%in\% table
 Value Matching
 }
 \examples{
-1:10 \%in\% c(1,3,5,9)
-1:10 \%nin\% c(1,3,5,9)
+1:10 \%in\% c(1, 3, 5, 9)
+1:10 \%nin\% c(1, 3, 5, 9)
 }

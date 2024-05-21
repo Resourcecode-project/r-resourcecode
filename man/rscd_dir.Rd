@@ -11,12 +11,13 @@ An array of length 36 with the directionnal bins
 }
 }
 \source{
-User Manual of the RESOURCECODE database \url{https://archimer.ifremer.fr/doc/00751/86306/}
+User Manual of the RESOURCECODE database
+\url{https://archimer.ifremer.fr/doc/00751/86306/}
 }
 \usage{
 rscd_dir
 }
 \description{
-directional resolution of 10°;
+(equivalent to a directional resolution of 10°;
 }
 \keyword{datasets}

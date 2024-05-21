@@ -15,7 +15,8 @@ A matrix with 3 rows and 566506 columns:
 }
 }
 \source{
-User Manual of the RESOURCECODE database \url{https://archimer.ifremer.fr/doc/00751/86306/}
+User Manual of the RESOURCECODE database
+\url{https://archimer.ifremer.fr/doc/00751/86306/}
 }
 \usage{
 rscd_triangles

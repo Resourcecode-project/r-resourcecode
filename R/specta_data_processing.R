@@ -214,8 +214,10 @@ compute_sea_state_2Dspectrum <- function(spec, ...) {
   c2 <- sqrt(g * tanh(kd) / k)
   cg <- 0.5 * c1 * c2
 
+
   # Energy flux
-  out$cge <- water_density * g * apply(cg * Ef, 2, pracma::trapz, x = spec$freq) / 1000 # convert to kW/m to be consistent with outputs from WWIII
+  out$cge <- water_density * g * apply(cg * Ef, 2, pracma::trapz, x = spec$freq) / 1000
+  # convert to kW/m to be consistent with outputs from WWIII
 
   # Compute mean direction from  and spreading (°)
   aa <- sweep(spec$efth, 1, as.array(cos(spec$dir * pi / 180)), FUN = "*")
@@ -293,7 +295,8 @@ compute_sea_state_1Dspectrum <- function(spec, ...) {
 
   # fp evaluaton using spline fitting around Ef peak
   nk <- length(spec$freq)
-  freqp <- stats::approx(1:nk, spec$freq, xout = seq(from = 1, to = nk, length = 30 * nk)) # Augment frequency resolution by 30
+  # Augment frequency resolution by 30
+  freqp <- stats::approx(1:nk, spec$freq, xout = seq(from = 1, to = nk, length = 30 * nk))
   Efp <- apply(spec$ef, 2, \(y){
     stats::spline(x = spec$freq, xout = freqp$y, method = "natural", y)$y
   }) # natural (i.e. "cubic") spline
@@ -325,8 +328,8 @@ compute_sea_state_1Dspectrum <- function(spec, ...) {
   c2 <- sqrt(g * tanh(kd) / k)
   cg <- 0.5 * c1 * c2
 
-  # Energy flux
-  out$cge <- water_density * g * apply(cg * spec$ef, 2, pracma::trapz, x = spec$freq) / 1000 # convert to kW/m to be consistent with outputs from WWIII
+  # Energy flux, converted to kW/m to be consistent with outputs from WWIII
+  out$cge <- water_density * g * apply(cg * spec$ef, 2, pracma::trapz, x = spec$freq) / 1000
 
   # Compute mean direction from  and spreading (°)
 

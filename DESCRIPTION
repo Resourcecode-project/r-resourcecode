@@ -15,7 +15,6 @@ Depends:
     R (>= 3.6)
 Imports: 
     abind,
-    arrow,
     curl,
     geosphere,
     ggplot2,
@@ -31,7 +30,7 @@ Imports:
 Suggests: 
     knitr,
     rmarkdown,
-    testthat (>= 3.0.0),
+    testthat,
     vdiffr
 LinkingTo: 
     Rcpp,

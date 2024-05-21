@@ -21,13 +21,13 @@ get_parameters(
 \item{end}{ending date (as integer, character or posixct)}
 }
 \value{
-a tibble with as many rows as needed and as \code{length(parameters)} columns.
+a tibble with N-rows and \code{length(parameters)} columns.
 }
 \description{
 Download time series of sea-state parameters from RESOURCECODE database
 }
 \examples{
 \dontrun{
-   ts = get_parameters(parameters=c("hs","tp"),node=42)
-   }
+ts <- get_parameters(parameters = c("hs", "tp"), node = 42)
+}
 }

@@ -17,13 +17,14 @@ A data frame with 328,030 rows and 5 columns:
 }
 }
 \source{
-User Manual of the RESOURCECODE database \url{https://archimer.ifremer.fr/doc/00751/86306/}
+User Manual of the RESOURCECODE database
+\url{https://archimer.ifremer.fr/doc/00751/86306/}
 }
 \usage{
 rscd_field
 }
 \description{
-This data contains the location and characteristics of the 328,030 nodes where the
-RESOURCECODE hindcast data is available
+This data contains the location and characteristics of the 328,030 nodes
+where the RESOURCECODE hindcast data is available
 }
 \keyword{datasets}

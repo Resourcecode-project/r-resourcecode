@@ -20,11 +20,14 @@ rscd_mapplot(
 
 \item{zlim}{limits of the scale. See \code{\link[ggplot2]{continuous_scale}} for details.}
 
-\item{palette}{If a string, will use that named palette. See \code{\link[ggplot2]{scale_colour_brewer}} for other options.}
+\item{palette}{If a string, will use that named palette.
+See \code{\link[ggplot2]{scale_colour_brewer}} for other options.}
 
-\item{direction}{Sets the order of colours in the scale. See \code{\link[ggplot2]{scale_colour_brewer}} for details.}
+\item{direction}{Sets the order of colours in the scale.
+See \code{\link[ggplot2]{scale_colour_brewer}} for details.}
 
-\item{transform}{Transformation to apply to the color scale. See \code{\link[ggplot2]{continuous_scale}} for details.}
+\item{transform}{Transformation to apply to the color scale.
+See \code{\link[ggplot2]{continuous_scale}} for details.}
 }
 \value{
 a ggplot2 object
@@ -34,6 +37,6 @@ Create a map of the provided variable on the RESOURCECODE field grid
 }
 \examples{
 \dontrun{
- rscd_mapplot(rscd_field$depth)
+rscd_mapplot(rscd_field$depth)
 }
 }

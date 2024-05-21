@@ -15,12 +15,14 @@ A data frame with 24403 rows and 3 columns:
 }
 }
 \source{
-User Manual of the RESOURCECODE database \url{https://archimer.ifremer.fr/doc/00751/86306/}
+User Manual of the RESOURCECODE database
+\url{https://archimer.ifremer.fr/doc/00751/86306/}
 }
 \usage{
 rscd_coastline
 }
 \description{
-This data contains the coastline used to run the RESOURCECODE hindcast. This will be mainly used for ploting purpose.
+This data contains the coastline used to run the RESOURCECODE hindcast.
+This will be mainly used for ploting purpose.
 }
 \keyword{datasets}

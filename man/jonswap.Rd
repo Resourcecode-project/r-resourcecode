@@ -31,9 +31,9 @@ ITTC Committee, 2002, "The Specialist Committee on Waves - Final Report and Reco
 Proc. ITTC, vol. II, pp. 505-736.
 }
 \examples{
-S1 = jonswap(tp=15)
-S2 = jonswap(tp=15,fmax=0.95,df=0.003)
-plot(S1,type='l',ylim=c(0,72))
-lines(S2,col='red')
-abline(v=1/15)
+S1 <- jonswap(tp = 15)
+S2 <- jonswap(tp = 15, fmax = 0.95, df = 0.003)
+plot(S1, type = "l", ylim = c(0, 72))
+lines(S2, col = "red")
+abline(v = 1 / 15)
 }

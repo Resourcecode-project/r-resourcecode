@@ -21,6 +21,6 @@ Converts wind or current zonal and meridional velocity components to
 magnitude and direction according to meteorological convention.
 }
 \examples{
- u = matrix(rnorm(200),nrow=100,ncol=2)
- vdir = zmcomp2metconv(u)
+u <- matrix(rnorm(200), nrow = 100, ncol = 2)
+vdir <- zmcomp2metconv(u)
 }

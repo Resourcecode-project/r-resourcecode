@@ -24,11 +24,11 @@ Compute the dispersion relation of waves
 Find \emph{k} s.t. (2.pi.f)^2 = g.k.tanh(k.d)
 }
 \examples{
-freq = seq(from=0,to=1,length.out=100)
-k1 = dispersion(freq, depth=1)
-k10 = dispersion(freq, depth=10)
-kInf = dispersion(freq, depth=Inf)
-plot(freq,k1,type="l")
-lines(freq,k10,col='red')
-lines(freq,kInf,col='green')
+freq <- seq(from = 0, to = 1, length.out = 100)
+k1 <- dispersion(freq, depth = 1)
+k10 <- dispersion(freq, depth = 10)
+kInf <- dispersion(freq, depth = Inf)
+plot(freq, k1, type = "l")
+lines(freq, k10, col = "red")
+lines(freq, kInf, col = "green")
 }

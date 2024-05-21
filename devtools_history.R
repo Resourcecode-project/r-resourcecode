@@ -29,6 +29,7 @@ rscd_casandra_end_date=as.POSIXct("2020-12-31 23:00:00",tz='UTC')
 
 usethis::use_data(rcd_cassandra_url,rscd_hindcast_start_date,rscd_hindcast_end_date,rscd_casandra_start_date,rscd_casandra_end_date,internal = TRUE,version=3,overwrite = TRUE)
 
+
 #set up automatic "check" on several plateforms
 usethis::use_github_action()
 
@@ -63,3 +64,11 @@ usethis::use_github_action("test-coverage")
 
 #Rcpp Armadillo for fast multivariate trapz
 usethis::use_rcpp_armadillo("fast_trapz.cpp")
+
+# Lintr checks and GHA
+install.packages("lintr")
+install.packages("styler")
+lintr::lint_package()
+usethis::use_github_action("lint")
+styler::style_pkg()
+lintr::line_length_linter(length = 100L)

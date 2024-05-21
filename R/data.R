@@ -11,6 +11,7 @@
 #'   \item{depth}{depth of the node}
 #'   \item{d50}{Bottom sediment types}
 #' }
+#'
 #' @source User Manual of the RESOURCECODE database
 #' <https://archimer.ifremer.fr/doc/00751/86306/>
 "rscd_field"

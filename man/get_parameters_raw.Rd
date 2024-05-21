@@ -24,5 +24,6 @@ get_parameters_raw(
 a tibble with 2 columns and as many rows as needed
 }
 \description{
-No verification is made within this function, and thus it should not be called directly by the user
+No verification is made within this function, and thus it should not
+be called directly by the user
 }
