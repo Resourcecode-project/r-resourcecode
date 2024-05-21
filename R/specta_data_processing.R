@@ -85,14 +85,20 @@ dispersion <- function(frequencies, depth, iter_max = 200, tol = 1e-6) {
 #'   xaxt = "n",
 #'   main = "Directionnal spreading"
 #' )
-#' axis.POSIXct(1, spec1D$forcings$time, at = seq(r[1], r[2], by = "week"), format = "%Y-%m-%d", las = 2)
+#' axis.POSIXct(1, spec1D$forcings$time,
+#'  at = seq(r[1], r[2], by = "week"),
+#'  format = "%Y-%m-%d",
+#'  las = 2)
 #' image(spec1D_RSCD$forcings$time, spec1D_RSCD$freq, t(spec1D_RSCD$th1m),
 #'   zlim = lims,
 #'   xlab = "Time",
 #'   ylab = "Freq (Hz)",
 #'   xaxt = "n"
 #' )
-#' axis.POSIXct(1, spec1D$forcings$time, at = seq(r[1], r[2], by = "week"), format = "%Y-%m-%d", las = 2)
+#' axis.POSIXct(1, spec1D$forcings$time,
+#' at = seq(r[1], r[2], by = "week"),
+#' format = "%Y-%m-%d",
+#' las = 2)
 convert_spectrum_2D1D <- function(spec, ...) {
   ddir <- diff(spec$dir)[1] * pi / 180 # computes the discretization in direction
 
@@ -154,7 +160,7 @@ convert_spectrum_2D1D <- function(spec, ...) {
 #' lines(rscd_params$time, rscd_params$cge, col = "red")
 #' plot(param_calc$time, param_calc$tp, type = "l", xlab = "Time", ylab = "Tp (s)")
 #' lines(rscd_params$time, rscd_params$tp, col = "red")
-#' plot(param_calc$time, param_calc$dp, type = "l", xlab = "Time", ylab = "Peak direction (°)")
+#' plot(param_calc$time, param_calc$dp, type = "l", xlab = "Time", ylab = "Dp (°)")
 #' lines(rscd_params$time, rscd_params$dp, col = "red")
 compute_sea_state_2Dspectrum <- function(spec, ...) {
   # Define an internal function that will do the job for a time-step

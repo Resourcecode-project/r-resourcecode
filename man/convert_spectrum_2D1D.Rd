@@ -39,12 +39,18 @@ image(spec1D$forcings$time, spec1D$freq, t(spec1D$th1m),
   xaxt = "n",
   main = "Directionnal spreading"
 )
-axis.POSIXct(1, spec1D$forcings$time, at = seq(r[1], r[2], by = "week"), format = "\%Y-\%m-\%d", las = 2)
+axis.POSIXct(1, spec1D$forcings$time,
+ at = seq(r[1], r[2], by = "week"),
+ format = "\%Y-\%m-\%d",
+ las = 2)
 image(spec1D_RSCD$forcings$time, spec1D_RSCD$freq, t(spec1D_RSCD$th1m),
   zlim = lims,
   xlab = "Time",
   ylab = "Freq (Hz)",
   xaxt = "n"
 )
-axis.POSIXct(1, spec1D$forcings$time, at = seq(r[1], r[2], by = "week"), format = "\%Y-\%m-\%d", las = 2)
+axis.POSIXct(1, spec1D$forcings$time,
+at = seq(r[1], r[2], by = "week"),
+format = "\%Y-\%m-\%d",
+las = 2)
 }

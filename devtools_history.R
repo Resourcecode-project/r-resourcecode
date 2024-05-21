@@ -68,7 +68,7 @@ usethis::use_rcpp_armadillo("fast_trapz.cpp")
 # Lintr checks and GHA
 install.packages("lintr")
 install.packages("styler")
+lintr::use_lintr()
 lintr::lint_package()
 usethis::use_github_action("lint")
 styler::style_pkg()
-lintr::line_length_linter(length = 100L)
