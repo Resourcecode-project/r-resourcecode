@@ -28,19 +28,17 @@ rscd_mapplot <- function(z, name = "Depth (m)", zlim = NULL, palette = "YlOrRd",
     scale_color_distiller(guide = "none", palette = palette, na.value = "transparent", limits = zlim, direction = direction, transform = transform) +
     geom_path(data = resourcecode::rscd_coastline, aes(x = .data$longitude, y = .data$latitude), linewidth = .2, inherit.aes = FALSE) +
     geom_path(data = resourcecode::rscd_islands, aes(x = .data$longitude, y = .data$latitude, group = .data$ID), linewidth = .2, inherit.aes = FALSE) +
-    coord_sf(expand = F, crs = sf::st_crs(4326)) +
+    coord_sf(expand = FALSE, crs = sf::st_crs(4326)) +
     theme_void() +
     theme(
       legend.position = "inside",
       legend.position.inside = c(.8, 0.2),
-      # legend.direction = "horizontal",
       legend.margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "pt"),
       plot.margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "pt"),
       axis.text.x = element_blank(),
       axis.ticks.x = element_blank(),
       axis.text.y = element_blank(),
       axis.ticks.y = element_blank(),
-      # legend.box="vertical",
       panel.border = element_rect(
         color = "black",
         fill = NA,

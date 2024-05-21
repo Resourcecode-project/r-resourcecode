@@ -12,7 +12,7 @@
 #' @examples
 #' # Compute orbital speed for varying Hs
 #' S <- t(sapply(1:10, \(h) jonswap(h)$spec))
-#' orb_speeds <- calc_obtital_speeds(S, rscd_freq, depth = 100, z = 10)
+#' orb_speeds <- calc_orbital_speeds(S, rscd_freq, depth = 100, z = 10)
 #' plot(1:10, orb_speeds[, 1],
 #'   type = "l",
 #'   ylim = range(orb_speeds),
@@ -20,7 +20,7 @@
 #'   ylab = "Orbital speed RMS (m/s)"
 #' )
 #' lines(1:10, orb_speeds[, 2], type = "l", col = "red")
-calc_obtital_speeds <- function(S, freq, z = 0, depth = Inf, spec = FALSE) {
+calc_orbital_speeds <- function(S, freq, z = 0, depth = Inf, spec = FALSE) {
   # z: distance above sea floor
 
   dims <- dim(S)
@@ -41,7 +41,7 @@ calc_obtital_speeds <- function(S, freq, z = 0, depth = Inf, spec = FALSE) {
 
   mat_d <- matrix(depth, nrow = n_time, ncol = n_freq)
   mat_depth <- matrix(z, nrow = n_time, ncol = n_freq)
-  mat_freq <- matrix(freq, nrow = n_time, ncol = n_freq, byrow = T)
+  mat_freq <- matrix(freq, nrow = n_time, ncol = n_freq, byrow = TRUE)
 
 
   csh1 <- cosh(mat_k * mat_depth)

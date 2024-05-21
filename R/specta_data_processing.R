@@ -231,9 +231,9 @@ compute_sea_state_2Dspectrum <- function(spec, ...) {
   iEfm <- apply(Ef, 2, which.max) # peak of the spectrum
   Efm <- array(0, dim = c(36, dim(spec$efth)[3]))
 
-  for (t in 1:dim(spec$efth)[3]) {
+  for (t in seq_len(dim(spec$efth)[3])) {
     Efm[, t] <- spec$efth[, iEfm[t], t]
-  } # do knwo how to avoid the loop, maybe using slice.index ?
+  } # don't know how to avoid the loop, maybe using slice.index ?
 
   apm <- apply(sweep(Efm, 1, as.array(cos(spec$dir * pi / 180)), "*") * ddir, 2, sum)
   bpm <- apply(sweep(Efm, 1, as.array(sin(spec$dir * pi / 180)), "*") * ddir, 2, sum)
@@ -337,7 +337,7 @@ compute_sea_state_1Dspectrum <- function(spec, ...) {
   iEfm <- apply(spec$ef, 2, which.max) # peak of the spectrum
   dp <- vector("numeric", dim(spec$ef)[2])
 
-  for (t in 1:dim(spec$ef)[2]) {
+  for (t in seq_len(dim(spec$ef)[2])) {
     dp[t] <- spec$th1m[iEfm[t], t]
   } # dont know how to avoid the loop, maybe using slice.index?
   out$dp <- dp
