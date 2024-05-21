@@ -4,7 +4,7 @@
 #' @param freq the M frequencies
 #' @param z distance above the floor at which we want the orbital speed (single numeric)
 #' @param depth depth time series (vector length T. Recycled if a single value is given)
-#' @param spec TRUE if the spectral speed are needed. Otherwise, returns the RMS (default)
+#' @param output_speeds TRUE if the spectral speed are needed. Otherwise, returns the RMS (default)
 #'
 #' @return depending on spec, a lsit or a data.frame
 #' @export
@@ -20,10 +20,10 @@
 #'   ylab = "Orbital speed RMS (m/s)"
 #' )
 #' lines(1:10, orb_speeds[, 2], type = "l", col = "red")
-calc_orbital_speeds <- function(S, freq, z = 0, depth = Inf, spec = FALSE) {
+calc_orbital_speeds <- function(spec, freq, z = 0, depth = Inf, output_speeds = FALSE) {
   # z: distance above sea floor
 
-  dims <- dim(S)
+  dims <- dim(spec)
   n_time <- dims[1]
   n_freq <- dims[2]
 
@@ -36,7 +36,8 @@ calc_orbital_speeds <- function(S, freq, z = 0, depth = Inf, spec = FALSE) {
   stopifnot(all(z <= depth))
 
   # Compute k efficiently when depth is discretized
-  k <- outer(freq, unique(depth), Vectorize(resourcecode::dispersion, vectorize.args = c("frequencies", "depth")))
+  k <- outer(freq, unique(depth),
+             Vectorize(resourcecode::dispersion, vectorize.args = c("frequencies", "depth")))
   mat_k <- t(k[, match(depth, unique(depth))])
 
   mat_d <- matrix(depth, nrow = n_time, ncol = n_freq)
@@ -48,18 +49,18 @@ calc_orbital_speeds <- function(S, freq, z = 0, depth = Inf, spec = FALSE) {
   ssh1 <- sinh(mat_k * mat_depth)
   ssh2 <- sinh(mat_k * mat_d)
 
-  Su <- (2 * pi * mat_freq * csh1 / ssh2)^2 * S
+  spectral_u_component <- (2 * pi * mat_freq * csh1 / ssh2)^2 * spec
 
-  Sv <- (2 * pi * mat_freq * ssh1 / ssh2)^2 * S
+  spectral_v_component <- (2 * pi * mat_freq * ssh1 / ssh2)^2 * spec
 
-  if (spec) {
-    out <- array(NA, dim = c(dim(Su), 2))
-    out[, , 1] <- Su
-    out[, , 2] <- Sv
+  if (output_speeds) {
+    out <- array(NA, dim = c(dim(spectral_u_component), 2))
+    out[, , 1] <- spectral_u_component
+    out[, , 2] <- spectral_v_component
     return(out)
   } else {
-    u_rms <- sqrt(2 * resourcecode::fastTrapz(freq, Su, 2))
-    v_rms <- sqrt(2 * resourcecode::fastTrapz(freq, Sv, 2))
+    u_rms <- sqrt(2 * resourcecode::fastTrapz(freq, spectral_u_component, 2))
+    v_rms <- sqrt(2 * resourcecode::fastTrapz(freq, spectral_v_component, 2))
     return(cbind(u_rms, v_rms))
   }
 }

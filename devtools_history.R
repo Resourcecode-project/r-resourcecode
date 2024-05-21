@@ -72,3 +72,5 @@ lintr::use_lintr()
 lintr::lint_package()
 usethis::use_github_action("lint")
 styler::style_pkg()
+
+attachment::att_amend_desc()

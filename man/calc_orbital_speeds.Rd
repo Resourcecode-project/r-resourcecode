@@ -4,18 +4,18 @@
 \alias{calc_orbital_speeds}
 \title{Compute the orbital speed at a given depth from the wave elevation 1D spectra}
 \usage{
-calc_orbital_speeds(S, freq, z = 0, depth = Inf, spec = FALSE)
+calc_orbital_speeds(spec, freq, z = 0, depth = Inf, output_speeds = FALSE)
 }
 \arguments{
-\item{S}{1D spectral data: TxM matrix}
-
 \item{freq}{the M frequencies}
 
 \item{z}{distance above the floor at which we want the orbital speed (single numeric)}
 
 \item{depth}{depth time series (vector length T. Recycled if a single value is given)}
 
-\item{spec}{TRUE if the spectral speed are needed. Otherwise, returns the RMS (default)}
+\item{output_speeds}{TRUE if the spectral speed are needed. Otherwise, returns the RMS (default)}
+
+\item{S}{1D spectral data: TxM matrix}
 }
 \value{
 depending on spec, a lsit or a data.frame
