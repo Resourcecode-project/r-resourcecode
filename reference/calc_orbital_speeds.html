@@ -54,16 +54,12 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calc_orbital_speeds</span><span class="op">(</span><span class="va">S</span>, <span class="va">freq</span>, z <span class="op">=</span> <span class="fl">0</span>, depth <span class="op">=</span> <span class="cn">Inf</span>, spec <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calc_orbital_speeds</span><span class="op">(</span><span class="va">spec</span>, <span class="va">freq</span>, z <span class="op">=</span> <span class="fl">0</span>, depth <span class="op">=</span> <span class="cn">Inf</span>, output_speeds <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>S</dt>
-<dd><p>1D spectral data: TxM matrix</p></dd>
-
-
-<dt>freq</dt>
+    <dl><dt>freq</dt>
 <dd><p>the M frequencies</p></dd>
 
 
@@ -75,8 +71,12 @@
 <dd><p>depth time series (vector length T. Recycled if a single value is given)</p></dd>
 
 
-<dt>spec</dt>
+<dt>output_speeds</dt>
 <dd><p>TRUE if the spectral speed are needed. Otherwise, returns the RMS (default)</p></dd>
+
+
+<dt>S</dt>
+<dd><p>1D spectral data: TxM matrix</p></dd>
 
 </dl></div>
     <div class="section level2">
