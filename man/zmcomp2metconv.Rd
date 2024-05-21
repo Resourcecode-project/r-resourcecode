@@ -4,15 +4,17 @@
 \alias{zmcomp2metconv}
 \title{Vector conversion}
 \usage{
-zmcomp2metconv(u, v = NULL)
+zmcomp2metconv(u, v = NULL, names = c("wspd", "wdir"))
 }
 \arguments{
 \item{u}{zonal velocity (1D vector) or matrix with zonal and meridional velocity (Nx2 matrix)}
 
 \item{v}{meridional velocity (1D vector)}
+
+\item{names}{names to construct the resulting data.frame}
 }
 \value{
-a Nx2 matrix with the norm and direction (meteorological convention)
+a Nx2 data.frame with the norm and direction (meteorological convention)
 }
 \description{
 Converts wind or current zonal and meridional velocity components to

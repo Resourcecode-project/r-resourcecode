@@ -47,14 +47,14 @@ head(rscd_variables)
 The available location can be plotted on a map using the following code. It can be noticed here that the variables `rscd_coastline` and `rscd_islands` contain the path of the coast line and the islands, respectively.
 
 ```{r, fig.retina=3}
-lim_lon = c(-5.25, -4.25)
-lim_lat = c(47.75, 48.75)
-field_BZH = ggplot(rscd_field,aes(x=longitude,y=latitude))+
-    geom_point(size=.1,col='lightblue')+
-    geom_path(data=rscd_coastline,linewidth=.2)+
-    geom_path(data=rscd_islands,aes(group=.data$ID),linewidth=.2)+
-    coord_sf(xlim=lim_lon,ylim=lim_lat,expand=F,crs = sf::st_crs(4326))+
-    theme_void()
+lim_lon <- c(-5.25, -4.25)
+lim_lat <- c(47.75, 48.75)
+field_BZH <- ggplot(rscd_field, aes(x = longitude, y = latitude)) +
+  geom_point(size = .1, col = "lightblue") +
+  geom_path(data = rscd_coastline, linewidth = .2) +
+  geom_path(data = rscd_islands, aes(group = .data$ID), linewidth = .2) +
+  coord_sf(xlim = lim_lon, ylim = lim_lat, expand = F, crs = sf::st_crs(4326)) +
+  theme_void()
 field_BZH
 ```
 
@@ -69,7 +69,7 @@ head(rscd_spectral)
 
 
 ```{r, fig.retina=3}
-field_BZH + geom_point(data=rscd_spectral,col='orange',size=.1)
+field_BZH + geom_point(data = rscd_spectral, col = "orange", size = .1)
 ```
 
 - Helpers to find points
@@ -85,45 +85,47 @@ We have two different sources of data, the FIELD grid, and the SPEC grid. We wil
 For example, if one is interested in the time series of sea-state parameters at some location, the following code can be adapted:
 
 ```{r, fig.height=4,fig.width=8,warning=FALSE,message=FALSE}
-point_of_interest = c( longitude=-4.6861533,latitude=48.3026514)
-node = closest_point_FIELD(point_of_interest)
+point_of_interest <- c(longitude = -4.6861533, latitude = 48.3026514)
+node <- closest_point_FIELD(point_of_interest)
 node
-ts = get_parameters(node=node$point,parameters = c("hs",'tp','dp','cge'))
-ggplot(tidyr::pivot_longer(ts,-1),aes(x=time,y=value,col=name))+
-  geom_line()+
-  coord_cartesian(expand=F)+
-  facet_wrap(~name,ncol = 2,scales="free_y")+
-  scale_x_datetime(name=NULL,date_breaks = "month")+
-  scale_y_continuous(name=NULL)+
-  theme_minimal()+
-  theme(legend.position = 'none',
-        axis.text.x=element_text(angle=60, hjust=1))
+ts <- get_parameters(node = node$point, parameters = c("hs", "tp", "dp", "cge"))
+ggplot(tidyr::pivot_longer(ts, -1), aes(x = time, y = value, col = name)) +
+  geom_line() +
+  coord_cartesian(expand = F) +
+  facet_wrap(~name, ncol = 2, scales = "free_y") +
+  scale_x_datetime(name = NULL, date_breaks = "month") +
+  scale_y_continuous(name = NULL) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text.x = element_text(angle = 60, hjust = 1)
+  )
 ```
 
 - 1D and 2D spectra of the SPEC grid can be downloaded directly from IFREMER FTP using functions `get_1Dspectrum()` and `get_2Dspectrum()`. We also provide a plotting function for the 2D spectrum.
 
 ```{r}
-node_SPEC = closest_point_SPEC(point_of_interest)
+node_SPEC <- closest_point_SPEC(point_of_interest)
 ```
 
 Then one can extract the 1D spectrum time-series and see the contents of these downloaded data.
 
 ```{r}
-spec1D = get_1Dspectrum(node_SPEC$point,start="1994-01-01",end="1994-02-28")
+spec1D <- get_1Dspectrum(node_SPEC$point, start = "1994-01-01", end = "1994-02-28")
 str(spec1D)
 ```
 
 The same applies to 2D spectra.
 
 ```{r}
-spec2D = get_2Dspectrum(node_SPEC$point,start="1994-01-01",end="1994-02-28")
+spec2D <- get_2Dspectrum(node_SPEC$point, start = "1994-01-01", end = "1994-02-28")
 str(spec1D)
 ```
 
 In addition, it is possible to plot the wave elevation directional spectra for any given time, which can be specified by the time index or directly the date:
 
 ```{r,warning=FALSE, fig.height=8,fig.width=8}
-plot_2Dspecta(spec2D,"1994-01-15 18:00")
+plot_2Dspecta(spec2D, "1994-01-15 18:00")
 ```
 
 
