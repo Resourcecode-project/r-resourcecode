@@ -1,6 +1,6 @@
 #' Compute the orbital speed at a given depth from the wave elevation 1D spectra
 #'
-#' @param S 1D spectral data: TxM matrix
+#' @param spec 1D spectral data: TxM matrix
 #' @param freq the M frequencies
 #' @param z distance above the floor at which we want the orbital speed (single numeric)
 #' @param depth depth time series (vector length T. Recycled if a single value is given)
@@ -12,7 +12,7 @@
 #' @examples
 #' # Compute orbital speed for varying Hs
 #' S <- t(sapply(1:10, \(h) jonswap(h)$spec))
-#' orb_speeds <- calc_orbital_speeds(S, rscd_freq, depth = 100, z = 10)
+#' orb_speeds <- compute_orbital_speeds(S, rscd_freq, depth = 100, z = 10)
 #' plot(1:10, orb_speeds[, 1],
 #'   type = "l",
 #'   ylim = range(orb_speeds),
@@ -20,7 +20,7 @@
 #'   ylab = "Orbital speed RMS (m/s)"
 #' )
 #' lines(1:10, orb_speeds[, 2], type = "l", col = "red")
-calc_orbital_speeds <- function(spec, freq, z = 0, depth = Inf, output_speeds = FALSE) {
+compute_orbital_speeds <- function(spec, freq, z = 0, depth = Inf, output_speeds = FALSE) {
   # z: distance above sea floor
 
   dims <- dim(spec)
