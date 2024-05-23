@@ -4,7 +4,8 @@
 - `zmcomp2metconv` outputs a data.frame and gains an argument to name columns
 - Fixed deprecated arguments in `ggplot::theme()` used in `rscd_mapplot`
 - rename`compute_orbital_speeds` to `compute_orbital_speeds`
-- remove dependancy to `{arrow}`
+- remove dependency to `{arrow}`
+- make data smaller by using `tools::resaveRdaFiles("data/")`
 
 ## Initial version with very crude functionalities
 

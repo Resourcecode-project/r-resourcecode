@@ -14,6 +14,9 @@ rscd_freq = array(0.0339*1.1^(0:35))
 rscd_dir = array(seq(from=0,to=350,by=10))
 usethis::use_data(rscd_field,rscd_spectral,rscd_coastline,rscd_islands,rscd_triangles,rscd_variables,rscd_freq,rscd_dir,version=3,overwrite = TRUE)
 
+tools::resaveRdaFiles("data/")
+tools::checkRdaFiles("data/")
+
 usethis::use_description()
 
 usethis::use_build_ignore("dev/")
