@@ -22,13 +22,13 @@
     <loc>https://nraillard.github.io/resourcecode/news/index.html</loc>
   </url>
   <url>
-    <loc>https://nraillard.github.io/resourcecode/reference/calc_orbital_speeds.html</loc>
-  </url>
-  <url>
     <loc>https://nraillard.github.io/resourcecode/reference/closest_point_FIELD.html</loc>
   </url>
   <url>
     <loc>https://nraillard.github.io/resourcecode/reference/closest_point_SPEC.html</loc>
+  </url>
+  <url>
+    <loc>https://nraillard.github.io/resourcecode/reference/compute_orbital_speeds.html</loc>
   </url>
   <url>
     <loc>https://nraillard.github.io/resourcecode/reference/compute_sea_state_1Dspectrum.html</loc>

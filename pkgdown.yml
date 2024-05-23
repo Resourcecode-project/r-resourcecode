@@ -3,7 +3,7 @@ pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
   resourcecode: resourcecode.html
-last_built: 2024-05-21T21:26Z
+last_built: 2024-05-23T08:17Z
 urls:
   reference: https://nraillard.github.io/resourcecode/reference
   article: https://nraillard.github.io/resourcecode/articles

@@ -91,14 +91,7 @@ vignette the way to retrieve data from this database and some the
 functionalities offered by this package.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/NRaillard/resourcecode" class="external-link">resourcecode</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: arrow</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Attaching package: 'arrow'</span></span>
-<span><span class="co">#&gt; The following object is masked from 'package:utils':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     timestamp</span></span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="database-configuration-nodes-bathymetry">Database configuration: nodes, bathymetry…<a class="anchor" aria-label="anchor" href="#database-configuration-nodes-bathymetry"></a>
 </h2>
@@ -115,16 +108,15 @@ data at each node.</p>
 <p>The variable <code>rscd_field</code> contains the coordinates of the
 FIELD grid, along with the depth of these points and <code>d50</code>,
 the bottom sediment type.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">rscd_field</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Classes 'data.table' and 'data.frame':   328030 obs. of  5 variables:</span></span>
+<span><span class="co">#&gt; 'data.frame':    328030 obs. of  5 variables:</span></span>
 <span><span class="co">#&gt;  $ node     : int  1 2 3 4 5 6 7 8 9 10 ...</span></span>
 <span><span class="co">#&gt;  $ longitude: num  6.92 6.91 6.92 6.93 6.95 ...</span></span>
 <span><span class="co">#&gt;  $ latitude : num  62.9 62.9 62.9 62.9 62.9 ...</span></span>
 <span><span class="co">#&gt;  $ depth    : num  3 3 3 3 3 3 3 3 3 3 ...</span></span>
-<span><span class="co">#&gt;  $ d50      : num  0 1.32 1.32 1.32 1.32 ...</span></span>
-<span><span class="co">#&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt;</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<span><span class="co">#&gt;  $ d50      : num  0 1.32 1.32 1.32 1.32 ...</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">rscd_field</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   node longitude latitude depth   d50</span></span>
 <span><span class="co">#&gt; 1    1  6.922498 62.91467     3 0.000</span></span>
@@ -135,28 +127,26 @@ the bottom sediment type.</p>
 <span><span class="co">#&gt; 6    6  6.958059 62.89899     3 1.322</span></span></code></pre></div>
 <p>At each location, a large number of sea-state parameters are
 available, described in <code>rscd_variables</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">rscd_variables</span><span class="op">)</span></span>
-<span><span class="co">#&gt; tibble [88 × 3] (S3: tbl_df/tbl/data.frame)</span></span>
-<span><span class="co">#&gt;  $ name    : chr [1:88] "longitude" "latitude" "tri" "MAPSTA" ...</span></span>
-<span><span class="co">#&gt;  $ longname: chr [1:88] "longitude" "latitude" "tri" "status map" ...</span></span>
-<span><span class="co">#&gt;  $ unit    : chr [1:88] "degree_east" "degree_north" "" "1" ...</span></span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<span><span class="co">#&gt; 'data.frame':    88 obs. of  3 variables:</span></span>
+<span><span class="co">#&gt;  $ name    : chr  "longitude" "latitude" "tri" "MAPSTA" ...</span></span>
+<span><span class="co">#&gt;  $ longname: chr  "longitude" "latitude" "tri" "status map" ...</span></span>
+<span><span class="co">#&gt;  $ unit    : chr  "degree_east" "degree_north" "" "1" ...</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">rscd_variables</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 3</span></span></span>
-<span><span class="co">#&gt;   name      longname         unit          </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> longitude longitude        <span style="color: #949494;">"</span>degree_east<span style="color: #949494;">"</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> latitude  latitude         <span style="color: #949494;">"</span>degree_north<span style="color: #949494;">"</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> tri       tri              <span style="color: #949494;">""</span>            </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> MAPSTA    status map       <span style="color: #949494;">"</span>1<span style="color: #949494;">"</span>           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> dpt       depth            <span style="color: #949494;">"</span>m<span style="color: #949494;">"</span>           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ucur      eastward current <span style="color: #949494;">"</span>m s-1<span style="color: #949494;">"</span></span></span></code></pre></div>
+<span><span class="co">#&gt;        name         longname         unit</span></span>
+<span><span class="co">#&gt; 1 longitude        longitude  degree_east</span></span>
+<span><span class="co">#&gt; 2  latitude         latitude degree_north</span></span>
+<span><span class="co">#&gt; 3       tri              tri             </span></span>
+<span><span class="co">#&gt; 4    MAPSTA       status map            1</span></span>
+<span><span class="co">#&gt; 5       dpt            depth            m</span></span>
+<span><span class="co">#&gt; 6      ucur eastward current        m s-1</span></span></code></pre></div>
 <p>The available location can be plotted on a map using the following
 code. It can be noticed here that the variables
 <code>rscd_coastline</code> and <code>rscd_islands</code> contain the
 path of the coast line and the islands, respectively.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lim_lon</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5.25</span>, <span class="op">-</span><span class="fl">4.25</span><span class="op">)</span></span>
 <span><span class="va">lim_lat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">47.75</span>, <span class="fl">48.75</span><span class="op">)</span></span>
 <span><span class="va">field_BZH</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">rscd_field</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">longitude</span>, y <span class="op">=</span> <span class="va">latitude</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -175,16 +165,15 @@ path of the coast line and the islands, respectively.</p>
 more than 24,000 nodes where the full 2D spectra are available. The grid
 can be added to the previous plot to see the differences in the spatial
 coverage.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">rscd_spectral</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Classes 'data.table' and 'data.frame':   24276 obs. of  5 variables:</span></span>
+<span><span class="co">#&gt; 'data.frame':    24276 obs. of  5 variables:</span></span>
 <span><span class="co">#&gt;  $ longitude: num  1.5 -5.5 -6 -6.5 -7 4.5 4 3.5 3 2.5 ...</span></span>
 <span><span class="co">#&gt;  $ latitude : num  52 52 52 52 52 52.5 52.5 52.5 52.5 52.5 ...</span></span>
 <span><span class="co">#&gt;  $ name     : chr  "E001500N52000" "W005500N52000" "W006000N52000" "W006500N52000" ...</span></span>
 <span><span class="co">#&gt;  $ depth    : num  15.4 89.6 95.8 52.7 54.7 ...</span></span>
-<span><span class="co">#&gt;  $ d50      : num  0.737 -0.8265 -1.585 0.737 0.0346 ...</span></span>
-<span><span class="co">#&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt;</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<span><span class="co">#&gt;  $ d50      : num  0.737 -0.8265 -1.585 0.737 0.0346 ...</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">rscd_spectral</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   longitude latitude          name    depth         d50</span></span>
 <span><span class="co">#&gt; 1       1.5     52.0 E001500N52000 15.41327  0.73700004</span></span>
@@ -193,7 +182,7 @@ coverage.</p>
 <span><span class="co">#&gt; 4      -6.5     52.0 W006500N52000 52.67409  0.73700004</span></span>
 <span><span class="co">#&gt; 5      -7.0     52.0 W007000N52000 54.67464  0.03464983</span></span>
 <span><span class="co">#&gt; 6       4.5     52.5 E004500N52500 14.18527  0.73700004</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">field_BZH</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">rscd_spectral</span>, col <span class="op">=</span> <span class="st">"orange"</span>, size <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="resourcecode_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;"></p>
 <ul>
@@ -217,7 +206,7 @@ spectra on this grid are not available to direct download.</li>
 </ul>
 <p>For example, if one is interested in the time series of sea-state
 parameters at some location, the following code can be adapted:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">point_of_interest</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>longitude <span class="op">=</span> <span class="op">-</span><span class="fl">4.6861533</span>, latitude <span class="op">=</span> <span class="fl">48.3026514</span><span class="op">)</span></span>
 <span><span class="va">node</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/closest_point_FIELD.html">closest_point_FIELD</a></span><span class="op">(</span><span class="va">point_of_interest</span><span class="op">)</span></span>
 <span><span class="va">node</span></span>
@@ -226,7 +215,7 @@ parameters at some location, the following code can be adapted:</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $distance</span></span>
 <span><span class="co">#&gt; [1] 288.974</span></span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_parameters.html">get_parameters</a></span><span class="op">(</span>node <span class="op">=</span> <span class="va">node</span><span class="op">$</span><span class="va">point</span>, parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hs"</span>, <span class="st">"tp"</span>, <span class="st">"dp"</span>, <span class="st">"cge"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="va">ts</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">time</span>, y <span class="op">=</span> <span class="va">value</span>, col <span class="op">=</span> <span class="va">name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -246,11 +235,11 @@ IFREMER FTP using functions <code><a href="../reference/get_1Dspectrum.html">get
 <code><a href="../reference/get_2Dspectrum.html">get_2Dspectrum()</a></code>. We also provide a plotting function for
 the 2D spectrum.</li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">node_SPEC</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/closest_point_SPEC.html">closest_point_SPEC</a></span><span class="op">(</span><span class="va">point_of_interest</span><span class="op">)</span></span></code></pre></div>
 <p>Then one can extract the 1D spectrum time-series and see the contents
 of these downloaded data.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spec1D</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_1Dspectrum.html">get_1Dspectrum</a></span><span class="op">(</span><span class="va">node_SPEC</span><span class="op">$</span><span class="va">point</span>, start <span class="op">=</span> <span class="st">"1994-01-01"</span>, end <span class="op">=</span> <span class="st">"1994-02-28"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">spec1D</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 12</span></span>
@@ -296,7 +285,7 @@ of these downloaded data.</p>
 <span><span class="co">#&gt;   ..$ spr   : num [1:1416] 19.6 19.5 18.8 18 17.4 ...</span></span>
 <span><span class="co">#&gt;  $ station   : chr "W004679N48304"</span></span></code></pre></div>
 <p>The same applies to 2D spectra.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spec2D</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_2Dspectrum.html">get_2Dspectrum</a></span><span class="op">(</span><span class="va">node_SPEC</span><span class="op">$</span><span class="va">point</span>, start <span class="op">=</span> <span class="st">"1994-01-01"</span>, end <span class="op">=</span> <span class="st">"1994-02-28"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">spec1D</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 12</span></span>
@@ -344,7 +333,7 @@ of these downloaded data.</p>
 <p>In addition, it is possible to plot the wave elevation directional
 spectra for any given time, which can be specified by the time index or
 directly the date:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_2Dspecta.html">plot_2Dspecta</a></span><span class="op">(</span><span class="va">spec2D</span>, <span class="st">"1994-01-15 18:00"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="resourcecode_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;"></p>
 </div>
