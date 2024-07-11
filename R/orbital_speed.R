@@ -6,7 +6,9 @@
 #' @param depth depth time series (vector length T. Recycled if a single value is given)
 #' @param output_speeds TRUE if the spectral speed are needed. Otherwise, returns the RMS (default)
 #'
-#' @return depending on spec, a lsit or a data.frame
+#' @return depending on spec, a list with the spectral velocities for each component
+#'         (if output_speeds==FALSE) or a data.frame with a time series of horizontal and vertical
+#'         components of (spectral) orbital speed.
 #' @export
 #'
 #' @examples
