@@ -1,10 +1,9 @@
 pandoc: 3.1.11
-pkgdown: 2.0.9
+pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
   resourcecode: resourcecode.html
-last_built: 2024-05-23T12:09Z
+last_built: 2024-07-11T08:11Z
 urls:
   reference: https://nraillard.github.io/resourcecode/reference
   article: https://nraillard.github.io/resourcecode/articles
-
