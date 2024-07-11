@@ -9,7 +9,7 @@
 #' @return a list with the sea-state spectrum and forcings
 #' @keywords internal
 get_2Dspectrum_raw <- function(point, year, month) {
-  base <- "ftp://ftp.ifremer.fr/ifremer/dataref/ww3/resourcecode/HINDCAST/"
+  base <- "https://data-dataref.ifremer.fr/ww3/resourcecode/HINDCAST/"
   url <- paste0(
     base,
     year,
@@ -22,11 +22,16 @@ get_2Dspectrum_raw <- function(point, year, month) {
     month,
     "_spec.nc"
   )
+
   temp <- tempfile(fileext = ".nc")
   curl::curl_download(url, destfile = temp, mode = "wb")
 
   nc <- ncdf4::nc_open(temp)
-  on.exit(ncdf4::nc_close(nc))
+
+  on.exit({
+    ncdf4::nc_close(nc)
+    file.remove(temp)
+    })
 
   freq <- nc$dim$frequency$vals
   dir <- nc$dim$direction$vals
@@ -68,7 +73,7 @@ get_2Dspectrum_raw <- function(point, year, month) {
 #' @return a list with the sea-state 1D spectrum and forcings
 #' @keywords internal
 get_1Dspectrum_raw <- function(point, year, month) {
-  base <- "ftp://ftp.ifremer.fr/ifremer/dataref/ww3/resourcecode/HINDCAST/"
+  base <- "https://data-dataref.ifremer.fr/ww3/resourcecode/HINDCAST/"
   url <- paste0(
     base,
     year,
@@ -85,7 +90,11 @@ get_1Dspectrum_raw <- function(point, year, month) {
   curl::curl_download(url, destfile = temp, mode = "wb")
 
   nc <- ncdf4::nc_open(temp)
-  on.exit(ncdf4::nc_close(nc))
+
+  on.exit({
+    ncdf4::nc_close(nc)
+    file.remove(temp)
+  })
 
   freq <- nc$dim$frequency$vals
 

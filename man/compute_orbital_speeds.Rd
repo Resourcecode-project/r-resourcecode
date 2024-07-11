@@ -18,7 +18,9 @@ compute_orbital_speeds(spec, freq, z = 0, depth = Inf, output_speeds = FALSE)
 \item{output_speeds}{TRUE if the spectral speed are needed. Otherwise, returns the RMS (default)}
 }
 \value{
-depending on spec, a lsit or a data.frame
+depending on spec, a list with the spectral velocities for each component
+(if output_speeds==FALSE) or a data.frame with a time series of horizontal and vertical
+components of (spectral) orbital speed.
 }
 \description{
 Compute the orbital speed at a given depth from the wave elevation 1D spectra
