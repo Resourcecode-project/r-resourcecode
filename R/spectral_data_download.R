@@ -31,7 +31,7 @@ get_2Dspectrum_raw <- function(point, year, month) {
   on.exit({
     ncdf4::nc_close(nc)
     file.remove(temp)
-    })
+  })
 
   freq <- nc$dim$frequency$vals
   dir <- nc$dim$direction$vals
@@ -101,7 +101,9 @@ get_1Dspectrum_raw <- function(point, year, month) {
   time <- nc$dim$time$vals
   time <- as.POSIXct(time * 24 * 3600, origin = "1990-01-01Z00:00:00", tz = "UTC")
 
-  var_out <- list("longitude", "latitude", "frequency1", "frequency2", "ef", "th1m", "th2m", "sth1m", "sth2m")
+  var_out <- list("longitude", "latitude",
+                  "frequency1", "frequency2",
+                  "ef", "th1m", "th2m", "sth1m", "sth2m")
   out <- lapply(var_out, ncdf4::ncvar_get, nc = nc)
   names(out) <- var_out
 
@@ -109,7 +111,8 @@ get_1Dspectrum_raw <- function(point, year, month) {
   out$latitude <- out$latitude[1]
   out$freq <- freq
 
-  var_out_1D <- list("dpt", "wnd", "wnddir", "cur", "curdir", "hs", "fp", "f02", "f0m1", "th1p", "sth1p", "dir", "spr")
+  var_out_1D <- list("dpt", "wnd", "wnddir", "cur", "curdir",
+                     "hs", "fp", "f02", "f0m1", "th1p", "sth1p", "dir", "spr")
   forcings <- lapply(var_out_1D, ncdf4::ncvar_get, nc = nc)
   names(forcings) <- var_out_1D
 
@@ -121,7 +124,8 @@ get_1Dspectrum_raw <- function(point, year, month) {
 
 #' Download the 2D spectrum data from IFREMER ftp
 #'
-#' @param point the location name (string) requested. Alternatively, the node number. The consistency is checked internally.
+#' @param point the location name (string) requested.
+#'              Alternatively, the node number. The consistency is checked internally.
 #' @param start the starting date (as a string). The consistency is checked internally.
 #' @param end the ending date as a string
 #'
@@ -180,7 +184,8 @@ get_2Dspectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
 
 #' Download the 1D spectrum data from IFREMER ftp
 #'
-#' @param point the location name (string) requested. Alternatively, the node number. The consistency is checked internally.
+#' @param point the location name (string) requested.
+#'              Alternatively, the node number. The consistency is checked internally.
 #' @param start the starting date (as a string). The consistency is checked internally.
 #' @param end the ending date as a string
 #'

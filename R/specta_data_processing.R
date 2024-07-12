@@ -109,10 +109,14 @@ convert_spectrum_2D1D <- function(spec, ...) {
   # Computes the Mean directions and directionnal spreadings
   # (see 2.229 to 2.236 of WWIII user manual for the definitions
 
-  c1 <- sweep(spec$efth, 1, as.array(cos(spec$dir * pi / 180)), FUN = "*") # cos(theta)*F(theta,f)
-  s1 <- sweep(spec$efth, 1, as.array(sin(spec$dir * pi / 180)), FUN = "*") # sin*F(theta,f)
-  c2 <- sweep(spec$efth, 1, as.array(cos(2 * spec$dir * pi / 180)), FUN = "*") # cos(2*theta)*F(theta,f)
-  s2 <- sweep(spec$efth, 1, as.array(sin(2 * spec$dir * pi / 180)), FUN = "*") # sin(2*theta)*F(theta,f)
+  # c1 = cos(theta)*F(theta,f)
+  c1 <- sweep(spec$efth, 1, as.array(cos(spec$dir * pi / 180)), FUN = "*")
+  # s1 = sin*F(theta,f)
+  s1 <- sweep(spec$efth, 1, as.array(sin(spec$dir * pi / 180)), FUN = "*")
+  # c2 = cos(2*theta)*F(theta,f)
+  c2 <- sweep(spec$efth, 1, as.array(cos(2 * spec$dir * pi / 180)), FUN = "*")
+  # s2 = sin(2*theta)*F(theta,f)
+  s2 <- sweep(spec$efth, 1, as.array(sin(2 * spec$dir * pi / 180)), FUN = "*")
 
   # Same notation as the definitions above
   a1 <- apply(c1 * ddir, c(2, 3), sum)
@@ -188,7 +192,9 @@ compute_sea_state_2Dspectrum <- function(spec, ...) {
 
   # fp evaluaton using spline fitting around Ef peak
   nk <- length(spec$freq)
-  freqp <- stats::approx(1:nk, spec$freq, xout = seq(from = 1, to = nk, length = 30 * nk)) # Augment frequency resolution by 30
+
+  # Augment frequency resolution by 30
+  freqp <- stats::approx(1:nk, spec$freq, xout = seq(from = 1, to = nk, length = 30 * nk))
   Efp <- apply(Ef, 2, \(y){
     stats::spline(x = spec$freq, xout = freqp$y, method = "natural", y)$y
   }) # natural (i.e. "cubic") spline
@@ -201,7 +207,9 @@ compute_sea_state_2Dspectrum <- function(spec, ...) {
   out$wnd <- spec$forcings$wnd
   out$wnddir <- spec$forcings$wnddir
   out$cur <- spec$forcings$cur
-  out$curdir <- (spec$forcings$curdir + 180) %% 360 # In 1D spectral data, the current is "going to cf user manual
+
+  # In 1D spectral data, the current is "going to" cf user manual so we have to convert
+  out$curdir <- (spec$forcings$curdir + 180) %% 360
 
   # Spectral Bandwidth and Peakedness parameter (Goda 1970)
   out$nu <- sqrt((m0 * m2) / (m1^2) - 1)
@@ -303,7 +311,7 @@ compute_sea_state_1Dspectrum <- function(spec, ...) {
   nk <- length(spec$freq)
   # Augment frequency resolution by 30
   freqp <- stats::approx(1:nk, spec$freq, xout = seq(from = 1, to = nk, length = 30 * nk))
-  Efp <- apply(spec$ef, 2, \(y){
+  Efp <- apply(spec$ef, 2, \(y) {
     stats::spline(x = spec$freq, xout = freqp$y, method = "natural", y)$y
   }) # natural (i.e. "cubic") spline
 

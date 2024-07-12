@@ -13,3 +13,4 @@
 ^rscd\.png$
 ^codecov\.yml$
 ^.lintr
+^windows$

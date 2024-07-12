@@ -13,7 +13,9 @@
 #' @examplesIf curl::has_internet()
 #' spec <- get_2Dspectrum("SEMREVO", start = "1994-01-01", end = "1994-01-31")
 #' plot_2Dspecta(spec, 1)
-#' @importFrom ggplot2 ggplot geom_rect scale_x_continuous scale_y_continuous theme_bw coord_polar scale_color_distiller scale_fill_distiller labs expansion
+#' @importFrom ggplot2 ggplot geom_rect scale_x_continuous scale_y_continuous
+#'                     theme_bw coord_polar scale_color_distiller scale_fill_distiller
+#'                     labs expansion
 plot_2Dspecta <- function(spec, time = 1L, normalize = TRUE, trim = 0.01, cut_off = .4, ...) {
   if (is.character(time)) {
     time <- as.POSIXct(time, tz = "UTC")
@@ -47,7 +49,9 @@ plot_2Dspecta <- function(spec, time = 1L, normalize = TRUE, trim = 0.01, cut_of
 
   df$dir <- (df$dir + 180) %% 360
 
-  ggplot(df, aes(xmin = .data$frequency1, xmax = .data$frequency2, ymin = dir - 5, ymax = dir + 5, fill = .data$ef, col = .data$ef)) +
+  ggplot(df, aes(xmin = .data$frequency1, xmax = .data$frequency2,
+                 ymin = dir - 5, ymax = dir + 5,
+                 fill = .data$ef, col = .data$ef)) +
     geom_rect() +
     scale_x_continuous(name = "Frequency (Hz)", expand = expansion(), limits = c(0, cut_off)) +
     scale_y_continuous(
@@ -57,8 +61,14 @@ plot_2Dspecta <- function(spec, time = 1L, normalize = TRUE, trim = 0.01, cut_of
       minor_breaks = seq(from = 0, to = 360, by = 30)
     ) +
     coord_polar(theta = "y", start = -5 * pi / 180) +
-    scale_color_distiller(palette = "PuBu", direction = 1, name = legend.text, na.value = "transparent") +
-    scale_fill_distiller(palette = "PuBu", direction = 1, name = legend.text, na.value = "transparent") +
+    scale_color_distiller(palette = "PuBu",
+                          direction = 1,
+                          name = legend.text,
+                          na.value = "transparent") +
+    scale_fill_distiller(palette = "PuBu",
+                         direction = 1,
+                         name = legend.text,
+                         na.value = "transparent") +
     labs(
       title = paste("Directional Wave energy spectrum at location", spec$station),
       subtitle = format(spec$forcings$time[time], format = "%Y-%m-%d %H:%M"),
