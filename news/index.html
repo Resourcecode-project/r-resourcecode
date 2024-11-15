@@ -32,7 +32,30 @@
       <small>Source: <a href="https://github.com/NRaillard/resourcecode/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
-  </main></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="development version" id="resourcecode-development-version">resourcecode (development version)<a class="anchor" aria-label="anchor" href="#resourcecode-development-version"></a></h2>
+<ul><li>Add some code linter;</li>
+<li>Switch from <code>ftp</code>to <code>https</code> to download the spectral data, to increase stability;</li>
+<li>Fix typos in the documentation (thanks to <a href="https://github.com/jlegrand35" class="external-link">@jlegrand35</a>);</li>
+<li>
+<code>zmcomp2metconv</code> outputs a data.frame and gains an argument to name columns;</li>
+<li>Fixed deprecated arguments in <code>ggplot::theme()</code> used in <code>rscd_mapplot</code>;</li>
+<li>rename<code>compute_orbital_speeds</code> to <code>compute_orbital_speeds</code>;</li>
+<li>remove dependency to <a href="https://github.com/apache/arrow/" class="external-link">arrow</a>;</li>
+<li>make data smaller by using <code>tools::resaveRdaFiles("data/")</code>.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.1" id="resourcecode-001">resourcecode 0.0.1<a class="anchor" aria-label="anchor" href="#resourcecode-001"></a></h2>
+<p>Initial version with very crude functionalities</p>
+<ul><li>Database configuration: coastline, depth, output variables, grids…</li>
+<li>Download sea-state parameters of the FIELD grid from Casandra database;</li>
+<li>Download 1D and 2D spectral data from the netCDF files via FTP;</li>
+<li>Helpers to plot maps (e.g. bathymetry or spatial statistics);</li>
+<li>Plot 1D and 2 spectrum;</li>
+<li>Compute sea-state from 1D and 2D spectrum.</li>
+</ul></div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
