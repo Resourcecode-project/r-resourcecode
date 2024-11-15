@@ -3,7 +3,7 @@
 #'
 #' @param frequencies frequency vector
 #' @param depth depth (m)
-#' @param iter_max maximum number of iterations in the non linear solver algorithm
+#' @param iter_max maximum number of iterations in the solver
 #' @param tol tolerance for termination.
 #'
 #' @return the wave numbers (same size as frequencies)
@@ -174,13 +174,13 @@ compute_sea_state_2Dspectrum <- function(spec, ...) {
 
   # Compute 1d spectrum
   ddir <- diff(spec$dir)[1] * pi / 180
-  Ef <- apply(spec$efth * ddir, c(2, 3), sum)
+  spec_1d <- apply(spec$efth * ddir, c(2, 3), sum)
 
   # Compute spectral moments
-  m0 <- apply(Ef, 2, pracma::trapz, x = spec$freq)
-  m1 <- apply(sweep(Ef, 1, spec$freq, FUN = "*"), 2, pracma::trapz, x = spec$freq)
-  m2 <- apply(sweep(Ef, 1, spec$freq^2, FUN = "*"), 2, pracma::trapz, x = spec$freq)
-  me <- apply(sweep(Ef, 1, 1 / spec$freq, FUN = "*"), 2, pracma::trapz, x = spec$freq)
+  m0 <- apply(spec_1d, 2, pracma::trapz, x = spec$freq)
+  m1 <- apply(sweep(spec_1d, 1, spec$freq, FUN = "*"), 2, pracma::trapz, x = spec$freq)
+  m2 <- apply(sweep(spec_1d, 1, spec$freq^2, FUN = "*"), 2, pracma::trapz, x = spec$freq)
+  me <- apply(sweep(spec_1d, 1, 1 / spec$freq, FUN = "*"), 2, pracma::trapz, x = spec$freq)
 
   out <- tibble::tibble(
     time = spec$forcings$time,
@@ -190,16 +190,16 @@ compute_sea_state_2Dspectrum <- function(spec, ...) {
     te = me / m0
   )
 
-  # fp evaluaton using spline fitting around Ef peak
+  # fp evaluaton using spline fitting around spec_1d peak
   nk <- length(spec$freq)
 
   # Augment frequency resolution by 30
   freqp <- stats::approx(1:nk, spec$freq, xout = seq(from = 1, to = nk, length = 30 * nk))
-  Efp <- apply(Ef, 2, \(y){
+  spec_1d_smooth <- apply(spec_1d, 2, \(y) {
     stats::spline(x = spec$freq, xout = freqp$y, method = "natural", y)$y
   }) # natural (i.e. "cubic") spline
 
-  fp <- freqp$y[apply(Efp, 2, which.max)]
+  fp <- freqp$y[apply(spec_1d_smooth, 2, which.max)]
   out$tp <- 1 / fp
 
   # Get the forcings fields
@@ -216,11 +216,11 @@ compute_sea_state_2Dspectrum <- function(spec, ...) {
   out$mu <- sqrt(1 - m1^2 / (m0 * m2))
 
   # wave length
-  disper_V <- Vectorize(dispersion, vectorize.args = c("depth"))
-  k <- disper_V(spec$freq, spec$forcings$dpt, iter_max = 200, tol = 1e-6)
+  disper_vec <- Vectorize(dispersion, vectorize.args = c("depth"))
+  k <- disper_vec(spec$freq, spec$forcings$dpt, iter_max = 200, tol = 1e-6)
   kd <- k * spec$forcings$dpt
 
-  out$km <- apply(k * Ef, 2, pracma::trapz, x = spec$freq) / m0
+  out$km <- apply(k * spec_1d, 2, pracma::trapz, x = spec$freq) / m0
   out$lm <- 2 * pi / out$km
 
   # Group velocity
@@ -230,7 +230,7 @@ compute_sea_state_2Dspectrum <- function(spec, ...) {
 
 
   # Energy flux
-  out$cge <- water_density * g * apply(cg * Ef, 2, pracma::trapz, x = spec$freq) / 1000
+  out$cge <- water_density * g * apply(cg * spec_1d, 2, pracma::trapz, x = spec$freq) / 1000
   # convert to kW/m to be consistent with outputs from WWIII
 
   # Compute mean direction from  and spreading (°)
@@ -244,7 +244,7 @@ compute_sea_state_2Dspectrum <- function(spec, ...) {
   out$spr <- (sqrt(2 * (1 - sqrt((am^2 + bm^2) / m0^2))) * 180 / pi) %% 360
 
   # Compute mean direction and spreading at peak frequency (°)
-  iEfm <- apply(Ef, 2, which.max) # peak of the spectrum
+  iEfm <- apply(spec_1d, 2, which.max) # peak of the spectrum
   Efm <- array(0, dim = c(36, dim(spec$efth)[3]))
 
   for (t in seq_len(dim(spec$efth)[3])) {
@@ -311,11 +311,11 @@ compute_sea_state_1Dspectrum <- function(spec, ...) {
   nk <- length(spec$freq)
   # Augment frequency resolution by 30
   freqp <- stats::approx(1:nk, spec$freq, xout = seq(from = 1, to = nk, length = 30 * nk))
-  Efp <- apply(spec$ef, 2, \(y) {
+  spec_1d_smooth <- apply(spec$ef, 2, \(y) {
     stats::spline(x = spec$freq, xout = freqp$y, method = "natural", y)$y
   }) # natural (i.e. "cubic") spline
 
-  fp <- freqp$y[apply(Efp, 2, which.max)]
+  fp <- freqp$y[apply(spec_1d_smooth, 2, which.max)]
   out$tp <- 1 / fp
 
   # Get the forcings fields
@@ -330,8 +330,8 @@ compute_sea_state_1Dspectrum <- function(spec, ...) {
   out$mu <- sqrt(1 - m1^2 / (m0 * m2))
 
   # wave length
-  disper_V <- Vectorize(dispersion, vectorize.args = c("depth"))
-  k <- disper_V(spec$freq, spec$forcings$dpt, iter_max = 200, tol = 1e-6)
+  disper_vec <- Vectorize(dispersion, vectorize.args = c("depth"))
+  k <- disper_vec(spec$freq, spec$forcings$dpt, iter_max = 200, tol = 1e-6)
   kd <- k * spec$forcings$dpt
 
   out$km <- apply(k * spec$ef, 2, pracma::trapz, x = spec$freq) / m0

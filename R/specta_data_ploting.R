@@ -32,13 +32,13 @@ plot_2Dspecta <- function(spec, time = 1L, normalize = TRUE, trim = 0.01, cut_of
 
   df <- tibble::tibble(df_freq, ef = c(spec$efth[, , time]))
 
-  legend.text <- "Power spectrum\n(m^2.s)"
+  legend_text <- "Power spectrum\n(m^2.s)"
 
   if (normalize) {
     ef.max <- max(df$ef)
     df$ef <- df$ef / ef.max
 
-    legend.text <- "Normalized\nPower spectrum"
+    legend_text <- "Normalized\nPower spectrum"
   }
 
   if (!is.null(trim)) {
@@ -63,11 +63,11 @@ plot_2Dspecta <- function(spec, time = 1L, normalize = TRUE, trim = 0.01, cut_of
     coord_polar(theta = "y", start = -5 * pi / 180) +
     scale_color_distiller(palette = "PuBu",
                           direction = 1,
-                          name = legend.text,
+                          name = legend_text,
                           na.value = "transparent") +
     scale_fill_distiller(palette = "PuBu",
                          direction = 1,
-                         name = legend.text,
+                         name = legend_text,
                          na.value = "transparent") +
     labs(
       title = paste("Directional Wave energy spectrum at location", spec$station),

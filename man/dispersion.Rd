@@ -12,7 +12,7 @@ dispersion(frequencies, depth, iter_max = 200, tol = 1e-06)
 
 \item{depth}{depth (m)}
 
-\item{iter_max}{maximum number of iterations in the non linear solver algorithm}
+\item{iter_max}{maximum number of iterations in the solver}
 
 \item{tol}{tolerance for termination.}
 }

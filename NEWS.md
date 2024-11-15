@@ -1,14 +1,17 @@
-# `{resourcecode}` (development version)
+# resourcecode (development version)
 
+- Add some code linter;
 - Switch from `ftp`to `https` to download the spectral data, to increase stability;
-- Typos in the documentation (@jlegrand35);
+- Fix typos in the documentation (thanks to @jlegrand35);
 - `zmcomp2metconv` outputs a data.frame and gains an argument to name columns;
 - Fixed deprecated arguments in `ggplot::theme()` used in `rscd_mapplot`;
 - rename`compute_orbital_speeds` to `compute_orbital_speeds`;
 - remove dependency to `{arrow}`;
 - make data smaller by using `tools::resaveRdaFiles("data/")`.
 
-## Initial version with very crude functionalities
+# resourcecode 0.0.1
+
+Initial version with very crude functionalities
 
 - Database configuration: coastline, depth, output variables, grids...
 - Download sea-state parameters of the FIELD grid from Casandra database;

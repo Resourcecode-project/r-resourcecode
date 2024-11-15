@@ -1,5 +1,5 @@
 test_that("obital speed computation works", {
-  S <- t(vapply(1:10, \(h) jonswap(h, tp = 12)$spec,FUN.VALUE = numeric(36)))
+  S <- t(vapply(1:10, \(h) jonswap(h, tp = 12)$spec, FUN.VALUE = numeric(36)))
   orb_speed_bottom <- compute_orbital_speeds(S, rscd_freq, depth = 50, z = 0)
   orb_speed_half <- compute_orbital_speeds(S, rscd_freq, depth = 50, z = 25)
   orb_speed_top <- compute_orbital_speeds(S, rscd_freq, depth = 50, z = 50)

@@ -24,7 +24,15 @@ get_2Dspectrum_raw <- function(point, year, month) {
   )
 
   temp <- tempfile(fileext = ".nc")
-  curl::curl_download(url, destfile = temp, mode = "wb")
+
+  tryCatch(curl::curl_download(url, destfile = temp, mode = "wb"),
+           error = function(e) {
+             message("An error occurred while downloading the spectral data:\n", e)
+           },
+           warning = function(w) {
+             message("A warning occured while downloading the spectral data:\n", w)
+           })
+
 
   nc <- ncdf4::nc_open(temp)
 
@@ -87,7 +95,14 @@ get_1Dspectrum_raw <- function(point, year, month) {
     "_freq.nc"
   )
   temp <- tempfile(fileext = ".nc")
-  curl::curl_download(url, destfile = temp, mode = "wb")
+
+  tryCatch(curl::curl_download(url, destfile = temp, mode = "wb"),
+           error = function(e) {
+             message("An error occurred while downloading the spectral data:\n", e)
+           },
+           warning = function(w) {
+             message("A warning occured while downloading the spectral data:\n", w)
+           })
 
   nc <- ncdf4::nc_open(temp)
 
@@ -114,6 +129,7 @@ get_1Dspectrum_raw <- function(point, year, month) {
   var_out_1D <- list("dpt", "wnd", "wnddir", "cur", "curdir",
                      "hs", "fp", "f02", "f0m1", "th1p", "sth1p", "dir", "spr")
   forcings <- lapply(var_out_1D, ncdf4::ncvar_get, nc = nc)
+
   names(forcings) <- var_out_1D
 
   out$forcings <- tibble::tibble(time = time, tibble::as_tibble(forcings))

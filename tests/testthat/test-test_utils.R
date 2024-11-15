@@ -26,8 +26,8 @@ test_that("Node selection works", {
 test_that("Fast trapz works", {
   n <- 101
   x <- seq(0, pi, length.out = n)
-  Y1 <- sin(matrix(x, ncol = n, nrow = n, byrow = F))
-  Y2 <- sin(matrix(x, ncol = n, nrow = n, byrow = T))
+  Y1 <- sin(matrix(x, ncol = n, nrow = n, byrow = FALSE))
+  Y2 <- sin(matrix(x, ncol = n, nrow = n, byrow = TRUE))
   expect_equal(fastTrapz(x, Y1, 1), t(fastTrapz(x, Y2, 2)))
 })
 
