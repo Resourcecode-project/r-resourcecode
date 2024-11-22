@@ -19,8 +19,8 @@ test_that("downloading parameters data works", {
 
 test_that("downloading 1D spectral data works", {
   skip_if_offline()
-  spec <- get_1Dspectrum(1L, start = "1994-12-01 00:00:00 UTC", end = "1995-01-31 00:00:00 UTC")
-  expect_equal(spec, get_1Dspectrum(1L, start = 786243600, end = 791506800))
+  spec <- get_1d_spectrum(1L, start = "1994-12-01 00:00:00 UTC", end = "1995-01-31 00:00:00 UTC")
+  expect_equal(spec, get_1d_spectrum(1L, start = 786243600, end = 791506800))
   expect_type(spec, "list")
   expect_equal(names(spec), c(
     "longitude",
@@ -43,8 +43,8 @@ test_that("downloading 1D spectral data works", {
 
 test_that("downloading 2D spectral data works", {
   skip_if_offline()
-  spec <- get_2Dspectrum(1L, start = "1994-12-01 00:00:00 UTC", end = "1995-01-31 00:00:00 UTC")
-  expect_equal(spec, get_2Dspectrum(1L, start = 786243600, end = 791506800))
+  spec <- get_2d_spectrum(1L, start = "1994-12-01 00:00:00 UTC", end = "1995-01-31 00:00:00 UTC")
+  expect_equal(spec, get_2d_spectrum(1L, start = 786243600, end = 791506800))
   expect_type(spec, "list")
   expect_equal(names(spec), c(
     "longitude",
