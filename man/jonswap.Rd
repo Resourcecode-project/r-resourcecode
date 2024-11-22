@@ -11,7 +11,8 @@ jonswap(hs = 5, tp = 15, fmax = resourcecode::rscd_freq, df = NULL, gam = 3.3)
 
 \item{tp}{Period (default: 10s)}
 
-\item{fmax}{higher frequency of the spectrum or vector of frequencies (default to resourcecode frequency vector)}
+\item{fmax}{higher frequency of the spectrum or
+vector of frequencies (default to resourcecode frequency vector)}
 
 \item{df}{frequency step (unused if fmax=vector of frequencies)}
 
@@ -24,11 +25,17 @@ Density spectrum with corresponding parameters
 Creates a JONWSAP density spectrum (one-sided), defined by its integral parameters.
 }
 \details{
-Reference : O.G.Houmb and T.Overvik, "Parametrization of Wave Spectra and Long Term Joint Distribution of Wave Height and Period,"
-in Proceedings, First International Conference on Behaviour of Offshore Structures (BOSS), Trondheim 1976.
+Reference :
+\itemize{
+\item O.G.Houmb and T.Overvik, "Parametrization of Wave Spectra and Long Term
+Joint Distribution of Wave Height and Period,"
+in Proceedings, First International Conference
+on Behaviour of Offshore Structures (BOSS), Trondheim 1976.
 23rd International Towing Tank Conference, vol. II, pp. 544-551
-ITTC Committee, 2002, "The Specialist Committee on Waves - Final Report and Recommendations to the 23rd ITTC",
+\item ITTC Committee, 2002, "The Specialist Committee on Waves -
+Final Report and Recommendations to the 23rd ITTC",
 Proc. ITTC, vol. II, pp. 505-736.
+}
 }
 \examples{
 S1 <- jonswap(tp = 15)

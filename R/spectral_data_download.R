@@ -192,10 +192,10 @@ get_2d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
   years <- format(dates, format = "%Y")
   months <- format(dates, format = "%m")
 
-  out <- get_2Dspectrum_raw(point, years[1], months[1])
+  out <- get_2d_spectrum_raw(point, years[1], months[1])
 
   for (m in seq_along(years[-1])) {
-    temp <- get_2Dspectrum_raw(point, years[m + 1], months[m + 1])
+    temp <- get_2d_spectrum_raw(point, years[m + 1], months[m + 1])
     out$efth <- abind::abind(out$efth, temp$efth, along = 3)
     out$forcings <- rbind(out$forcings, temp$forcings)
   }
@@ -215,7 +215,7 @@ get_2d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
 #' @export
 #'
 #' @examplesIf curl::has_internet()
-#' spec1D <- get_1dç_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
+#' spec1D <- get_1d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
 #' r <- as.POSIXct(round(range(spec1D$forcings$time), "month"))
 #' image(spec1D$forcings$time, spec1D$freq, t(spec1D$ef),
 #'   xaxt = "n", xlab = "Time",
@@ -256,10 +256,10 @@ get_1d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
   years <- format(dates, format = "%Y")
   months <- format(dates, format = "%m")
 
-  out <- get_1Dspectrum_raw(point, years[1], months[1])
+  out <- get_1d_spectrum_raw(point, years[1], months[1])
 
   for (m in seq_along(years[-1])) {
-    temp <- get_1Dspectrum_raw(point, years[m + 1], months[m + 1])
+    temp <- get_1d_spectrum_raw(point, years[m + 1], months[m + 1])
     out$ef <- abind::abind(out$ef, temp$ef, along = 2)
     out$th1m <- abind::abind(out$th1m, temp$th1m, along = 2)
     out$th2m <- abind::abind(out$th2m, temp$th2m, along = 2)

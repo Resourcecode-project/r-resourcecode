@@ -69,7 +69,7 @@ head(rscd_spectral)
 
 
 ```{r, fig.retina=3}
-field_BZH + geom_point(data = rscd_spectral, col = "orange", size = .1)
+field_bzh + geom_point(data = rscd_spectral, col = "orange", size = .1)
 ```
 
 - Helpers to find points
@@ -86,7 +86,7 @@ For example, if one is interested in the time series of sea-state parameters at 
 
 ```{r, fig.height=4,fig.width=8,warning=FALSE,message=FALSE}
 point_of_interest <- c(longitude = -4.6861533, latitude = 48.3026514)
-node <- closest_point_FIELD(point_of_interest)
+node <- closest_point_field(point_of_interest)
 node
 ts <- get_parameters(node = node$point, parameters = c("hs", "tp", "dp", "cge"))
 ggplot(tidyr::pivot_longer(ts, -1), aes(x = time, y = value, col = name)) +
