@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to `{resourcecode}`">
 </head>
 <body>
@@ -128,13 +128,13 @@ path of the coast line and the islands, respectively.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lim_lon</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5.25</span>, <span class="op">-</span><span class="fl">4.25</span><span class="op">)</span></span>
 <span><span class="va">lim_lat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">47.75</span>, <span class="fl">48.75</span><span class="op">)</span></span>
-<span><span class="va">field_BZH</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">rscd_field</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">longitude</span>, y <span class="op">=</span> <span class="va">latitude</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="va">field_bzh</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">rscd_field</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">longitude</span>, y <span class="op">=</span> <span class="va">latitude</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">.1</span>, col <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_path</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">rscd_coastline</span>, linewidth <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_path</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">rscd_islands</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">ID</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">coord_sf</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="va">lim_lon</span>, ylim <span class="op">=</span> <span class="va">lim_lat</span>, expand <span class="op">=</span> <span class="cn">FALSE</span>, crs <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">st_crs</a></span><span class="op">(</span><span class="fl">4326</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_void</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">field_BZH</span></span></code></pre></div>
+<span><span class="va">field_bzh</span></span></code></pre></div>
 <p><img src="resourcecode_files/figure-html/unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto;"></p>
 <ul>
 <li>
@@ -161,14 +161,14 @@ coverage.</p>
 <span><span class="co">#&gt; 5      -7.0     52.0 W007000N52000 54.67464  0.03464983</span></span>
 <span><span class="co">#&gt; 6       4.5     52.5 E004500N52500 14.18527  0.73700004</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">field_BZH</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">rscd_spectral</span>, col <span class="op">=</span> <span class="st">"orange"</span>, size <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">field_bzh</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">rscd_spectral</span>, col <span class="op">=</span> <span class="st">"orange"</span>, size <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="resourcecode_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;"></p>
 <ul>
 <li>Helpers to find points</li>
 </ul>
 <p>When one is interested in some location, we also provide helpers to
 find the closest point in each of the grid, via the
-<code><a href="../reference/closest_point_FIELD.html">closest_point_FIELD()</a></code> and <code><a href="../reference/closest_point_SPEC.html">closest_point_SPEC()</a></code>
+<code>closest_point_FIELD()</code> and <code>closest_point_SPEC()</code>
 functions.</p>
 </div>
 <div class="section level2">
@@ -186,7 +186,7 @@ spectra on this grid are not available to direct download.</li>
 parameters at some location, the following code can be adapted:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">point_of_interest</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>longitude <span class="op">=</span> <span class="op">-</span><span class="fl">4.6861533</span>, latitude <span class="op">=</span> <span class="fl">48.3026514</span><span class="op">)</span></span>
-<span><span class="va">node</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/closest_point_FIELD.html">closest_point_FIELD</a></span><span class="op">(</span><span class="va">point_of_interest</span><span class="op">)</span></span>
+<span><span class="va">node</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/closest_point_FIELD.html">closest_point_field</a></span><span class="op">(</span><span class="va">point_of_interest</span><span class="op">)</span></span>
 <span><span class="va">node</span></span>
 <span><span class="co">#&gt; $point</span></span>
 <span><span class="co">#&gt; [1] 134940</span></span>
@@ -208,17 +208,17 @@ parameters at some location, the following code can be adapted:</p>
 <p><img src="resourcecode_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;"></p>
 <ul>
 <li>1D and 2D spectra of the SPEC grid can be downloaded directly from
-IFREMER FTP using functions <code><a href="../reference/get_1Dspectrum.html">get_1Dspectrum()</a></code> and
-<code><a href="../reference/get_2Dspectrum.html">get_2Dspectrum()</a></code>. We also provide a plotting function for
+IFREMER FTP using functions <code>get_1Dspectrum()</code> and
+<code>get_2Dspectrum()</code>. We also provide a plotting function for
 the 2D spectrum.</li>
 </ul>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">node_SPEC</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/closest_point_SPEC.html">closest_point_SPEC</a></span><span class="op">(</span><span class="va">point_of_interest</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">node_spectral_grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/closest_point_SPEC.html">closest_point_spec</a></span><span class="op">(</span><span class="va">point_of_interest</span><span class="op">)</span></span></code></pre></div>
 <p>Then one can extract the 1D spectrum time-series and see the contents
 of these downloaded data.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">spec1D</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_1Dspectrum.html">get_1Dspectrum</a></span><span class="op">(</span><span class="va">node_SPEC</span><span class="op">$</span><span class="va">point</span>, start <span class="op">=</span> <span class="st">"1994-01-01"</span>, end <span class="op">=</span> <span class="st">"1994-02-28"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">spec1D</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">spec_1d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_1d_spectrum.html">get_1d_spectrum</a></span><span class="op">(</span><span class="va">node_spectral_grid</span><span class="op">$</span><span class="va">point</span>, start <span class="op">=</span> <span class="st">"1994-01-01"</span>, end <span class="op">=</span> <span class="st">"1994-02-28"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">spec_1d</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 12</span></span>
 <span><span class="co">#&gt;  $ longitude : num -4.68</span></span>
 <span><span class="co">#&gt;  $ latitude  : num 48.3</span></span>
@@ -263,55 +263,33 @@ of these downloaded data.</p>
 <span><span class="co">#&gt;  $ station   : chr "W004679N48304"</span></span></code></pre></div>
 <p>The same applies to 2D spectra.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">spec2D</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_2Dspectrum.html">get_2Dspectrum</a></span><span class="op">(</span><span class="va">node_SPEC</span><span class="op">$</span><span class="va">point</span>, start <span class="op">=</span> <span class="st">"1994-01-01"</span>, end <span class="op">=</span> <span class="st">"1994-02-28"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">spec1D</span><span class="op">)</span></span>
-<span><span class="co">#&gt; List of 12</span></span>
+<code class="sourceCode R"><span><span class="va">spec_2d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_2d_spectrum.html">get_2d_spectrum</a></span><span class="op">(</span><span class="va">node_spectral_grid</span><span class="op">$</span><span class="va">point</span>, start <span class="op">=</span> <span class="st">"1994-01-01"</span>, end <span class="op">=</span> <span class="st">"1994-02-28"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">spec_2d</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 9</span></span>
 <span><span class="co">#&gt;  $ longitude : num -4.68</span></span>
 <span><span class="co">#&gt;  $ latitude  : num 48.3</span></span>
 <span><span class="co">#&gt;  $ frequency1: num [1:36(1d)] 0.0339 0.0356 0.0392 0.0431 0.0474 ...</span></span>
 <span><span class="co">#&gt;  $ frequency2: num [1:36(1d)] 0.0356 0.0392 0.0431 0.0474 0.0521 ...</span></span>
-<span><span class="co">#&gt;  $ ef        : num [1:36, 1:1416] 0.000526 0.0028 0.009767 0.145907 1.126401 ...</span></span>
-<span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
+<span><span class="co">#&gt;  $ efth      : num [1:36, 1:36, 1:1416] 0.00024 0.000629 0.000872 0.000705 0.000423 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 3</span></span>
 <span><span class="co">#&gt;   .. ..$ : NULL</span></span>
-<span><span class="co">#&gt;   .. ..$ : NULL</span></span>
-<span><span class="co">#&gt;  $ th1m      : num [1:36, 1:1416] 202 203 205 226 230 ...</span></span>
-<span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
-<span><span class="co">#&gt;   .. ..$ : NULL</span></span>
-<span><span class="co">#&gt;   .. ..$ : NULL</span></span>
-<span><span class="co">#&gt;  $ th2m      : num [1:36, 1:1416] 202 203 205 180 180 ...</span></span>
-<span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
-<span><span class="co">#&gt;   .. ..$ : NULL</span></span>
-<span><span class="co">#&gt;   .. ..$ : NULL</span></span>
-<span><span class="co">#&gt;  $ sth1m     : num [1:36, 1:1416] 13.5 13.9 14.5 16.6 14.7 ...</span></span>
-<span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
-<span><span class="co">#&gt;   .. ..$ : NULL</span></span>
-<span><span class="co">#&gt;   .. ..$ : NULL</span></span>
-<span><span class="co">#&gt;  $ sth2m     : num [1:36, 1:1416] 26.1 26.8 28 32.2 28.7 ...</span></span>
-<span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
 <span><span class="co">#&gt;   .. ..$ : NULL</span></span>
 <span><span class="co">#&gt;   .. ..$ : NULL</span></span>
 <span><span class="co">#&gt;  $ freq      : num [1:36(1d)] 0.0339 0.0373 0.041 0.0451 0.0496 ...</span></span>
-<span><span class="co">#&gt;  $ forcings  : tibble [1,416 × 14] (S3: tbl_df/tbl/data.frame)</span></span>
+<span><span class="co">#&gt;  $ dir       : num [1:36(1d)] 0 10 20 30 40 50 60 70 80 90 ...</span></span>
+<span><span class="co">#&gt;  $ forcings  : tibble [1,416 × 6] (S3: tbl_df/tbl/data.frame)</span></span>
 <span><span class="co">#&gt;   ..$ time  : POSIXct[1:1416], format: "1994-01-01 00:00:00" "1994-01-01 01:00:00" ...</span></span>
 <span><span class="co">#&gt;   ..$ dpt   : num [1:1416] 27 27.5 29 30.5 31.5 32.5 32.5 32 31 29.5 ...</span></span>
 <span><span class="co">#&gt;   ..$ wnd   : num [1:1416] 12.2 11.6 10.8 10.9 10.8 ...</span></span>
 <span><span class="co">#&gt;   ..$ wnddir: num [1:1416] 301 299 298 295 294 ...</span></span>
 <span><span class="co">#&gt;   ..$ cur   : num [1:1416] 0.1 0.2 0.3 0.4 0.3 ...</span></span>
-<span><span class="co">#&gt;   ..$ curdir: num [1:1416] 325 27.5 41.2 48.6 55.9 ...</span></span>
-<span><span class="co">#&gt;   ..$ hs    : num [1:1416] 3.02 3.11 3.23 3.35 3.43 ...</span></span>
-<span><span class="co">#&gt;   ..$ fp    : num [1:1416] 0.0672 0.067 0.0671 0.0672 0.0727 ...</span></span>
-<span><span class="co">#&gt;   ..$ f02   : num [1:1416] 0.132 0.129 0.124 0.121 0.12 ...</span></span>
-<span><span class="co">#&gt;   ..$ f0m1  : num [1:1416] 0.0905 0.0882 0.0864 0.0858 0.0862 ...</span></span>
-<span><span class="co">#&gt;   ..$ th1p  : num [1:1416] 234 234 235 237 238 ...</span></span>
-<span><span class="co">#&gt;   ..$ sth1p : num [1:1416] 13.4 13.3 13.1 12.9 12.7 ...</span></span>
-<span><span class="co">#&gt;   ..$ dir   : num [1:1416] 239 239 239 240 241 ...</span></span>
-<span><span class="co">#&gt;   ..$ spr   : num [1:1416] 19.6 19.5 18.8 18 17.4 ...</span></span>
+<span><span class="co">#&gt;   ..$ curdir: num [1:1416] 145 208 221 229 236 ...</span></span>
 <span><span class="co">#&gt;  $ station   : chr "W004679N48304"</span></span></code></pre></div>
 <p>In addition, it is possible to plot the wave elevation directional
 spectra for any given time, which can be specified by the time index or
 directly the date:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_2Dspecta.html">plot_2Dspecta</a></span><span class="op">(</span><span class="va">spec2D</span>, <span class="st">"1994-01-15 18:00"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_2d_specta.html">plot_2d_specta</a></span><span class="op">(</span><span class="va">spec_2d</span>, <span class="st">"1994-01-15 18:00"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="resourcecode_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
