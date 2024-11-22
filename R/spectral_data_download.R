@@ -26,12 +26,13 @@ get_2Dspectrum_raw <- function(point, year, month) {
   temp <- tempfile(fileext = ".nc")
 
   tryCatch(curl::curl_download(url, destfile = temp, mode = "wb"),
-           error = function(e) {
-             message("An error occurred while downloading the spectral data:\n", e)
-           },
-           warning = function(w) {
-             message("A warning occured while downloading the spectral data:\n", w)
-           })
+    error = function(e) {
+      message("An error occurred while downloading the spectral data:\n", e)
+    },
+    warning = function(w) {
+      message("A warning occured while downloading the spectral data:\n", w)
+    }
+  )
 
 
   nc <- ncdf4::nc_open(temp)
@@ -97,12 +98,13 @@ get_1Dspectrum_raw <- function(point, year, month) {
   temp <- tempfile(fileext = ".nc")
 
   tryCatch(curl::curl_download(url, destfile = temp, mode = "wb"),
-           error = function(e) {
-             message("An error occurred while downloading the spectral data:\n", e)
-           },
-           warning = function(w) {
-             message("A warning occured while downloading the spectral data:\n", w)
-           })
+    error = function(e) {
+      message("An error occurred while downloading the spectral data:\n", e)
+    },
+    warning = function(w) {
+      message("A warning occured while downloading the spectral data:\n", w)
+    }
+  )
 
   nc <- ncdf4::nc_open(temp)
 
@@ -116,9 +118,11 @@ get_1Dspectrum_raw <- function(point, year, month) {
   time <- nc$dim$time$vals
   time <- as.POSIXct(time * 24 * 3600, origin = "1990-01-01Z00:00:00", tz = "UTC")
 
-  var_out <- list("longitude", "latitude",
-                  "frequency1", "frequency2",
-                  "ef", "th1m", "th2m", "sth1m", "sth2m")
+  var_out <- list(
+    "longitude", "latitude",
+    "frequency1", "frequency2",
+    "ef", "th1m", "th2m", "sth1m", "sth2m"
+  )
   out <- lapply(var_out, ncdf4::ncvar_get, nc = nc)
   names(out) <- var_out
 
@@ -126,8 +130,10 @@ get_1Dspectrum_raw <- function(point, year, month) {
   out$latitude <- out$latitude[1]
   out$freq <- freq
 
-  var_out_1D <- list("dpt", "wnd", "wnddir", "cur", "curdir",
-                     "hs", "fp", "f02", "f0m1", "th1p", "sth1p", "dir", "spr")
+  var_out_1D <- list(
+    "dpt", "wnd", "wnddir", "cur", "curdir",
+    "hs", "fp", "f02", "f0m1", "th1p", "sth1p", "dir", "spr"
+  )
   forcings <- lapply(var_out_1D, ncdf4::ncvar_get, nc = nc)
 
   names(forcings) <- var_out_1D
