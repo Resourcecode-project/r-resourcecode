@@ -17,10 +17,10 @@ test_that("Node selection works", {
   point_test <- c(-4.700, 48.302)
   node_test <- 134938
   spec_test <- 2124
-  expect_equal(closest_point_FIELD(point_test)$point, node_test)
-  expect_equal(closest_point_FIELD(point_test[1], point_test[2])$point, node_test)
-  expect_equal(closest_point_SPEC(point_test)$point, 2124)
-  expect_equal(closest_point_SPEC(point_test[1], point_test[2])$point, 2124)
+  expect_equal(closest_point_field(point_test)$point, node_test)
+  expect_equal(closest_point_field(point_test[1], point_test[2])$point, node_test)
+  expect_equal(closest_point_spec(point_test)$point, 2124)
+  expect_equal(closest_point_spec(point_test[1], point_test[2])$point, 2124)
 })
 
 test_that("Fast trapz works", {

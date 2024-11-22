@@ -7,16 +7,16 @@ test_that("Conversion between 2D and 1D spectra works", {
   spec <- get_2d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
   spec1d_rscd <- get_1d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
   spec_1d <- convert_spectrum_2d1d(spec)
-  expect_equal(names(spec1d), names(spec1d_rscd))
+  expect_equal(names(spec_1d), names(spec1d_rscd))
   expect_equal(spec_1d$ef, spec1d_rscd$ef, tolerance = 1e-7)
   expect_equal(spec_1d$forcings, spec1d_rscd$forcings[, 1:6], tolerance = 1e-7)
 })
 
 
 test_that("Computation of sea-state parameters works", {
-  spec <- get_2Dspectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
-  spec1d_rscd <- get_1Dspectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
-  spec_1d <- convert_spectrum_2D1D(spec)
+  spec <- get_2d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
+  spec1d_rscd <- get_1d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
+  spec_1d <- convert_spectrum_2d1d(spec)
   sea_state_from2d <- compute_sea_state_2d_spectrum(spec)
   sea_state_from1d <- compute_sea_state_1d_spectrum(spec1d_rscd)
   sea_state_from1d_computed <- compute_sea_state_1d_spectrum(spec_1d)
