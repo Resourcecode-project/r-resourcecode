@@ -49,13 +49,13 @@ The available location can be plotted on a map using the following code. It can 
 ```{r, fig.retina=3}
 lim_lon <- c(-5.25, -4.25)
 lim_lat <- c(47.75, 48.75)
-field_BZH <- ggplot(rscd_field, aes(x = longitude, y = latitude)) +
+field_bzh <- ggplot(rscd_field, aes(x = longitude, y = latitude)) +
   geom_point(size = .1, col = "lightblue") +
   geom_path(data = rscd_coastline, linewidth = .2) +
   geom_path(data = rscd_islands, aes(group = .data$ID), linewidth = .2) +
   coord_sf(xlim = lim_lon, ylim = lim_lat, expand = FALSE, crs = sf::st_crs(4326)) +
   theme_void()
-field_BZH
+field_bzh
 ```
 
 - **SPEC** grid
@@ -105,27 +105,27 @@ ggplot(tidyr::pivot_longer(ts, -1), aes(x = time, y = value, col = name)) +
 - 1D and 2D spectra of the SPEC grid can be downloaded directly from IFREMER FTP using functions `get_1Dspectrum()` and `get_2Dspectrum()`. We also provide a plotting function for the 2D spectrum.
 
 ```{r}
-node_SPEC <- closest_point_SPEC(point_of_interest)
+node_spectral_grid <- closest_point_spec(point_of_interest)
 ```
 
 Then one can extract the 1D spectrum time-series and see the contents of these downloaded data.
 
 ```{r}
-spec1D <- get_1Dspectrum(node_SPEC$point, start = "1994-01-01", end = "1994-02-28")
-str(spec1D)
+spec_1d <- get_1d_spectrum(node_spectral_grid$point, start = "1994-01-01", end = "1994-02-28")
+str(spec_1d)
 ```
 
 The same applies to 2D spectra.
 
 ```{r}
-spec2D <- get_2Dspectrum(node_SPEC$point, start = "1994-01-01", end = "1994-02-28")
-str(spec1D)
+spec_2d <- get_2d_spectrum(node_spectral_grid$point, start = "1994-01-01", end = "1994-02-28")
+str(spec_2d)
 ```
 
 In addition, it is possible to plot the wave elevation directional spectra for any given time, which can be specified by the time index or directly the date:
 
 ```{r,warning=FALSE, fig.height=8,fig.width=8}
-plot_2Dspecta(spec2D, "1994-01-15 18:00")
+plot_2d_specta(spec_2d, "1994-01-15 18:00")
 ```
 
 

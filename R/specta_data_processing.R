@@ -64,9 +64,9 @@ dispersion <- function(frequencies, depth, iter_max = 200, tol = 1e-6) {
 #' @export
 #'
 #' @examples
-#' spec <- get_2Dspectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
-#' spec1D_RSCD <- get_1Dspectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
-#' spec1D <- convert_spectrum_2D1D(spec)
+#' spec <- get_2d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
+#' spec1D_RSCD <- get_1d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
+#' spec1D <- convert_spectrum_2d1d(spec)
 #' # Check the differences, should be low
 #' max(abs(spec1D_RSCD$ef - spec1D$ef))
 #'
@@ -101,7 +101,7 @@ dispersion <- function(frequencies, depth, iter_max = 200, tol = 1e-6) {
 #'   format = "%Y-%m-%d",
 #'   las = 2
 #' )
-convert_spectrum_2D1D <- function(spec, ...) {
+convert_spectrum_2d1d <- function(spec, ...) {
   ddir <- diff(spec$dir)[1] * pi / 180 # computes the discretization in direction
 
   # Averages the directional spectrum along the direction
@@ -168,7 +168,7 @@ convert_spectrum_2D1D <- function(spec, ...) {
 #' lines(rscd_params$time, rscd_params$tp, col = "red")
 #' plot(param_calc$time, param_calc$dp, type = "l", xlab = "Time", ylab = "Dp (°)")
 #' lines(rscd_params$time, rscd_params$dp, col = "red")
-compute_sea_state_2Dspectrum <- function(spec, ...) {
+compute_sea_state_2d_spectrum <- function(spec, ...) {
   # Define an internal function that will do the job for a time-step
   # spectrum: 1D spectrum
   water_density <- 1026
@@ -246,21 +246,21 @@ compute_sea_state_2Dspectrum <- function(spec, ...) {
   out$spr <- (sqrt(2 * (1 - sqrt((am^2 + bm^2) / m0^2))) * 180 / pi) %% 360
 
   # Compute mean direction and spreading at peak frequency (°)
-  iEfm <- apply(spec_1d, 2, which.max) # peak of the spectrum
-  Efm <- array(0, dim = c(36, dim(spec$efth)[3]))
+  ind_efm <- apply(spec_1d, 2, which.max) # peak of the spectrum
+  efm <- array(0, dim = c(36, dim(spec$efth)[3]))
 
   for (t in seq_len(dim(spec$efth)[3])) {
-    Efm[, t] <- spec$efth[, iEfm[t], t]
+    efm[, t] <- spec$efth[, ind_efm[t], t]
   } # don't know how to avoid the loop, maybe using slice.index ?
 
-  apm <- apply(sweep(Efm, 1, as.array(cos(spec$dir * pi / 180)), "*") * ddir, 2, sum)
-  bpm <- apply(sweep(Efm, 1, as.array(sin(spec$dir * pi / 180)), "*") * ddir, 2, sum)
+  apm <- apply(sweep(efm, 1, as.array(cos(spec$dir * pi / 180)), "*") * ddir, 2, sum)
+  bpm <- apply(sweep(efm, 1, as.array(sin(spec$dir * pi / 180)), "*") * ddir, 2, sum)
 
   out$dp <- (atan2(bpm, apm) * 180 / pi + 180) %% 360
 
-  Qpf <- apply(sweep(spec$efth^2, 1, spec$freq, FUN = "*") * ddir, c(2, 3), sum)
-  MQ <- apply(Qpf, 2, pracma::trapz, x = spec$freq)
-  out$qp <- ((2 * MQ / (m0^2)) * 180 / pi) %% 360
+  qpf <- apply(sweep(spec$efth^2, 1, spec$freq, FUN = "*") * ddir, c(2, 3), sum)
+  mq <- apply(qpf, 2, pracma::trapz, x = spec$freq)
+  out$qp <- ((2 * mq / (m0^2)) * 180 / pi) %% 360
 
   out
 }
@@ -280,8 +280,8 @@ compute_sea_state_2Dspectrum <- function(spec, ...) {
 #'   end = "1994-02-28 23:00:00",
 #'   parameters = c("hs", "tp", "cge", "t01", "dp", "dir")
 #' )
-#' spec <- get_1Dspectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
-#' param_calc <- compute_sea_state_1Dspectrum(spec)
+#' spec <- get_1d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
+#' param_calc <- compute_sea_state_1d_spectrum(spec)
 #' par(mfcol = c(2, 2))
 #' plot(param_calc$time, param_calc$hs, type = "l", xlab = "Time", ylab = "Hs (m)")
 #' lines(rscd_params$time, rscd_params$hs, col = "red")
@@ -291,7 +291,7 @@ compute_sea_state_2Dspectrum <- function(spec, ...) {
 #' lines(rscd_params$time, rscd_params$tp, col = "red")
 #' plot(param_calc$time, param_calc$dp, type = "l", xlab = "Time", ylab = "Peak direction (°)")
 #' lines(rscd_params$time, rscd_params$dp, col = "red")
-compute_sea_state_1Dspectrum <- function(spec, ...) {
+compute_sea_state_1d_spectrum <- function(spec, ...) {
   water_density <- 1026
   g <- 9.81
 
@@ -353,11 +353,11 @@ compute_sea_state_1Dspectrum <- function(spec, ...) {
   out$spr <- apply(spec$sth1m, 2, pracma::trapz, x = spec$freq) # possibly wrong
 
   # mean direction at peak frequency (°)
-  iEfm <- apply(spec$ef, 2, which.max) # peak of the spectrum
+  ind_efm <- apply(spec$ef, 2, which.max) # peak of the spectrum
   dp <- vector("numeric", dim(spec$ef)[2])
 
   for (t in seq_len(dim(spec$ef)[2])) {
-    dp[t] <- spec$th1m[iEfm[t], t]
+    dp[t] <- spec$th1m[ind_efm[t], t]
   } # dont know how to avoid the loop, maybe using slice.index?
   out$dp <- dp
 

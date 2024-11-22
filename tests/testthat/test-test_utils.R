@@ -26,9 +26,9 @@ test_that("Node selection works", {
 test_that("Fast trapz works", {
   n <- 101
   x <- seq(0, pi, length.out = n)
-  Y1 <- sin(matrix(x, ncol = n, nrow = n, byrow = FALSE))
-  Y2 <- sin(matrix(x, ncol = n, nrow = n, byrow = TRUE))
-  expect_equal(fastTrapz(x, Y1, 1), t(fastTrapz(x, Y2, 2)))
+  y1 <- sin(matrix(x, ncol = n, nrow = n, byrow = FALSE))
+  y2 <- sin(matrix(x, ncol = n, nrow = n, byrow = TRUE))
+  expect_equal(fastTrapz(x, y1, 1), t(fastTrapz(x, y2, 2)))
 })
 
 test_that("JONSWAP computation works", {

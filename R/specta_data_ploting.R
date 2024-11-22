@@ -16,7 +16,7 @@
 #' @importFrom ggplot2 ggplot geom_rect scale_x_continuous scale_y_continuous
 #'                     theme_bw coord_polar scale_color_distiller scale_fill_distiller
 #'                     labs expansion
-plot_2Dspecta <- function(spec, time = 1L, normalize = TRUE, trim = 0.01, cut_off = .4, ...) {
+plot_2d_specta <- function(spec, time = 1L, normalize = TRUE, trim = 0.01, cut_off = .4, ...) {
   if (is.character(time)) {
     time <- as.POSIXct(time, tz = "UTC")
   }
@@ -35,8 +35,8 @@ plot_2Dspecta <- function(spec, time = 1L, normalize = TRUE, trim = 0.01, cut_of
   legend_text <- "Power spectrum\n(m^2.s)"
 
   if (normalize) {
-    ef.max <- max(df$ef)
-    df$ef <- df$ef / ef.max
+    ef_max <- max(df$ef)
+    df$ef <- df$ef / ef_max
 
     legend_text <- "Normalized\nPower spectrum"
   }

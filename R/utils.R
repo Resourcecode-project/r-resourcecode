@@ -24,13 +24,13 @@
 #' @return a list with two components: the closest point(s) of the grid and the distance (s).
 #' @export
 #'
-#' @examples semrev_west <- closest_point_FIELD(c(-2.786, 47.239))
+#' @examples semrev_west <- closest_point_field(c(-2.786, 47.239))
 #' semrev_west
 #' rscd_field[semrev_west[[1]], ]
-closest_point_FIELD <- function(x, lat = NULL, closest = 1L, ...) {
+closest_point_field <- function(x, lat = NULL, closest = 1L, ...) {
   if (!is.null(lat)) {
     stopifnot(length(x) == length(lat))
-    return(closest_point_FIELD(cbind(x, lat)))
+    return(closest_point_field(cbind(x, lat)))
   }
 
   stopifnot(is.integer(closest) & closest >= 1L)
@@ -53,13 +53,13 @@ closest_point_FIELD <- function(x, lat = NULL, closest = 1L, ...) {
 #' @return a list with two components: the closest point(s) of the grid and the distance (s).
 #' @export
 #'
-#' @examples semrev_west <- closest_point_SPEC(c(-2.786, 47.239))
+#' @examples semrev_west <- closest_point_spec(c(-2.786, 47.239))
 #' semrev_west
 #' rscd_spectral[semrev_west[[1]], ]
-closest_point_SPEC <- function(x, lat = NULL, closest = 1L, ...) {
+closest_point_spec <- function(x, lat = NULL, closest = 1L, ...) {
   if (!is.null(lat)) {
     stopifnot(length(x) == length(lat))
-    return(closest_point_SPEC(cbind(x, lat)))
+    return(closest_point_spec(cbind(x, lat)))
   }
 
   stopifnot(is.integer(closest) & closest >= 1L)
@@ -95,9 +95,9 @@ zmcomp2metconv <- function(u, v = NULL, names = c("wspd", "wdir")) {
 
   stopifnot(is.matrix(u) & dim(u)[2] == 2)
 
-  V <- sqrt(u[, 1]^2 + u[, 2]^2)
-  D <- (270 - atan2(u[, 2], u[, 1]) * 180 / pi) %% 360
-  out <- data.frame(V, D)
+  speed <- sqrt(u[, 1]^2 + u[, 2]^2)
+  direction <- (270 - atan2(u[, 2], u[, 1]) * 180 / pi) %% 360
+  out <- data.frame(speed, direction)
   names(out) <- names
   return(out)
 }
@@ -106,15 +106,20 @@ zmcomp2metconv <- function(u, v = NULL, names = c("wspd", "wdir")) {
 #'
 #' Creates a JONWSAP density spectrum (one-sided), defined by its integral parameters.
 #'
-#' Reference : O.G.Houmb and T.Overvik, "Parametrization of Wave Spectra and Long Term Joint Distribution of Wave Height and Period,"
-#'        in Proceedings, First International Conference on Behaviour of Offshore Structures (BOSS), Trondheim 1976.
+#' Reference :
+#'   - O.G.Houmb and T.Overvik, "Parametrization of Wave Spectra and Long Term
+#'        Joint Distribution of Wave Height and Period,"
+#'        in Proceedings, First International Conference
+#'        on Behaviour of Offshore Structures (BOSS), Trondheim 1976.
 #'        23rd International Towing Tank Conference, vol. II, pp. 544-551
-#'      ITTC Committee, 2002, "The Specialist Committee on Waves - Final Report and Recommendations to the 23rd ITTC",
+#'   - ITTC Committee, 2002, "The Specialist Committee on Waves -
+#'        Final Report and Recommendations to the 23rd ITTC",
 #'        Proc. ITTC, vol. II, pp. 505-736.
 #'
 #' @param hs Hs (default: 5m)
 #' @param tp Period (default: 10s)
-#' @param fmax higher frequency of the spectrum or vector of frequencies (default to resourcecode frequency vector)
+#' @param fmax higher frequency of the spectrum or
+#'             vector of frequencies (default to resourcecode frequency vector)
 #' @param df frequency step (unused if fmax=vector of frequencies)
 #' @param gam peak enhancement factor (default: 3.3)
 #'
@@ -133,7 +138,8 @@ jonswap <- function(hs = 5, tp = 15, fmax = resourcecode::rscd_freq, df = NULL, 
     fmin <- min(freq)
     fmax <- max(freq)
     df <- min(diff(freq))
-    frq <- seq(from = fmin, to = fmax + df, by = df) # generate a uniform-sampling to ease computations
+    # generate a uniform-sampling to ease computations:
+    frq <- seq(from = fmin, to = fmax + df, by = df)
   } else {
     if (is.null(df)) {
       stop("df must be provided when fmax is a single value")

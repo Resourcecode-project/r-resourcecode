@@ -1,9 +1,14 @@
 test_that("obital speed computation works", {
-  S <- t(vapply(1:10, \(h) jonswap(h, tp = 12)$spec, FUN.VALUE = numeric(36)))
-  orb_speed_bottom <- compute_orbital_speeds(S, rscd_freq, depth = 50, z = 0)
-  orb_speed_half <- compute_orbital_speeds(S, rscd_freq, depth = 50, z = 25)
-  orb_speed_top <- compute_orbital_speeds(S, rscd_freq, depth = 50, z = 50)
-  orb_speed_bottom_spec <- compute_orbital_speeds(S, rscd_freq, depth = 50, z = 0, output_speeds = TRUE)
+  spec <- t(vapply(1:10, \(h) jonswap(h, tp = 12)$spec, FUN.VALUE = numeric(36)))
+  orb_speed_bottom <- compute_orbital_speeds(spec, rscd_freq, depth = 50, z = 0)
+  orb_speed_half <- compute_orbital_speeds(spec, rscd_freq, depth = 50, z = 25)
+  orb_speed_top <- compute_orbital_speeds(spec, rscd_freq, depth = 50, z = 50)
+  orb_speed_bottom_spec <- compute_orbital_speeds(spec,
+    rscd_freq,
+    depth = 50,
+    z = 0,
+    output_speeds = TRUE
+  )
   expect_equal(dim(orb_speed_bottom), c(10, 2))
   expect_equal(dim(orb_speed_bottom_spec), c(10, 36, 2))
   expect_equal(orb_speed_bottom[, 2], rep(0, 10))

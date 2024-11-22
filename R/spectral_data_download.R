@@ -8,7 +8,7 @@
 #'
 #' @return a list with the sea-state spectrum and forcings
 #' @keywords internal
-get_2Dspectrum_raw <- function(point, year, month) {
+get_2d_spectrum_raw <- function(point, year, month) {
   base <- "https://data-dataref.ifremer.fr/ww3/resourcecode/HINDCAST/"
   url <- paste0(
     base,
@@ -58,9 +58,9 @@ get_2Dspectrum_raw <- function(point, year, month) {
   out$freq <- freq
   out$dir <- dir[dir_ordred]
 
-  var_out_1D <- list("dpt", "wnd", "wnddir", "cur", "curdir")
-  forcings <- lapply(var_out_1D, ncdf4::ncvar_get, nc = nc)
-  names(forcings) <- var_out_1D
+  var_out_1d <- list("dpt", "wnd", "wnddir", "cur", "curdir")
+  forcings <- lapply(var_out_1d, ncdf4::ncvar_get, nc = nc)
+  names(forcings) <- var_out_1d
 
   out$forcings <- tibble::tibble(time = time, tibble::as_tibble(forcings))
 
@@ -81,7 +81,7 @@ get_2Dspectrum_raw <- function(point, year, month) {
 #'
 #' @return a list with the sea-state 1D spectrum and forcings
 #' @keywords internal
-get_1Dspectrum_raw <- function(point, year, month) {
+get_1d_spectrum_raw <- function(point, year, month) {
   base <- "https://data-dataref.ifremer.fr/ww3/resourcecode/HINDCAST/"
   url <- paste0(
     base,
@@ -130,13 +130,13 @@ get_1Dspectrum_raw <- function(point, year, month) {
   out$latitude <- out$latitude[1]
   out$freq <- freq
 
-  var_out_1D <- list(
+  var_out_1d <- list(
     "dpt", "wnd", "wnddir", "cur", "curdir",
     "hs", "fp", "f02", "f0m1", "th1p", "sth1p", "dir", "spr"
   )
-  forcings <- lapply(var_out_1D, ncdf4::ncvar_get, nc = nc)
+  forcings <- lapply(var_out_1d, ncdf4::ncvar_get, nc = nc)
 
-  names(forcings) <- var_out_1D
+  names(forcings) <- var_out_1d
 
   out$forcings <- tibble::tibble(time = time, tibble::as_tibble(forcings))
 
@@ -155,12 +155,12 @@ get_1Dspectrum_raw <- function(point, year, month) {
 #' @export
 #'
 #' @examplesIf curl::has_internet()
-#' spec2D <- get_2Dspectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
+#' spec2D <- get_2d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
 #' image(spec2D$dir, spec2D$freq, spec2D$efth[, , 1],
 #'   xlab = "Direction (°)",
 #'   ylab = "Frequency (Hz"
 #' )
-get_2Dspectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
+get_2d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
   stopifnot(length(point) == 1)
 
   if (is.numeric(point)) {
@@ -215,7 +215,7 @@ get_2Dspectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
 #' @export
 #'
 #' @examplesIf curl::has_internet()
-#' spec1D <- get_1Dspectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
+#' spec1D <- get_1dç_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
 #' r <- as.POSIXct(round(range(spec1D$forcings$time), "month"))
 #' image(spec1D$forcings$time, spec1D$freq, t(spec1D$ef),
 #'   xaxt = "n", xlab = "Time",
@@ -225,7 +225,7 @@ get_2Dspectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
 #'   at = seq(r[1], r[2], by = "week"),
 #'   format = "%Y-%m-%d", las = 2
 #' )
-get_1Dspectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
+get_1d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
   stopifnot(length(point) == 1)
 
   if (is.numeric(point)) {
