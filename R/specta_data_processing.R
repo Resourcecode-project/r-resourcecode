@@ -157,7 +157,7 @@ convert_spectrum_2d1d <- function(spec, ...) {
 #'   end = "1994-02-28 23:00:00",
 #'   parameters = c("hs", "tp", "cge", "t01", "dp", "dir")
 #' )
-#' spec <- get_2Dspectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
+#' spec <- get_2d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
 #' param_calc <- compute_sea_state_2Dspectrum(spec)
 #' par(mfcol = c(2, 2))
 #' plot(param_calc$time, param_calc$hs, type = "l", xlab = "Time", ylab = "Hs (m)")
