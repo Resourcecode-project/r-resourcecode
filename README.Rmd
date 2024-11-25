@@ -44,7 +44,7 @@ resourcecode::rscd_mapplot(resourcecode::rscd_field$depth, name = "Depth (m)", t
 
 See the variables available in the database:
 ```{r variables}
-rscd_variables
+head(rscd_variables)
 ```
 
 Download a time series of significant wave height next to the coast of Finistère:
