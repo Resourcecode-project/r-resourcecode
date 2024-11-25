@@ -1,4 +1,4 @@
-# resourcecode (development version)
+# resourcecode 0.1.0
 
 - Add some code linter;
 - Switch from `ftp`to `https` to download the spectral data, to increase stability;
