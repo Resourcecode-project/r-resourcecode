@@ -1,6 +1,6 @@
 Package: resourcecode
 Title: Access to the RESOURCECODE Hindcast Database
-Version: 0.1.0
+Version: 0.0.1
 Authors@R: c(
     person("Nicolas", "Raillard", , "nicolas.raillard@ifremer.fr", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-3385-5104")),
