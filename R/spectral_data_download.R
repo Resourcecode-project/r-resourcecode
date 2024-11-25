@@ -7,6 +7,7 @@
 #' @param month the month number, as a string,
 #'
 #' @return a list with the sea-state spectrum and forcings
+#' @noRd
 #' @keywords internal
 get_2d_spectrum_raw <- function(point, year, month) {
   base <- "https://data-dataref.ifremer.fr/ww3/resourcecode/HINDCAST/"
@@ -80,6 +81,7 @@ get_2d_spectrum_raw <- function(point, year, month) {
 #' @param month the month number, as a string,
 #'
 #' @return a list with the sea-state 1D spectrum and forcings
+#' @noRd
 #' @keywords internal
 get_1d_spectrum_raw <- function(point, year, month) {
   base <- "https://data-dataref.ifremer.fr/ww3/resourcecode/HINDCAST/"

@@ -4,11 +4,11 @@
 \name{resourcecode-package}
 \alias{resourcecode}
 \alias{resourcecode-package}
-\title{resourcecode: Access to the RESOURCECODE hindcast database}
+\title{resourcecode: Access to the RESOURCECODE Hindcast Database}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-WThis package provides utility functions to download data from the RESOURCECODE database, along with facilities to plot and analyse such data.
+Utility functions to download data from the RESOURCECODE hindast database of sea-states, time series of sea-state parameters and time series of 1D and 2D wave spectra. See \url{http://resourcecode.ifremer.fr} for more details about the available data. Also provides facilities to plot and analyse downloaded data, such as computing the sea-state parameters from both the 1D and 2D wave sprectra.
 }
 \seealso{
 Useful links:
@@ -20,7 +20,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Nicolas Raillard \email{nicolas.raillard@ifremer.fr} (\href{https://orcid.org/0000-0003-3385-5104}{ORCID})
+\strong{Maintainer}: Nicolas Raillard \email{nicolas.raillard@ifremer.fr} (\href{https://orcid.org/0000-0003-3385-5104}{ORCID}) [copyright holder]
 
 }
 \keyword{internal}
