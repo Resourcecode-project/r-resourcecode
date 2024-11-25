@@ -13,9 +13,9 @@ Utility functions to download data from the RESOURCECODE hindast database of sea
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/Resourcecode-project/r-resourcecode/}
+  \item \url{https://github.com/Resourcecode-project/r-resourcecode}
   \item \url{https://resourcecode-project.github.io/r-resourcecode/}
-  \item Report bugs at \url{https://github.com/Resourcecode-project/r-resourcecode/issues/}
+  \item Report bugs at \url{https://github.com/Resourcecode-project/r-resourcecode/issues}
 }
 
 }
