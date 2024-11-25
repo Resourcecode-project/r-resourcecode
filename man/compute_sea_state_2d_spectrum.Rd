@@ -25,7 +25,7 @@ rscd_params <- get_parameters(
   parameters = c("hs", "tp", "cge", "t01", "dp", "dir")
 )
 spec <- get_2d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
-param_calc <- compute_sea_state_2Dspectrum(spec)
+param_calc <- compute_sea_state_2d_spectrum(spec)
 par(mfcol = c(2, 2))
 plot(param_calc$time, param_calc$hs, type = "l", xlab = "Time", ylab = "Hs (m)")
 lines(rscd_params$time, rscd_params$hs, col = "red")
