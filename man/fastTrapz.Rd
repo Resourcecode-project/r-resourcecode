@@ -13,6 +13,9 @@ fastTrapz(x, Y, dim = 1L)
 
 \item{dim}{an integer giving the subscripts which the function will be applied over. 1 indicates rows, 2 indicates columns}
 }
+\value{
+a vector with one dimension less than Y
+}
 \description{
 Compute the area of a multivariate function with (matrix) values Y at the points x.
 }

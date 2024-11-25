@@ -8,6 +8,7 @@
 #' @param x x-coordinates of points on the x-axis (vector)
 #' @param Y y-coordinates of function values (matrix)
 #' @param dim an integer giving the subscripts which the function will be applied over. 1 indicates rows, 2 indicates columns
+#' @return a vector with one dimension less than Y
 #' @export
 #' @examples
 #' x = 1:10

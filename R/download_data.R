@@ -9,6 +9,7 @@
 #' @param end end date (posixct)
 #'
 #' @return a tibble with 2 columns and as many rows as needed
+#' @noRd
 get_parameters_raw <- function(parameter = "hs",
                                node = 42,
                                start = as.POSIXct("1994-01-01Z00:00:00"),

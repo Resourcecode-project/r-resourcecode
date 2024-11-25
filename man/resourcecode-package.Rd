@@ -8,19 +8,24 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Utility functions to download data from the RESOURCECODE hindast database of sea-states, time series of sea-state parameters and time series of 1D and 2D wave spectra. See \url{http://resourcecode.ifremer.fr} for more details about the available data. Also provides facilities to plot and analyse downloaded data, such as computing the sea-state parameters from both the 1D and 2D wave sprectra.
+Utility functions to download data from the RESOURCECODE hindast database of sea-states, time series of sea-state parameters and time series of 1D and 2D wave spectra. See \url{https://resourcecode.ifremer.fr} for more details about the available data. Also provides facilities to plot and analyse downloaded data, such as computing the sea-state parameters from both the 1D and 2D wave sprectra.
 }
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/NRaillard/resourcecode}
-  \item \url{https://nraillard.github.io/resourcecode/}
-  \item Report bugs at \url{https://github.com/NRaillard/resourcecode/issues}
+  \item \url{https://github.com/Resourcecode-project/r-resourcecode/}
+  \item \url{https://resourcecode-project.github.io/r-resourcecode/}
+  \item Report bugs at \url{https://github.com/Resourcecode-project/r-resourcecode/issues/}
 }
 
 }
 \author{
-\strong{Maintainer}: Nicolas Raillard \email{nicolas.raillard@ifremer.fr} (\href{https://orcid.org/0000-0003-3385-5104}{ORCID}) [copyright holder]
+\strong{Maintainer}: Nicolas Raillard \email{nicolas.raillard@ifremer.fr} (\href{https://orcid.org/0000-0003-3385-5104}{ORCID})
+
+Other contributors:
+\itemize{
+  \item IFREMER (https://www.ifremer.fr) [copyright holder, funder]
+}
 
 }
 \keyword{internal}
