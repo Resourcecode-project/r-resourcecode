@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Resource**code** <a href="https://nraillard.github.io/resourcecode/"><img src="man/figures/logo.png" align="right" height="139" alt="resourcecode website" /></a>
+# Resource**code** <a href="https://github.com/Resourcecode-project/r-resourcecode"><img src="man/figures/logo.png" align="right" height="139" alt="resourcecode website" /></a>
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/Resourcecode-project/r-resourcecode/workflows/R-CMD-check/badge.svg?branch=main)](https://github.com/Resourcecode-project/r-resourcecode/actions) 
