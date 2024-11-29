@@ -106,3 +106,4 @@ rhub::rhub_doctor()
 rhub::rhub_platforms()
 rhub::rhub_check() # launch manually
 
+devtools::submit_cran()
