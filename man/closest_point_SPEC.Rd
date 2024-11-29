@@ -24,5 +24,5 @@ Find the closest point of the SPEC grid to the specified position
 \examples{
 semrev_west <- closest_point_spec(c(-2.786, 47.239))
 semrev_west
-rscd_spectral[semrev_west[[1]], ]
+resourcecodedata::rscd_spectral[semrev_west[[1]], ]
 }

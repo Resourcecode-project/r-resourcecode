@@ -17,9 +17,34 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r echo = FALSE}
+hasData <- requireNamespace("resourcecodedata", quietly=TRUE)
+if (!hasData) {
+    knitr::opts_chunk$set(eval = FALSE)
+    msg <- paste("Note: Examples in this vignette require that the", 
+                 "`resourcecodedata` package be installed. The system",
+                 "currently running this vignette does not have that package",
+                 "installed, so code examples will not be evaluated.")
+    msg <- paste(strwrap(msg), collapse="\n")
+    message(msg)
+}
+```
+
 The goal of `{resourcecode}` is to provide an easy access to the ResourceCODE hindcast database of sea-states. More information on the database can be found [here](https://resourcecode.ifremer.fr). We will explain in this vignette the way to retrieve data from this database and some the functionalities offered by this package.
 
+This package depends on data in a data package `{resourcecodedata}` that is available through a `drat` repository on GitHub.
+To use the `{resourcecode}` package, you will need to install `{resourcecodedata}` on your computer, using the following `install.packages` function (and later update it using the `update.packages` function):
+
+```{r install-data, eval=F}
+install.packages('resourcecodedata',
+                 repos='https://resourcecode-project.github.io/drat/',
+                 type='source')
+```
+
+Once the packages are installed, we can proceed as usual:
+
 ```{r setup}
+library(resourcecodedata)
 library(resourcecode)
 library(ggplot2)
 ```

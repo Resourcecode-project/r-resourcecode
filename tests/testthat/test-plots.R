@@ -16,5 +16,5 @@ test_that("we can plot the 2D spectrum", {
 
 test_that("Plotting maps works", {
   vdiffr::expect_doppelganger("Mapping water depth",
-                              rscd_mapplot(rscd_field$depth, name = "Depth (m)"))
+                              rscd_mapplot(resourcecodedata::rscd_field$depth, name = "Depth (m)"))
 })

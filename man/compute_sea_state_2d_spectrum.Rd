@@ -19,12 +19,12 @@ Compute sea_state parameter from wave directional spectrum
 }
 \examples{
 rscd_params <- get_parameters(
-  node = "119947",
+  node = "134865",
   start = "1994-01-01",
-  end = "1994-02-28 23:00:00",
+  end = "1994-01-31 23:00:00",
   parameters = c("hs", "tp", "cge", "t01", "dp", "dir")
 )
-spec <- get_2d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
+spec <- resourcecodedata::rscd_2d_spectra
 param_calc <- compute_sea_state_2d_spectrum(spec)
 par(mfcol = c(2, 2))
 plot(param_calc$time, param_calc$hs, type = "l", xlab = "Time", ylab = "Hs (m)")

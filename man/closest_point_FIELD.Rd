@@ -24,5 +24,5 @@ Find the closest point of the FIELD grid to the specified position
 \examples{
 semrev_west <- closest_point_field(c(-2.786, 47.239))
 semrev_west
-rscd_field[semrev_west[[1]], ]
+resourcecodedata::rscd_field[semrev_west[[1]], ]
 }

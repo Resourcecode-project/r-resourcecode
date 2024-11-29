@@ -153,7 +153,30 @@ get_1d_spectrum_raw <- function(point, year, month) {
 #' @param start the starting date (as a string). The consistency is checked internally.
 #' @param end the ending date as a string
 #'
-#' @return A list with the data read from the downloaded netCDF file.
+#' @return A list with 9 elements:
+#' \describe{
+#'   \item{longitude}{Longitude}
+#'   \item{latitude}{Latitude}
+#'   \item{frequency1}{Lower frequency}
+#'   \item{frequency2}{Upper frequency}
+#'   \item{ef}{Surface elevation variance spectral density}
+#'   \item{th1m}{Mean direction from first spectral moment}
+#'   \item{th2m}{Mean direction from second spectral moment}
+#'   \item{sth1m}{Mean directional spreading from first spectral moment}
+#'   \item{sth2m}{Mean directional spreading from second spectral moment}
+#'   \item{freq}{Central frequency}
+#'   \item{dir}{Directionnal bins}
+#'   \item{forcings}{A data.frame with 6 variables:
+#'    \describe{
+#'      \item{time}{Time}
+#'      \item{dpt}{Depth, positive downward}
+#'      \item{wnd}{Wind intensity, at 10m above sea level}
+#'      \item{wnddir}{Wind direction, comes from}
+#'      \item{cur}{Current intensity, at the surface}
+#'      \item{curdir}{Current direction, going to}
+#'    }}
+#'   \item{station}{Station name}
+#' }
 #' @export
 #'
 #' @examplesIf curl::has_internet()
@@ -165,11 +188,13 @@ get_1d_spectrum_raw <- function(point, year, month) {
 get_2d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
   stopifnot(length(point) == 1)
 
+  hasData()
+
   if (is.numeric(point)) {
-    point <- resourcecode::rscd_spectral[point, "name"]
+    point <- resourcecodedata::rscd_spectral[point, "name"]
   }
 
-  stopifnot(point %in% resourcecode::rscd_spectral$name)
+  stopifnot(point %in% resourcecodedata::rscd_spectral$name)
 
   if (is.character(start)) {
     start <- as.POSIXct(start, tz = "UTC")
@@ -213,7 +238,37 @@ get_2d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
 #' @param start the starting date (as a string). The consistency is checked internally.
 #' @param end the ending date as a string
 #'
-#' @return A list with the data read from the downloaded netCDF file.
+#' @return A list with 12 elements:
+#' \describe{
+#'   \item{longitude}{Longitude}
+#'   \item{latitude}{Latitude}
+#'   \item{frequency1}{Lower frequency}
+#'   \item{frequency2}{Upper frequency}
+#'   \item{ef}{Surface elevation variance spectral density}
+#'   \item{th1m}{Mean direction from first spectral moment}
+#'   \item{th2m}{Mean direction from second spectral moment}
+#'   \item{sth1m}{Mean directional spreading from first spectral moment}
+#'   \item{sth2m}{Mean directional spreading from second spectral moment}
+#'   \item{freq}{Central frequency}
+#'   \item{forcings}{A data.frame with 14 variables:
+#'    \describe{
+#'      \item{time}{Time}
+#'      \item{dpt}{Depth, positive downward}
+#'      \item{wnd}{Wind intensity, at 10m above sea level}
+#'      \item{wnddir}{Wind direction, comes from}
+#'      \item{cur}{Current intensity, at the surface}
+#'      \item{curdir}{Current direction, going to}
+#'      \item{hs}{Significant wave height}
+#'      \item{fp}{Peak wave frequency}
+#'      \item{f02}{Mean wave frequency}
+#'      \item{f0m1}{Mean wave frequency at spectral moment minus one}
+#'      \item{th1p}{Mean wave direction at spectral peak}
+#'      \item{sth1p}{Directional spreading at spectral peak}
+#'      \item{dir}{Mean wave direction}
+#'      \item{spr}{Mean directional spreading}
+#'    }}
+#'   \item{station}{Station name}
+#' }
 #' @export
 #'
 #' @examplesIf curl::has_internet()
@@ -230,11 +285,13 @@ get_2d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
 get_1d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
   stopifnot(length(point) == 1)
 
+  hasData()
+
   if (is.numeric(point)) {
-    point <- resourcecode::rscd_spectral[point, "name"]
+    point <- resourcecodedata::rscd_spectral[point, "name"]
   }
 
-  stopifnot(point %in% resourcecode::rscd_spectral$name)
+  stopifnot(point %in% resourcecodedata::rscd_spectral$name)
 
   if (is.character(start)) {
     start <- as.POSIXct(start, tz = "UTC")

@@ -15,7 +15,37 @@ Alternatively, the node number. The consistency is checked internally.}
 \item{end}{the ending date as a string}
 }
 \value{
-A list with the data read from the downloaded netCDF file.
+A list with 12 elements:
+\describe{
+\item{longitude}{Longitude}
+\item{latitude}{Latitude}
+\item{frequency1}{Lower frequency}
+\item{frequency2}{Upper frequency}
+\item{ef}{Surface elevation variance spectral density}
+\item{th1m}{Mean direction from first spectral moment}
+\item{th2m}{Mean direction from second spectral moment}
+\item{sth1m}{Mean directional spreading from first spectral moment}
+\item{sth2m}{Mean directional spreading from second spectral moment}
+\item{freq}{Central frequency}
+\item{forcings}{A data.frame with 14 variables:
+\describe{
+\item{time}{Time}
+\item{dpt}{Depth, positive downward}
+\item{wnd}{Wind intensity, at 10m above sea level}
+\item{wnddir}{Wind direction, comes from}
+\item{cur}{Current intensity, at the surface}
+\item{curdir}{Current direction, going to}
+\item{hs}{Significant wave height}
+\item{fp}{Peak wave frequency}
+\item{f02}{Mean wave frequency}
+\item{f0m1}{Mean wave frequency at spectral moment minus one}
+\item{th1p}{Mean wave direction at spectral peak}
+\item{sth1p}{Directional spreading at spectral peak}
+\item{dir}{Mean wave direction}
+\item{spr}{Mean directional spreading}
+}}
+\item{station}{Station name}
+}
 }
 \description{
 Download the 1D spectrum data from IFREMER ftp

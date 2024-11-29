@@ -23,11 +23,14 @@ rscd_mapplot <- function(z,
                          palette = "YlOrRd",
                          direction = 1,
                          transform = "identity") {
+
+  hasData()
+
   xyzgz <- tibble::tibble(
-    x = resourcecode::rscd_field$longitude[resourcecode::rscd_triangles],
-    y = resourcecode::rscd_field$latitude[resourcecode::rscd_triangles],
-    z = z[resourcecode::rscd_triangles],
-    g = rep(seq_len(ncol(resourcecode::rscd_triangles)), each = nrow(resourcecode::rscd_triangles))
+    x = resourcecodedata::rscd_field$longitude[resourcecodedata::rscd_triangles],
+    y = resourcecodedata::rscd_field$latitude[resourcecodedata::rscd_triangles],
+    z = z[resourcecodedata::rscd_triangles],
+    g = rep(seq_len(ncol(resourcecodedata::rscd_triangles)), each = nrow(resourcecodedata::rscd_triangles))
   )
 
   ggplot(
@@ -58,13 +61,13 @@ rscd_mapplot <- function(z,
       transform = transform
     ) +
     geom_path(
-      data = resourcecode::rscd_coastline,
+      data = resourcecodedata::rscd_coastline,
       aes(x = .data$longitude, y = .data$latitude),
       linewidth = .2,
       inherit.aes = FALSE
     ) +
     geom_path(
-      data = resourcecode::rscd_islands,
+      data = resourcecodedata::rscd_islands,
       aes(
         x = .data$longitude,
         y = .data$latitude,

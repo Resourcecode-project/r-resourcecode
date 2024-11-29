@@ -1,0 +1,11 @@
+year <- sub("-.*", "", meta$Date)
+note <- sprintf("R package version %s", meta$Version)
+
+bibentry(
+  bibtype  = "Manual",
+  title    = "{resourcecode}: R package to access and process the Resourcecode hindcast database of sea-states",
+  author   = person("Nicolas", "Raillard"),
+  year     = year,
+  note     = note,
+  url      = "https://resourcecode-project.github.io/r-resourcecode/"
+)

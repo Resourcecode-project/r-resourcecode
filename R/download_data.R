@@ -80,12 +80,12 @@ get_parameters <- function(parameters = "hs",
                            end = as.POSIXct("1994-12-31 23:00:00", tz = "UTC")) {
   parameters <- tolower(parameters)
 
-  stopifnot(all(parameters %in% c("tp", resourcecode::rscd_variables$name)))
+  stopifnot(all(parameters %in% c("tp", resourcecodedata::rscd_variables$name)))
 
   node <- as.integer(node)
 
   stopifnot(length(node) == 1)
-  stopifnot(node %in% resourcecode::rscd_field$node)
+  stopifnot(node %in% resourcecodedata::rscd_field$node)
 
   if (is.character(start)) {
     start <- as.POSIXct(start, tz = "UTC")

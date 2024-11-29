@@ -63,9 +63,9 @@ dispersion <- function(frequencies, depth, iter_max = 200, tol = 1e-6) {
 #' @return a structure comparable to 'get_1Dspectrum'.
 #' @export
 #'
-#' @examples
-#' spec <- get_2d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
-#' spec1D_RSCD <- get_1d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
+#' @examplesIf requireNamespace("resourcecodedata")
+#' spec <- resourcecodedata::rscd_2d_spectra
+#' spec1D_RSCD <- resourcecodedata::rscd_1d_spectra
 #' spec1D <- convert_spectrum_2d1d(spec)
 #' # Check the differences, should be low
 #' max(abs(spec1D_RSCD$ef - spec1D$ef))
@@ -152,12 +152,12 @@ convert_spectrum_2d1d <- function(spec, ...) {
 #'
 #' @examples
 #' rscd_params <- get_parameters(
-#'   node = "119947",
+#'   node = "134865",
 #'   start = "1994-01-01",
-#'   end = "1994-02-28 23:00:00",
+#'   end = "1994-01-31 23:00:00",
 #'   parameters = c("hs", "tp", "cge", "t01", "dp", "dir")
 #' )
-#' spec <- get_2d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
+#' spec <- resourcecodedata::rscd_2d_spectra
 #' param_calc <- compute_sea_state_2d_spectrum(spec)
 #' par(mfcol = c(2, 2))
 #' plot(param_calc$time, param_calc$hs, type = "l", xlab = "Time", ylab = "Hs (m)")
@@ -220,7 +220,7 @@ compute_sea_state_2d_spectrum <- function(spec, ...) {
   # wave length
   disper_vec <- Vectorize(dispersion, vectorize.args = c("depth"))
   k <- disper_vec(spec$freq, spec$forcings$dpt, iter_max = 200, tol = 1e-6)
-  kd <- k * spec$forcings$dpt
+  kd <- k * as.numeric(spec$forcings$dpt)
 
   out$km <- apply(k * spec_1d, 2, pracma::trapz, x = spec$freq) / m0
   out$lm <- 2 * pi / out$km
@@ -275,12 +275,12 @@ compute_sea_state_2d_spectrum <- function(spec, ...) {
 #'
 #' @examples
 #' rscd_params <- get_parameters(
-#'   node = "119947",
+#'   node = "134865",
 #'   start = "1994-01-01",
-#'   end = "1994-02-28 23:00:00",
+#'   end = "1994-01-31 23:00:00",
 #'   parameters = c("hs", "tp", "cge", "t01", "dp", "dir")
 #' )
-#' spec <- get_1d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
+#' spec <- resourcecodedata::rscd_1d_spectra
 #' param_calc <- compute_sea_state_1d_spectrum(spec)
 #' par(mfcol = c(2, 2))
 #' plot(param_calc$time, param_calc$hs, type = "l", xlab = "Time", ylab = "Hs (m)")
@@ -334,7 +334,7 @@ compute_sea_state_1d_spectrum <- function(spec, ...) {
   # wave length
   disper_vec <- Vectorize(dispersion, vectorize.args = c("depth"))
   k <- disper_vec(spec$freq, spec$forcings$dpt, iter_max = 200, tol = 1e-6)
-  kd <- k * spec$forcings$dpt
+  kd <- k * as.numeric(spec$forcings$dpt)
 
   out$km <- apply(k * spec$ef, 2, pracma::trapz, x = spec$freq) / m0
   out$lm <- 2 * pi / out$km

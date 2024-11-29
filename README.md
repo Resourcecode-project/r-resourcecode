@@ -18,8 +18,20 @@ this data base and the functionalities offred by this package.
 
 ## Installation
 
-The package is not yet on CRAN. Meanwhile, you can install the
-development version of `{resourcecode}` like so:
+This package depends on data in a data package `{resourcecodedata}` that
+is available through a `drat` repository on GitHub. To use the
+`{resourcecode}` package, you will need to install `{resourcecodedata}`
+on your computer, using the following `install.packages` function (and
+later update it using the `update.packages` function):
+
+``` r
+install.packages('resourcecodedata',
+                 repos='https://resourcecode-project.github.io/drat/',
+                 type='source')
+```
+
+The `{resourcecode}` package is not yet on CRAN. Meanwhile, you can
+install the development version of `{resourcecode}` like so:
 
 ``` r
 devtools::install_github("Resourcecode-project/r-resourcecode")
@@ -31,7 +43,8 @@ Plot the bathymetry used in the project
 
 ``` r
 library(resourcecode)
-resourcecode::rscd_mapplot(resourcecode::rscd_field$depth, name = "Depth (m)", transform = "sqrt")
+library(resourcecodedata)
+resourcecode::rscd_mapplot(rscd_field$depth, name = "Depth (m)", transform = "sqrt")
 ```
 
 <img src="man/figures/README-plot-bathymetry-1.png" width="100%" style="display: block; margin: auto;" />

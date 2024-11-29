@@ -5,7 +5,7 @@
 \alias{rscd_dir}
 \title{Resourcecode directional bins}
 \format{
-\subsection{\code{rscd_triangles}}{
+\subsection{\code{rscd_dir}}{
 
 An array of length 36 with the directionnal bins
 }

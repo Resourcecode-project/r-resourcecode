@@ -18,8 +18,9 @@ a structure comparable to 'get_1Dspectrum'.
 Converts a 2D spectrum time series to a 1D spectrum
 }
 \examples{
-spec <- get_2d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
-spec1D_RSCD <- get_1d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
+\dontshow{if (requireNamespace("resourcecodedata")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+spec <- resourcecodedata::rscd_2d_spectra
+spec1D_RSCD <- resourcecodedata::rscd_1d_spectra
 spec1D <- convert_spectrum_2d1d(spec)
 # Check the differences, should be low
 max(abs(spec1D_RSCD$ef - spec1D$ef))
@@ -55,4 +56,5 @@ axis.POSIXct(1, spec1D$forcings$time,
   format = "\%Y-\%m-\%d",
   las = 2
 )
+\dontshow{\}) # examplesIf}
 }

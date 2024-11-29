@@ -26,7 +26,7 @@
 #'
 #' @examples semrev_west <- closest_point_field(c(-2.786, 47.239))
 #' semrev_west
-#' rscd_field[semrev_west[[1]], ]
+#' resourcecodedata::rscd_field[semrev_west[[1]], ]
 closest_point_field <- function(x, lat = NULL, closest = 1L, ...) {
   if (!is.null(lat)) {
     stopifnot(length(x) == length(lat))
@@ -34,7 +34,7 @@ closest_point_field <- function(x, lat = NULL, closest = 1L, ...) {
   }
 
   stopifnot(is.integer(closest) & closest >= 1L)
-  dist <- geosphere::distGeo(x, resourcecode::rscd_field[, c(2, 3)])
+  dist <- geosphere::distGeo(x, resourcecodedata::rscd_field[, c(2, 3)])
   ind_min <- order(dist)[1:closest]
 
   return(list(
@@ -55,7 +55,7 @@ closest_point_field <- function(x, lat = NULL, closest = 1L, ...) {
 #'
 #' @examples semrev_west <- closest_point_spec(c(-2.786, 47.239))
 #' semrev_west
-#' rscd_spectral[semrev_west[[1]], ]
+#' resourcecodedata::rscd_spectral[semrev_west[[1]], ]
 closest_point_spec <- function(x, lat = NULL, closest = 1L, ...) {
   if (!is.null(lat)) {
     stopifnot(length(x) == length(lat))
@@ -63,7 +63,7 @@ closest_point_spec <- function(x, lat = NULL, closest = 1L, ...) {
   }
 
   stopifnot(is.integer(closest) & closest >= 1L)
-  dist <- geosphere::distGeo(x, resourcecode::rscd_spectral[, c(1, 2)])
+  dist <- geosphere::distGeo(x, resourcecodedata::rscd_spectral[, c(1, 2)])
   ind_min <- order(dist)[1:closest]
 
   return(list(
@@ -132,7 +132,7 @@ zmcomp2metconv <- function(u, v = NULL, names = c("wspd", "wdir")) {
 #' plot(S1, type = "l", ylim = c(0, 72))
 #' lines(S2, col = "red")
 #' abline(v = 1 / 15)
-jonswap <- function(hs = 5, tp = 15, fmax = resourcecode::rscd_freq, df = NULL, gam = 3.3) {
+jonswap <- function(hs = 5, tp = 15, fmax = rscd_freq, df = NULL, gam = 3.3) {
   if (length(fmax) > 1) { # Case when the frequency vector if given
     freq <- fmax
     fmin <- min(freq)
