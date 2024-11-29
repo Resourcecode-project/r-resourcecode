@@ -8,13 +8,22 @@ test_that("we can plot the 2D spectrum", {
   expect_warning(print(plot_not_normalized))
   expect_warning(print(plot_from_date))
   suppressWarnings({
-    vdiffr::expect_doppelganger("Specifying index", plot_from_index,variant = Sys.info()[["sysname"]])
-    vdiffr::expect_doppelganger("Un-normalized 2D spectra", plot_not_normalized,variant = Sys.info()[["sysname"]])
-    vdiffr::expect_doppelganger("Plot by date", plot_from_date,variant = Sys.info()[["sysname"]])
+    vdiffr::expect_doppelganger("Specifying index",
+                                plot_from_index,
+                                variant = Sys.info()[["sysname"]])
+    vdiffr::expect_doppelganger("Un-normalized 2D spectra",
+                                plot_not_normalized,
+                                variant = Sys.info()[["sysname"]])
+    vdiffr::expect_doppelganger("Plot by date",
+                                plot_from_date,
+                                variant = Sys.info()[["sysname"]])
   })
 })
 
 test_that("Plotting maps works", {
-  vdiffr::expect_doppelganger("Mapping water depth",
-                              rscd_mapplot(resourcecodedata::rscd_field$depth, name = "Depth (m)"),variant = Sys.info()[["sysname"]])
+  vdiffr::expect_doppelganger(
+    "Mapping water depth",
+    rscd_mapplot(resourcecodedata::rscd_field$depth, name = "Depth (m)"),
+    variant = Sys.info()[["sysname"]]
+  )
 })
