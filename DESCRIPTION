@@ -43,7 +43,7 @@ LinkingTo:
     RcppArmadillo
 VignetteBuilder: 
     knitr
-Additional_repositories: https://resourcecode-project.github.io/drat
+Additional_repositories: https://resourcecode-project.github.io/drat/
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Encoding: UTF-8

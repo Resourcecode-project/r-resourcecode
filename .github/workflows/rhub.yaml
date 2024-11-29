@@ -60,7 +60,10 @@ jobs:
         with:
           job-config: ${{ matrix.config.job-config }}
           token: ${{ secrets.RHUB_TOKEN }}
-          extra-repositories: https://resourcecode-project.github.io/drat
+      - name: Add some R options for later steps
+        run: |
+          cat("\nrepos = c(getOption("repos"), "https://resourcecode-project.github.io/drat/")\n", file = "~/.Rprofile", append = TRUE)
+        shell: Rscript {0}
       - uses: r-hub/actions/setup-deps@v1
         with:
           token: ${{ secrets.RHUB_TOKEN }}
@@ -86,11 +89,14 @@ jobs:
         with:
           job-config: ${{ matrix.config.job-config }}
           token: ${{ secrets.RHUB_TOKEN }}
-          extra-repositories: https://resourcecode-project.github.io/drat
       - uses: r-hub/actions/platform-info@v1
         with:
           token: ${{ secrets.RHUB_TOKEN }}
           job-config: ${{ matrix.config.job-config }}
+      - name: Add some R options for later steps
+        run: |
+          cat("\nrepos = c(getOption("repos"), "https://resourcecode-project.github.io/drat/")\n", file = "~/.Rprofile", append = TRUE)
+        shell: Rscript {0}
       - uses: r-hub/actions/setup-deps@v1
         with:
           job-config: ${{ matrix.config.job-config }}
