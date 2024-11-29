@@ -1,13 +1,10 @@
 Package: resourcecode
 Title: Access to the RESOURCECODE Hindcast Database
-Version: 0.1.0
+Version: 0.2.0
 Date: 2024-11-29
-Authors@R: c(
+Authors@R: 
     person("Nicolas", "Raillard", , "nicolas.raillard@ifremer.fr", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0003-3385-5104")),
-    person("IFREMER", role = c("cph", "fnd"),
-           comment = "https://www.ifremer.fr")
-  )
+           comment = c(ORCID = "0000-0003-3385-5104"))
 Description: Utility functions to download data from the RESOURCECODE
     hindast database of sea-states, time series of sea-state parameters
     and time series of 1D and 2D wave spectra.  See
@@ -49,6 +46,7 @@ VignetteBuilder:
     knitr
 Additional_repositories: https://resourcecode-project.github.io/drat
 Config/testthat/edition: 3
+Config/testthat/parallel: true
 Encoding: UTF-8
 Language: en-US
 LazyData: true

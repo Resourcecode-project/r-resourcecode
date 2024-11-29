@@ -22,10 +22,5 @@ Useful links:
 \author{
 \strong{Maintainer}: Nicolas Raillard \email{nicolas.raillard@ifremer.fr} (\href{https://orcid.org/0000-0003-3385-5104}{ORCID})
 
-Other contributors:
-\itemize{
-  \item IFREMER (https://www.ifremer.fr) [copyright holder, funder]
-}
-
 }
 \keyword{internal}

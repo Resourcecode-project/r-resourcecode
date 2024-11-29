@@ -79,10 +79,13 @@ lintr::lint_package()
 usethis::use_github_action("lint")
 styler::style_pkg()
 
-attachment::att_amend_desc()
-
 devtools::load_all()
-
-devtools::run_examples()
+devtools::spell_check()
+attachment::att_amend_desc()
 devtools::document()
+devtools::run_examples()
+devtools::install()
+testthat::test_dir("tests/")
 
+urlchecker::url_check()
+devtools::build_readme()

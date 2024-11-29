@@ -1,3 +1,8 @@
+# resourcecode 0.2.0
+
+- Move out the data from the package to `{resourcecodedata}` package to be compliant with
+CRAN limiting size of 5Mb.
+
 # resourcecode 0.1.0
 
 - Add some code linter;
