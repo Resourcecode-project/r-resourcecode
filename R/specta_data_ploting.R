@@ -10,7 +10,7 @@
 #' @return a ggplot object
 #' @export
 #'
-#' @examplesIf requireNamespace("resourcecodedata")
+#' @examplesIf requireNamespace("resourcecodedata", quietly = TRUE)
 #' spec <- resourcecodedata::rscd_2d_spectra
 #' plot_2d_specta(spec, 1)
 #' @importFrom ggplot2 ggplot geom_rect scale_x_continuous scale_y_continuous

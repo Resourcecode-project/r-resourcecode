@@ -1,5 +1,6 @@
 test_that("downloading parameters data works", {
   skip_if_offline()
+  skip_if(!requireNamespace("resourcecodedata", quietly = TRUE))
   dat <- get_parameters(
     parameters = c("hs", "tp"),
     node = 42,
@@ -19,6 +20,7 @@ test_that("downloading parameters data works", {
 
 test_that("downloading 1D spectral data works", {
   skip_if_offline()
+  skip_if(!requireNamespace("resourcecodedata", quietly = TRUE))
   spec <- get_1d_spectrum(1L, start = "1994-12-01 00:00:00 UTC", end = "1995-01-31 00:00:00 UTC")
   expect_equal(spec, get_1d_spectrum(1L, start = 786243600, end = 791506800))
   expect_type(spec, "list")
@@ -43,6 +45,7 @@ test_that("downloading 1D spectral data works", {
 
 test_that("downloading 2D spectral data works", {
   skip_if_offline()
+  skip_if(!requireNamespace("resourcecodedata", quietly = TRUE))
   spec <- get_2d_spectrum(1L, start = "1994-12-01 00:00:00 UTC", end = "1995-01-31 00:00:00 UTC")
   expect_equal(spec, get_2d_spectrum(1L, start = 786243600, end = 791506800))
   expect_type(spec, "list")

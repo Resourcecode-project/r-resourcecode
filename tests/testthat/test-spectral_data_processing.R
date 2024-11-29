@@ -4,6 +4,8 @@ test_that("dispersion is computed correctly", {
 })
 
 test_that("Conversion between 2D and 1D spectra works", {
+  skip_if_offline()
+  skip_if(!requireNamespace("resourcecodedata", quietly = TRUE))
   spec <- get_2d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
   spec1d_rscd <- get_1d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
   spec_1d <- convert_spectrum_2d1d(spec)
@@ -14,6 +16,8 @@ test_that("Conversion between 2D and 1D spectra works", {
 
 
 test_that("Computation of sea-state parameters works", {
+  skip_if_offline()
+  skip_if(!requireNamespace("resourcecodedata", quietly = TRUE))
   spec <- get_2d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
   spec1d_rscd <- get_1d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
   spec_1d <- convert_spectrum_2d1d(spec)

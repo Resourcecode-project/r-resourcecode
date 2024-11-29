@@ -63,7 +63,7 @@ dispersion <- function(frequencies, depth, iter_max = 200, tol = 1e-6) {
 #' @return a structure comparable to 'get_1Dspectrum'.
 #' @export
 #'
-#' @examplesIf requireNamespace("resourcecodedata")
+#' @examplesIf requireNamespace("resourcecodedata", quietly = TRUE)
 #' spec <- resourcecodedata::rscd_2d_spectra
 #' spec1D_RSCD <- resourcecodedata::rscd_1d_spectra
 #' spec1D <- convert_spectrum_2d1d(spec)
@@ -151,7 +151,11 @@ convert_spectrum_2d1d <- function(spec, ...) {
 #' @export
 #'
 #' @examples
-#' rscd_params <- get_parameters(
+#' # Ensure that data package is available before running the example.
+#' #  If it is not, see the `resourcecode` package vignette for details
+#' # on installing the required data package.
+#' if (requireNamespace("resourcecodedata", quietly = TRUE)) {
+#'  rscd_params <- get_parameters(
 #'   node = "134865",
 #'   start = "1994-01-01",
 #'   end = "1994-01-31 23:00:00",
@@ -168,6 +172,7 @@ convert_spectrum_2d1d <- function(spec, ...) {
 #' lines(rscd_params$time, rscd_params$tp, col = "red")
 #' plot(param_calc$time, param_calc$dp, type = "l", xlab = "Time", ylab = "Dp (°)")
 #' lines(rscd_params$time, rscd_params$dp, col = "red")
+#' }
 compute_sea_state_2d_spectrum <- function(spec, ...) {
   # Define an internal function that will do the job for a time-step
   # spectrum: 1D spectrum
@@ -273,7 +278,7 @@ compute_sea_state_2d_spectrum <- function(spec, ...) {
 #' @return a tibble with the sea-state parameters computed from the time series of 2D spectrum
 #' @export
 #'
-#' @examples
+#' @examplesIf requireNamespace("resourcecodedata", quietly = TRUE)
 #' rscd_params <- get_parameters(
 #'   node = "134865",
 #'   start = "1994-01-01",

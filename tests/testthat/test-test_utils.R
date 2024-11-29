@@ -14,6 +14,8 @@ test_that("%nin% helper works", {
 })
 
 test_that("Node selection works", {
+  skip_if_offline()
+  skip_if(!requireNamespace("resourcecodedata", quietly = TRUE))
   point_test <- c(-4.700, 48.302)
   node_test <- 134938
   spec_test <- 2124

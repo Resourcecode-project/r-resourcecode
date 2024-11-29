@@ -1,5 +1,6 @@
 test_that("we can plot the 2D spectrum", {
   skip_if_offline()
+  skip_if(!requireNamespace("resourcecodedata", quietly = TRUE))
   spec <- resourcecodedata::rscd_2d_spectra
   plot_from_index <- plot_2d_specta(spec, 1)
   plot_not_normalized <- plot_2d_specta(spec, 1, normalize = FALSE)
@@ -21,6 +22,7 @@ test_that("we can plot the 2D spectrum", {
 })
 
 test_that("Plotting maps works", {
+  skip_if(!requireNamespace("resourcecodedata", quietly = TRUE))
   vdiffr::expect_doppelganger(
     "Mapping water depth",
     rscd_mapplot(resourcecodedata::rscd_field$depth, name = "Depth (m)"),

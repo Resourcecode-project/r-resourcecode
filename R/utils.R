@@ -24,9 +24,10 @@
 #' @return a list with two components: the closest point(s) of the grid and the distance (s).
 #' @export
 #'
-#' @examples semrev_west <- closest_point_field(c(-2.786, 47.239))
-#' semrev_west
-#' resourcecodedata::rscd_field[semrev_west[[1]], ]
+#' @examplesIf requireNamespace("resourcecodedata", quietly = TRUE)
+#'   semrev_west <- closest_point_field(c(-2.786, 47.239))
+#'   semrev_west
+#'   resourcecodedata::rscd_field[semrev_west[[1]], ]
 closest_point_field <- function(x, lat = NULL, closest = 1L, ...) {
 
   has_data()
@@ -56,9 +57,10 @@ closest_point_field <- function(x, lat = NULL, closest = 1L, ...) {
 #' @return a list with two components: the closest point(s) of the grid and the distance (s).
 #' @export
 #'
-#' @examples semrev_west <- closest_point_spec(c(-2.786, 47.239))
-#' semrev_west
-#' resourcecodedata::rscd_spectral[semrev_west[[1]], ]
+#' @examplesIf requireNamespace("resourcecodedata", quietly = TRUE)
+#'   semrev_west <- closest_point_spec(c(-2.786, 47.239))
+#'   semrev_west
+#'   resourcecodedata::rscd_spectral[semrev_west[[1]], ]
 closest_point_spec <- function(x, lat = NULL, closest = 1L, ...) {
 
   has_data()
