@@ -78,6 +78,9 @@ get_parameters <- function(parameters = "hs",
                            node = 42,
                            start = as.POSIXct("1994-01-01 00:00:00", tz = "UTC"),
                            end = as.POSIXct("1994-12-31 23:00:00", tz = "UTC")) {
+
+  has_data()
+
   parameters <- tolower(parameters)
 
   stopifnot(all(parameters %in% c("tp", resourcecodedata::rscd_variables$name)))

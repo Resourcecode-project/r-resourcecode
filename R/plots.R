@@ -24,7 +24,7 @@ rscd_mapplot <- function(z,
                          direction = 1,
                          transform = "identity") {
 
-  hasData()
+  has_data()
 
   xyzgz <- tibble::tibble(
     x = resourcecodedata::rscd_field$longitude[resourcecodedata::rscd_triangles],

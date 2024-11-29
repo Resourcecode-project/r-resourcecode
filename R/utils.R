@@ -28,6 +28,9 @@
 #' semrev_west
 #' resourcecodedata::rscd_field[semrev_west[[1]], ]
 closest_point_field <- function(x, lat = NULL, closest = 1L, ...) {
+
+  has_data()
+
   if (!is.null(lat)) {
     stopifnot(length(x) == length(lat))
     return(closest_point_field(cbind(x, lat)))
@@ -57,6 +60,9 @@ closest_point_field <- function(x, lat = NULL, closest = 1L, ...) {
 #' semrev_west
 #' resourcecodedata::rscd_spectral[semrev_west[[1]], ]
 closest_point_spec <- function(x, lat = NULL, closest = 1L, ...) {
+
+  has_data()
+
   if (!is.null(lat)) {
     stopifnot(length(x) == length(lat))
     return(closest_point_spec(cbind(x, lat)))

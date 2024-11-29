@@ -188,7 +188,7 @@ get_1d_spectrum_raw <- function(point, year, month) {
 get_2d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
   stopifnot(length(point) == 1)
 
-  hasData()
+  has_data()
 
   if (is.numeric(point)) {
     point <- resourcecodedata::rscd_spectral[point, "name"]
@@ -285,7 +285,7 @@ get_2d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
 get_1d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
   stopifnot(length(point) == 1)
 
-  hasData()
+  has_data()
 
   if (is.numeric(point)) {
     point <- resourcecodedata::rscd_spectral[point, "name"]
