@@ -61,8 +61,66 @@ Alternatively, the node number. The consistency is checked internally.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A list with the data read from the downloaded netCDF file.</p>
-    </div>
+    <p>A list with 9 elements:</p><dl><dt>longitude</dt>
+<dd><p>Longitude</p></dd>
+
+<dt>latitude</dt>
+<dd><p>Latitude</p></dd>
+
+<dt>frequency1</dt>
+<dd><p>Lower frequency</p></dd>
+
+<dt>frequency2</dt>
+<dd><p>Upper frequency</p></dd>
+
+<dt>ef</dt>
+<dd><p>Surface elevation variance spectral density</p></dd>
+
+<dt>th1m</dt>
+<dd><p>Mean direction from first spectral moment</p></dd>
+
+<dt>th2m</dt>
+<dd><p>Mean direction from second spectral moment</p></dd>
+
+<dt>sth1m</dt>
+<dd><p>Mean directional spreading from first spectral moment</p></dd>
+
+<dt>sth2m</dt>
+<dd><p>Mean directional spreading from second spectral moment</p></dd>
+
+<dt>freq</dt>
+<dd><p>Central frequency</p></dd>
+
+<dt>dir</dt>
+<dd><p>Directionnal bins</p></dd>
+
+<dt>forcings</dt>
+<dd><p>A data.frame with 6 variables:</p><dl><dt>time</dt>
+<dd><p>Time</p></dd>
+
+<dt>dpt</dt>
+<dd><p>Depth, positive downward</p></dd>
+
+<dt>wnd</dt>
+<dd><p>Wind intensity, at 10m above sea level</p></dd>
+
+<dt>wnddir</dt>
+<dd><p>Wind direction, comes from</p></dd>
+
+<dt>cur</dt>
+<dd><p>Current intensity, at the surface</p></dd>
+
+<dt>curdir</dt>
+<dd><p>Current direction, going to</p></dd>
+
+
+</dl></dd>
+
+<dt>station</dt>
+<dd><p>Station name</p></dd>
+
+
+</dl></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
