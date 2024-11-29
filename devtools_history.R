@@ -84,8 +84,25 @@ devtools::spell_check()
 attachment::att_amend_desc()
 devtools::document()
 devtools::run_examples()
-devtools::install()
-testthat::test_dir("tests/")
-
 urlchecker::url_check()
 devtools::build_readme()
+devtools::install()
+testthat::test_dir("tests/testthat/",package = "resourcecode")
+
+# Check content
+# install.packages('checkhelper', repos = 'https://thinkr-open.r-universe.dev')
+# All functions must have either `@noRd` or an `@export`.
+checkhelper::find_missing_tags()
+
+# Check that you let the house clean after the check, examples and tests
+# If you used parallel testing, you may need to avoid it for the next check with `Config/testthat/parallel: false` in DESCRIPTION
+all_files_remaining <- checkhelper::check_clean_userspace()
+# If needed, set back parallel testing with `Config/testthat/parallel: true` in DESCRIPTION
+
+# check on other distributions
+# _rhub v2
+rhub::rhub_setup() # Commit, push, merge
+rhub::rhub_doctor()
+rhub::rhub_platforms()
+rhub::rhub_check() # launch manually
+1,4
