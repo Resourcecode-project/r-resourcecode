@@ -105,4 +105,4 @@ rhub::rhub_setup() # Commit, push, merge
 rhub::rhub_doctor()
 rhub::rhub_platforms()
 rhub::rhub_check() # launch manually
-1,4
+
