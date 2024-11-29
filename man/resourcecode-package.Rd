@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Utility functions to download data from the RESOURCECODE hindast database of sea-states, time series of sea-state parameters and time series of 1D and 2D wave spectra. See \url{https://resourcecode.ifremer.fr} for more details about the available data. Also provides facilities to plot and analyse downloaded data, such as computing the sea-state parameters from both the 1D and 2D wave sprectra.
+Utility functions to download data from the RESOURCECODE hindcast database of sea-states, time series of sea-state parameters and time series of 1D and 2D wave spectra. See \url{https://resourcecode.ifremer.fr} for more details about the available data. Also provides facilities to plot and analyse downloaded data, such as computing the sea-state parameters from both the 1D and 2D surface elevation variance spectral density.
 }
 \seealso{
 Useful links:

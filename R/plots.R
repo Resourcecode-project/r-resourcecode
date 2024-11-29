@@ -13,8 +13,10 @@
 #' @return a ggplot2 object
 #' @export
 #'
-#'@examplesIf requireNamespace("resourcecodedata", quietly = TRUE)
+#'@examples
+#' \dontrun{
 #' rscd_mapplot(rscd_field$depth)
+#' }
 rscd_mapplot <- function(z,
                          name = "Depth (m)",
                          zlim = NULL,

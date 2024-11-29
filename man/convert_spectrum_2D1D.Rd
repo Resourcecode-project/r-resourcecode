@@ -18,7 +18,7 @@ a structure comparable to 'get_1Dspectrum'.
 Converts a 2D spectrum time series to a 1D spectrum
 }
 \examples{
-\dontshow{if (requireNamespace("resourcecodedata")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("resourcecodedata", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 spec <- resourcecodedata::rscd_2d_spectra
 spec1D_RSCD <- resourcecodedata::rscd_1d_spectra
 spec1D <- convert_spectrum_2d1d(spec)

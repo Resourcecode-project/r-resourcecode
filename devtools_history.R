@@ -81,7 +81,7 @@ styler::style_pkg()
 
 devtools::load_all()
 devtools::spell_check()
-attachment::att_amend_desc()
+attachment::att_amend_desc(extra.suggests = "resourcecodedata")
 devtools::document()
 devtools::run_examples()
 urlchecker::url_check()

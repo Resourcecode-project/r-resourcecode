@@ -179,7 +179,7 @@ get_1d_spectrum_raw <- function(point, year, month) {
 #' }
 #' @export
 #'
-#' @examplesIf curl::has_internet()
+#' @examplesIf requireNamespace("resourcecodedata", quietly = TRUE) & curl::has_internet()
 #' spec2D <- get_2d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
 #' image(spec2D$dir, spec2D$freq, spec2D$efth[, , 1],
 #'   xlab = "Direction (°)",
@@ -271,7 +271,7 @@ get_2d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
 #' }
 #' @export
 #'
-#' @examplesIf curl::has_internet()
+#' @examplesIf requireNamespace("resourcecodedata", quietly = TRUE) & curl::has_internet()
 #' spec1D <- get_1d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
 #' r <- as.POSIXct(round(range(spec1D$forcings$time), "month"))
 #' image(spec1D$forcings$time, spec1D$freq, t(spec1D$ef),

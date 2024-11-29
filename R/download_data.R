@@ -70,7 +70,7 @@ get_parameters_raw <- function(parameter = "hs",
 #' @return a tibble with N-rows and `length(parameters)` columns.
 #' @export
 #'
-#'  @examplesIf requireNamespace("resourcecodedata", quietly = TRUE)
+#' @examplesIf requireNamespace("resourcecodedata", quietly = TRUE)
 #'       ts <- get_parameters(parameters = c("hs", "tp"), node = 42)
 #'       plot(ts$time,ts$hs,type='l')
 get_parameters <- function(parameters = "hs",

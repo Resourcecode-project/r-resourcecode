@@ -6,12 +6,12 @@ Authors@R:
     person("Nicolas", "Raillard", , "nicolas.raillard@ifremer.fr", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-3385-5104"))
 Description: Utility functions to download data from the RESOURCECODE
-    hindast database of sea-states, time series of sea-state parameters
+    hindcast database of sea-states, time series of sea-state parameters
     and time series of 1D and 2D wave spectra.  See
     <https://resourcecode.ifremer.fr> for more details about the available
     data.  Also provides facilities to plot and analyse downloaded data,
     such as computing the sea-state parameters from both the 1D and 2D
-    wave sprectra.
+    surface elevation variance spectral density.
 License: GPL (>= 3)
 URL: https://github.com/Resourcecode-project/r-resourcecode,
     https://resourcecode-project.github.io/r-resourcecode/
@@ -35,7 +35,7 @@ Imports:
 Suggests: 
     knitr,
     rmarkdown,
-    resourcecode,
+    resourcecodedata,
     testthat,
     vdiffr
 LinkingTo: 

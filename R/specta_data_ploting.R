@@ -11,8 +11,8 @@
 #' @export
 #'
 #' @examplesIf requireNamespace("resourcecodedata", quietly = TRUE)
-#' spec <- resourcecodedata::rscd_2d_spectra
-#' plot_2d_specta(spec, 1)
+#'     spec <-  get_2d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-01-31")
+#'     plot_2d_specta(spec, 1)
 #' @importFrom ggplot2 ggplot geom_rect scale_x_continuous scale_y_continuous
 #'                     theme_bw coord_polar scale_color_distiller scale_fill_distiller
 #'                     labs expansion

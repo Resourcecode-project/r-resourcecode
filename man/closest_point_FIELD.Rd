@@ -22,7 +22,11 @@ a list with two components: the closest point(s) of the grid and the distance (s
 Find the closest point of the FIELD grid to the specified position
 }
 \examples{
-semrev_west <- closest_point_field(c(-2.786, 47.239))
-semrev_west
-resourcecodedata::rscd_field[semrev_west[[1]], ]
+# Ensure that data package is available before running the example.
+#  If it is not, see the `resourcecode` package vignette for details
+# on installing the required data package.
+if (requireNamespace("resourcecodedata", quietly = TRUE)) {
+  semrev_west <- closest_point_field(c(-2.786, 47.239))
+  semrev_west
+  }
 }
