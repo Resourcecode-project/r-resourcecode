@@ -18,15 +18,15 @@ knitr::opts_chunk$set(
 ```
 
 ```{r echo = FALSE}
-hasData <- requireNamespace("resourcecodedata", quietly=TRUE)
-if (!hasData) {
-    knitr::opts_chunk$set(eval = FALSE)
-    msg <- paste("Note: Examples in this vignette require that the", 
-                 "`resourcecodedata` package be installed. The system",
-                 "currently running this vignette does not have that package",
-                 "installed, so code examples will not be evaluated.")
-    msg <- paste(strwrap(msg), collapse="\n")
-    message(msg)
+has_data <- requireNamespace("resourcecodedata", quietly = TRUE)
+if (!has_data) {
+  knitr::opts_chunk$set(eval = FALSE)
+  msg <- paste("Note: Examples in this vignette require that the",
+               "`resourcecodedata` package be installed. The system",
+               "currently running this vignette does not have that package",
+               "installed, so code examples will not be evaluated.")
+  msg <- paste(strwrap(msg), collapse = "\n")
+  message(msg)
 }
 ```
 
@@ -36,9 +36,9 @@ This package depends on data in a data package `{resourcecodedata}` that is avai
 To use the `{resourcecode}` package, you will need to install `{resourcecodedata}` on your computer, using the following `install.packages` function (and later update it using the `update.packages` function):
 
 ```{r install-data, eval=F}
-install.packages('resourcecodedata',
-                 repos='https://resourcecode-project.github.io/drat/',
-                 type='source')
+install.packages("resourcecodedata",
+                 repos = "https://resourcecode-project.github.io/drat/",
+                 type = "source")
 ```
 
 Once the packages are installed, we can proceed as usual:

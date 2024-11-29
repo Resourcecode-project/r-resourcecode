@@ -3,9 +3,15 @@
 .onLoad  <- function(libname, pkgname) {
   has_data <- requireNamespace("resourcecodedata", quietly = TRUE)
   .pkgenv[["has_data"]] <- has_data
+
+  repos <- getOption("repos")
+  repos["resourcecodedata"] <- "https://resourcecode-project.github.io/drat"
+  options(repos = repos)
+  invisible(repos)
 }
 
 .onAttach <- function(libname, pkgname) {
+
   if (!.pkgenv$has_data) {
     msg <- paste("To use this package, you must install the",
                  "`{resourcecodedata}` package. To install that ",
@@ -17,7 +23,7 @@
   }
 }
 
-hasData <- function(has_data = .pkgenv$has_data) {
+has_data <- function(has_data = .pkgenv$has_data) {
   if (!has_data) {
     msg <- paste("To use this function, you must have the",
                  "`{resourcecodedata}` package installed. See the",
