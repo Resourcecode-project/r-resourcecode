@@ -27,7 +27,6 @@ Imports:
     ncdf4,
     pracma,
     Rcpp,
-    resourcecodedata,
     rlang,
     sf,
     stats,
@@ -36,6 +35,7 @@ Imports:
 Suggests: 
     knitr,
     rmarkdown,
+    resourcecode,
     testthat,
     vdiffr
 LinkingTo: 

@@ -95,7 +95,7 @@ jobs:
           job-config: ${{ matrix.config.job-config }}
       - name: Add some R options for later steps
         run: |
-          cat("\nrepos = c(getOption("repos"), "https://resourcecode-project.github.io/drat/")\n", file = "~/.Rprofile", append = TRUE)
+          cat("\nrepos = c(getOption('repos'), 'https://resourcecode-project.github.io/drat/')\n", file = "~/.Rprofile", append = TRUE)
         shell: Rscript {0}
       - uses: r-hub/actions/setup-deps@v1
         with:
