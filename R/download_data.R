@@ -71,13 +71,12 @@ get_parameters_raw <- function(parameter = "hs",
 #' @export
 #'
 #' @examplesIf requireNamespace("resourcecodedata", quietly = TRUE)
-#'       ts <- get_parameters(parameters = c("hs", "tp"), node = 42)
-#'       plot(ts$time,ts$hs,type='l')
+#' ts <- get_parameters(parameters = c("hs", "tp"), node = 42)
+#' plot(ts$time, ts$hs, type = "l")
 get_parameters <- function(parameters = "hs",
                            node = 42,
                            start = as.POSIXct("1994-01-01 00:00:00", tz = "UTC"),
                            end = as.POSIXct("1994-12-31 23:00:00", tz = "UTC")) {
-
   has_data()
 
   parameters <- tolower(parameters)

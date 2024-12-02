@@ -31,9 +31,8 @@
 #' if (requireNamespace("resourcecodedata", quietly = TRUE)) {
 #'   semrev_west <- closest_point_field(c(-2.786, 47.239))
 #'   semrev_west
-#'   }
+#' }
 closest_point_field <- function(x, lat = NULL, closest = 1L, ...) {
-
   has_data()
 
   if (!is.null(lat)) {
@@ -62,10 +61,9 @@ closest_point_field <- function(x, lat = NULL, closest = 1L, ...) {
 #' @export
 #'
 #' @examplesIf requireNamespace("resourcecodedata", quietly = TRUE)
-#'   semrev_west <- closest_point_spec(c(-2.786, 47.239))
-#'   semrev_west
+#' semrev_west <- closest_point_spec(c(-2.786, 47.239))
+#' semrev_west
 closest_point_spec <- function(x, lat = NULL, closest = 1L, ...) {
-
   has_data()
 
   if (!is.null(lat)) {
