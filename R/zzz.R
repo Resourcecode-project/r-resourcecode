@@ -3,11 +3,6 @@
 .onLoad  <- function(libname, pkgname) {
   has_data <- requireNamespace("resourcecodedata", quietly = TRUE)
   .pkgenv[["has_data"]] <- has_data
-
-  repos <- getOption("repos")
-  repos["resourcecodedata"] <- "https://resourcecode-project.github.io/drat"
-  options(repos = repos)
-  invisible(repos)
 }
 
 .onAttach <- function(libname, pkgname) {

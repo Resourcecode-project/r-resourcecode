@@ -111,4 +111,8 @@ rhub::rhub_check() # launch manually
 # _win devel CRAN
 devtools::check_win_devel()
 
+# Upgrade version number
+usethis::use_version(which = c("patch", "minor", "major", "dev")[1])
+
+
 devtools::submit_cran()

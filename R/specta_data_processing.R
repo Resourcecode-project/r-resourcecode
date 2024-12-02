@@ -17,9 +17,12 @@
 #' plot(freq, k1, type = "l")
 #' lines(freq, k10, col = "red")
 #' lines(freq, kInf, col = "green")
-dispersion <- function(frequencies, depth, iter_max = 200, tol = 1e-6) {
+dispersion <- function(frequencies,
+                       depth,
+                       iter_max = 200,
+                       tol = 1e-6) {
   g <- 9.81
-  infinite_depth_dispersion <- (4 * pi^2 / g) * frequencies^2
+  infinite_depth_dispersion <- (4 * pi ^ 2 / g) * frequencies ^ 2
 
   if (is.infinite(depth)) {
     return(infinite_depth_dispersion)
@@ -32,15 +35,15 @@ dispersion <- function(frequencies, depth, iter_max = 200, tol = 1e-6) {
     if (frequencies[f] == 0) {
       out[f] <- 0
     } else {
-      c0 <- (2 * pi * frequencies[f])^2
-      k0 <- 4.0243 * frequencies[f]^2
+      c0 <- (2 * pi * frequencies[f]) ^ 2
+      k0 <- 4.0243 * frequencies[f] ^ 2
       xk <- k0
       ftest <- 99
       for (ii in 1:iter_max) {
         z <- xk * depth
         y <- tanh(z)
         ff <- c0 - g * xk * y
-        dff <- g * (z * (y^2 - 1) - y)
+        dff <- g * (z * (y ^ 2 - 1) - y)
         xk_old <- xk
         xk <- xk_old - ff / dff
         ftest <- abs((xk - xk_old) / xk_old)
@@ -63,7 +66,11 @@ dispersion <- function(frequencies, depth, iter_max = 200, tol = 1e-6) {
 #' @return a structure comparable to 'get_1Dspectrum'.
 #' @export
 #'
-#' @examplesIf requireNamespace("resourcecodedata", quietly = TRUE)
+#' @examples
+#' # Ensure that data package is available before running the example.
+#' #  If it is not, see the `resourcecode` package vignette for details
+#' # on installing the required data package.
+#' if (requireNamespace("resourcecodedata", quietly = TRUE)) {
 #' spec <- resourcecodedata::rscd_2d_spectra
 #' spec1D_RSCD <- resourcecodedata::rscd_1d_spectra
 #' spec1D <- convert_spectrum_2d1d(spec)
@@ -77,7 +84,7 @@ dispersion <- function(frequencies, depth, iter_max = 200, tol = 1e-6) {
 #' # Images
 #' lims <- c(0, 360)
 #' r <- as.POSIXct(round(range(spec1D$forcings$time), "hours"))
-#' par(mfcol = c(2, 1))
+#' oldpar <- par(mfcol = c(2, 1))
 #' image(spec1D$forcings$time, spec1D$freq, t(spec1D$th1m),
 #'   zlim = lims,
 #'   xlab = "Time",
@@ -101,6 +108,8 @@ dispersion <- function(frequencies, depth, iter_max = 200, tol = 1e-6) {
 #'   format = "%Y-%m-%d",
 #'   las = 2
 #' )
+#' par(oldpar)
+#' }
 convert_spectrum_2d1d <- function(spec, ...) {
   ddir <- diff(spec$dir)[1] * pi / 180 # computes the discretization in direction
 
@@ -128,8 +137,8 @@ convert_spectrum_2d1d <- function(spec, ...) {
 
   spec$th1m <- (atan2(b1, a1) * 180 / pi + 180) %% 360
   spec$th2m <- (atan2(b2, a2) * 180 / pi + 180) %% 360
-  spec$sth1m <- sqrt(2 * (1 - sqrt((a1^2 + b1^2) / spec$ef^2))) * 180 / pi
-  spec$sth2m <- sqrt(2 * (1 - sqrt((a2^2 + b2^2) / spec$ef^2))) * 180 / pi
+  spec$sth1m <- sqrt(2 * (1 - sqrt((a1 ^ 2 + b1 ^ 2) / spec$ef ^ 2))) * 180 / pi
+  spec$sth2m <- sqrt(2 * (1 - sqrt((a2 ^ 2 + b2 ^ 2) / spec$ef ^ 2))) * 180 / pi
 
   # Removes the 2D directional spectrum
   spec$efth <- NULL
@@ -163,7 +172,7 @@ convert_spectrum_2d1d <- function(spec, ...) {
 #' )
 #' spec <- resourcecodedata::rscd_2d_spectra
 #' param_calc <- compute_sea_state_2d_spectrum(spec)
-#' par(mfcol = c(2, 2))
+#' oldpar <- par(mfcol = c(2, 2))
 #' plot(param_calc$time, param_calc$hs, type = "l", xlab = "Time", ylab = "Hs (m)")
 #' lines(rscd_params$time, rscd_params$hs, col = "red")
 #' plot(param_calc$time, param_calc$cge, type = "l", xlab = "Time", ylab = "CgE (kW/m)")
@@ -172,6 +181,7 @@ convert_spectrum_2d1d <- function(spec, ...) {
 #' lines(rscd_params$time, rscd_params$tp, col = "red")
 #' plot(param_calc$time, param_calc$dp, type = "l", xlab = "Time", ylab = "Dp (°)")
 #' lines(rscd_params$time, rscd_params$dp, col = "red")
+#' par(oldpar)
 #' }
 compute_sea_state_2d_spectrum <- function(spec, ...) {
   # Define an internal function that will do the job for a time-step
@@ -185,9 +195,18 @@ compute_sea_state_2d_spectrum <- function(spec, ...) {
 
   # Compute spectral moments
   m0 <- apply(spec_1d, 2, pracma::trapz, x = spec$freq)
-  m1 <- apply(sweep(spec_1d, 1, spec$freq, FUN = "*"), 2, pracma::trapz, x = spec$freq)
-  m2 <- apply(sweep(spec_1d, 1, spec$freq^2, FUN = "*"), 2, pracma::trapz, x = spec$freq)
-  me <- apply(sweep(spec_1d, 1, 1 / spec$freq, FUN = "*"), 2, pracma::trapz, x = spec$freq)
+  m1 <- apply(sweep(spec_1d, 1, spec$freq, FUN = "*"),
+              2,
+              pracma::trapz,
+              x = spec$freq)
+  m2 <- apply(sweep(spec_1d, 1, spec$freq ^ 2, FUN = "*"),
+              2,
+              pracma::trapz,
+              x = spec$freq)
+  me <- apply(sweep(spec_1d, 1, 1 / spec$freq, FUN = "*"),
+              2,
+              pracma::trapz,
+              x = spec$freq)
 
   out <- tibble::tibble(
     time = spec$forcings$time,
@@ -201,9 +220,16 @@ compute_sea_state_2d_spectrum <- function(spec, ...) {
   nk <- length(spec$freq)
 
   # Augment frequency resolution by 30
-  freqp <- stats::approx(1:nk, spec$freq, xout = seq(from = 1, to = nk, length = 30 * nk))
+  freqp <- stats::approx(1:nk, spec$freq, xout = seq(
+    from = 1,
+    to = nk,
+    length = 30 * nk
+  ))
   spec_1d_smooth <- apply(spec_1d, 2, \(y) {
-    stats::spline(x = spec$freq, xout = freqp$y, method = "natural", y)$y
+    stats::spline(x = spec$freq,
+                  xout = freqp$y,
+                  method = "natural",
+                  y)$y
   }) # natural (i.e. "cubic") spline
 
   fp <- freqp$y[apply(spec_1d_smooth, 2, which.max)]
@@ -219,12 +245,15 @@ compute_sea_state_2d_spectrum <- function(spec, ...) {
   out$curdir <- (spec$forcings$curdir + 180) %% 360
 
   # Spectral Bandwidth and Peakedness parameter (Goda 1970)
-  out$nu <- sqrt((m0 * m2) / (m1^2) - 1)
-  out$mu <- sqrt(1 - m1^2 / (m0 * m2))
+  out$nu <- sqrt((m0 * m2) / (m1 ^ 2) - 1)
+  out$mu <- sqrt(1 - m1 ^ 2 / (m0 * m2))
 
   # wave length
   disper_vec <- Vectorize(dispersion, vectorize.args = c("depth"))
-  k <- disper_vec(spec$freq, spec$forcings$dpt, iter_max = 200, tol = 1e-6)
+  k <- disper_vec(spec$freq,
+                  spec$forcings$dpt,
+                  iter_max = 200,
+                  tol = 1e-6)
   kd <- k * as.numeric(spec$forcings$dpt)
 
   out$km <- apply(k * spec_1d, 2, pracma::trapz, x = spec$freq) / m0
@@ -248,7 +277,9 @@ compute_sea_state_2d_spectrum <- function(spec, ...) {
   bm <- apply(apply(bb * ddir, c(2, 3), sum), 2, pracma::trapz, x = spec$freq)
 
   out$dir <- (atan2(bm, am) * 180 / pi + 180) %% 360
-  out$spr <- (sqrt(2 * (1 - sqrt((am^2 + bm^2) / m0^2))) * 180 / pi) %% 360
+  out$spr <- (sqrt(2 * (1 - sqrt((
+    am ^ 2 + bm ^ 2
+  ) / m0 ^ 2))) * 180 / pi) %% 360
 
   # Compute mean direction and spreading at peak frequency (°)
   ind_efm <- apply(spec_1d, 2, which.max) # peak of the spectrum
@@ -263,9 +294,9 @@ compute_sea_state_2d_spectrum <- function(spec, ...) {
 
   out$dp <- (atan2(bpm, apm) * 180 / pi + 180) %% 360
 
-  qpf <- apply(sweep(spec$efth^2, 1, spec$freq, FUN = "*") * ddir, c(2, 3), sum)
+  qpf <- apply(sweep(spec$efth ^ 2, 1, spec$freq, FUN = "*") * ddir, c(2, 3), sum)
   mq <- apply(qpf, 2, pracma::trapz, x = spec$freq)
-  out$qp <- ((2 * mq / (m0^2)) * 180 / pi) %% 360
+  out$qp <- ((2 * mq / (m0 ^ 2)) * 180 / pi) %% 360
 
   out
 }
@@ -278,7 +309,11 @@ compute_sea_state_2d_spectrum <- function(spec, ...) {
 #' @return a tibble with the sea-state parameters computed from the time series of 2D spectrum
 #' @export
 #'
-#' @examplesIf requireNamespace("resourcecodedata", quietly = TRUE)
+#' @examples
+#' # Ensure that data package is available before running the example.
+#' #  If it is not, see the `resourcecode` package vignette for details
+#' # on installing the required data package.
+#' if (requireNamespace("resourcecodedata", quietly = TRUE)) {
 #' rscd_params <- get_parameters(
 #'   node = "134865",
 #'   start = "1994-01-01",
@@ -287,7 +322,7 @@ compute_sea_state_2d_spectrum <- function(spec, ...) {
 #' )
 #' spec <- resourcecodedata::rscd_1d_spectra
 #' param_calc <- compute_sea_state_1d_spectrum(spec)
-#' par(mfcol = c(2, 2))
+#' oldpar <- par(mfcol = c(2, 2))
 #' plot(param_calc$time, param_calc$hs, type = "l", xlab = "Time", ylab = "Hs (m)")
 #' lines(rscd_params$time, rscd_params$hs, col = "red")
 #' plot(param_calc$time, param_calc$cge, type = "l", xlab = "Time", ylab = "CgE (kW/m)")
@@ -296,15 +331,26 @@ compute_sea_state_2d_spectrum <- function(spec, ...) {
 #' lines(rscd_params$time, rscd_params$tp, col = "red")
 #' plot(param_calc$time, param_calc$dp, type = "l", xlab = "Time", ylab = "Peak direction (°)")
 #' lines(rscd_params$time, rscd_params$dp, col = "red")
+#' par(oldpar)
+#' }
 compute_sea_state_1d_spectrum <- function(spec, ...) {
   water_density <- 1026
   g <- 9.81
 
   # Compute spectral moments
   m0 <- apply(spec$ef, 2, pracma::trapz, x = spec$freq)
-  m1 <- apply(sweep(spec$ef, 1, spec$freq, FUN = "*"), 2, pracma::trapz, x = spec$freq)
-  m2 <- apply(sweep(spec$ef, 1, spec$freq^2, FUN = "*"), 2, pracma::trapz, x = spec$freq)
-  me <- apply(sweep(spec$ef, 1, 1 / spec$freq, FUN = "*"), 2, pracma::trapz, x = spec$freq)
+  m1 <- apply(sweep(spec$ef, 1, spec$freq, FUN = "*"),
+              2,
+              pracma::trapz,
+              x = spec$freq)
+  m2 <- apply(sweep(spec$ef, 1, spec$freq ^ 2, FUN = "*"),
+              2,
+              pracma::trapz,
+              x = spec$freq)
+  me <- apply(sweep(spec$ef, 1, 1 / spec$freq, FUN = "*"),
+              2,
+              pracma::trapz,
+              x = spec$freq)
 
   out <- tibble::tibble(
     time = spec$forcings$time,
@@ -317,9 +363,16 @@ compute_sea_state_1d_spectrum <- function(spec, ...) {
   # fp evaluaton using spline fitting around Ef peak
   nk <- length(spec$freq)
   # Augment frequency resolution by 30
-  freqp <- stats::approx(1:nk, spec$freq, xout = seq(from = 1, to = nk, length = 30 * nk))
+  freqp <- stats::approx(1:nk, spec$freq, xout = seq(
+    from = 1,
+    to = nk,
+    length = 30 * nk
+  ))
   spec_1d_smooth <- apply(spec$ef, 2, \(y) {
-    stats::spline(x = spec$freq, xout = freqp$y, method = "natural", y)$y
+    stats::spline(x = spec$freq,
+                  xout = freqp$y,
+                  method = "natural",
+                  y)$y
   }) # natural (i.e. "cubic") spline
 
   fp <- freqp$y[apply(spec_1d_smooth, 2, which.max)]
@@ -333,12 +386,15 @@ compute_sea_state_1d_spectrum <- function(spec, ...) {
   out$curdir <- spec$forcings$curdir
 
   # Spectral Bandwidth and Peakedness parameter (Goda 1970)
-  out$nu <- sqrt((m0 * m2) / (m1^2) - 1)
-  out$mu <- sqrt(1 - m1^2 / (m0 * m2))
+  out$nu <- sqrt((m0 * m2) / (m1 ^ 2) - 1)
+  out$mu <- sqrt(1 - m1 ^ 2 / (m0 * m2))
 
   # wave length
   disper_vec <- Vectorize(dispersion, vectorize.args = c("depth"))
-  k <- disper_vec(spec$freq, spec$forcings$dpt, iter_max = 200, tol = 1e-6)
+  k <- disper_vec(spec$freq,
+                  spec$forcings$dpt,
+                  iter_max = 200,
+                  tol = 1e-6)
   kd <- k * as.numeric(spec$forcings$dpt)
 
   out$km <- apply(k * spec$ef, 2, pracma::trapz, x = spec$freq) / m0

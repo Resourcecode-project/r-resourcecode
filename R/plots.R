@@ -14,8 +14,11 @@
 #' @export
 #'
 #'@examples
-#' \dontrun{
-#' rscd_mapplot(rscd_field$depth)
+#' # Ensure that data package is available before running the example.
+#' # If it is not, see the `resourcecode` package vignette for details
+#' # on installing the required data package.
+#' if (requireNamespace("resourcecodedata", quietly = TRUE)) {
+#' rscd_mapplot(resourcecodedata::rscd_field$depth)
 #' }
 rscd_mapplot <- function(z,
                          name = "Depth (m)",

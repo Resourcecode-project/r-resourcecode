@@ -1,11 +1,11 @@
 Package: resourcecode
-Title: Access to the RESOURCECODE Hindcast Database
-Version: 0.2.0
+Title: Access to the 'RESOURCECODE' Hindcast Database
+Version: 0.2.1
 Date: 2024-11-29
 Authors@R: 
     person("Nicolas", "Raillard", , "nicolas.raillard@ifremer.fr", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-3385-5104"))
-Description: Utility functions to download data from the RESOURCECODE
+Description: Utility functions to download data from the 'RESOURCECODE'
     hindcast database of sea-states, time series of sea-state parameters
     and time series of 1D and 2D wave spectra.  See
     <https://resourcecode.ifremer.fr> for more details about the available
