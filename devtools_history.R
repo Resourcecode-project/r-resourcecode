@@ -63,6 +63,8 @@ usethis::use_vignette("resourcecode")
 devtools::test()
 usethis::use_test("test_utils")
 
+usethis::use_build_ignore("[.]svg$", escape = FALSE)
+
 #code ceverage
 usethis::use_coverage(type = "codecov")
 devtools::build_readme()

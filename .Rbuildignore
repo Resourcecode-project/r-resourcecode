@@ -18,4 +18,5 @@
 ^CRAN-SUBMISSION$
 ^doc$
 ^Meta$
-^/tests/testthat/_snaps$
+^tests/testthat/_snaps$
+[.]svg$
