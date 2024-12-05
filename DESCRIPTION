@@ -1,6 +1,6 @@
 Package: resourcecode
 Title: Access to the 'RESOURCECODE' Hindcast Database
-Version: 0.2.1
+Version: 0.2.1.9000
 Date: 2024-11-29
 Authors@R: 
     person("Nicolas", "Raillard", , "nicolas.raillard@ifremer.fr", role = c("aut", "cre"),
