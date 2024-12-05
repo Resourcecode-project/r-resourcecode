@@ -83,7 +83,10 @@ styler::style_pkg()
 
 devtools::load_all()
 devtools::spell_check()
-attachment::att_amend_desc(extra.suggests = "resourcecodedata")
+attachment::att_amend_desc(extra.suggests = "resourcecodedata",
+                           pkg_ignore = "resourcecodedata",
+                           check_if_suggests_is_installed = TRUE,
+                           use.config = FALSE)
 devtools::document()
 devtools::run_examples()
 urlchecker::url_check()

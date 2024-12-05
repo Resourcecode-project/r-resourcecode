@@ -34,8 +34,8 @@ Imports:
     tidyr
 Suggests: 
     knitr,
-    rmarkdown,
     resourcecodedata,
+    rmarkdown,
     testthat,
     vdiffr
 LinkingTo: 

@@ -28,5 +28,5 @@ Find the closest point of the FIELD grid to the specified position
 if (requireNamespace("resourcecodedata", quietly = TRUE)) {
   semrev_west <- closest_point_field(c(-2.786, 47.239))
   semrev_west
-  }
+}
 }

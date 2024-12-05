@@ -1,5 +1,7 @@
 # resourcecode (development version)
 
+- `rscd_mapplot()`: add Resourcecode caption.
+
 # resourcecode 0.2.1
 
 - Move out the data from the package to `{resourcecodedata}` package to be compliant with

@@ -23,7 +23,7 @@ Find the closest point of the SPEC grid to the specified position
 }
 \examples{
 \dontshow{if (requireNamespace("resourcecodedata", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-  semrev_west <- closest_point_spec(c(-2.786, 47.239))
-  semrev_west
+semrev_west <- closest_point_spec(c(-2.786, 47.239))
+semrev_west
 \dontshow{\}) # examplesIf}
 }

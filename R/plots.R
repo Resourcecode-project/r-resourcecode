@@ -32,9 +32,9 @@ rscd_mapplot <- function(z,
     x = resourcecodedata::rscd_field$longitude[resourcecodedata::rscd_triangles],
     y = resourcecodedata::rscd_field$latitude[resourcecodedata::rscd_triangles],
     z = z[resourcecodedata::rscd_triangles],
-    g = rep(seq_len(ncol(
-      resourcecodedata::rscd_triangles
-    )), each = nrow(resourcecodedata::rscd_triangles))
+    g = rep(seq_len(
+      ncol(resourcecodedata::rscd_triangles)
+    ), each = nrow(resourcecodedata::rscd_triangles))
   )
 
   ggplot(
@@ -82,6 +82,7 @@ rscd_mapplot <- function(z,
     ) +
     coord_sf(expand = FALSE, crs = sf::st_crs(4326)) +
     theme_void() +
+    labs(caption = "Source: Resourcecode hindcast database\nresourcecode.ifremer.fr") +
     theme(
       legend.position = "inside",
       legend.position.inside = c(.8, 0.2),
