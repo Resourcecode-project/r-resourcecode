@@ -68,24 +68,31 @@
 </h2>
 <p>This package depends on data in a data package <a href="https://github.com/Resourcecode-project/r-resourcecodedata" class="external-link">resourcecodedata</a> that is available through a <code>drat</code> repository on GitHub. To use the <a href="https://github.com/Resourcecode-project/r-resourcecode" class="external-link">resourcecode</a> package, you will need to install <a href="https://github.com/Resourcecode-project/r-resourcecodedata" class="external-link">resourcecodedata</a> on your computer, using the following <code>install.packages</code> function (and later update it using the <code>update.packages</code> function):</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'resourcecodedata'</span>,</span>
-<span>                 repos<span class="op">=</span><span class="st">'https://resourcecode-project.github.io/drat/'</span>,</span>
-<span>                 type<span class="op">=</span><span class="st">'source'</span><span class="op">)</span></span></code></pre></div>
-<p>The <a href="https://github.com/Resourcecode-project/r-resourcecode" class="external-link">resourcecode</a> package is not yet on CRAN. Meanwhile, you can install the development version of <a href="https://github.com/Resourcecode-project/r-resourcecode" class="external-link">resourcecode</a> like so:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"resourcecodedata"</span>, repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"https://resourcecode-project.r-universe.dev"</span>, <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>The <a href="https://github.com/Resourcecode-project/r-resourcecode" class="external-link">resourcecode</a> package is on CRAN so you can simply run :</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"resourcecode"</span><span class="op">)</span></span></code></pre></div>
+<p>You can install the development version of <a href="https://github.com/Resourcecode-project/r-resourcecode" class="external-link">resourcecode</a> thanks to <a href="https://resourcecode-project.r-universe.dev/resourcecode" class="external-link">r-universe</a>:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'resourcecode'</span>, </span>
+<span>                 repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'https://resourcecode-project.r-universe.dev'</span>,</span>
+<span>                           <span class="st">'https://cloud.r-project.org'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>or using the classical:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"Resourcecode-project/r-resourcecode"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
 <p>Plot the bathymetry used in the project</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Resourcecode-project/r-resourcecode" class="external-link">resourcecode</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Resourcecode-project/r-resourcecodedata" class="external-link">resourcecodedata</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: le package 'resourcecodedata' a été compilé avec la version R 4.4.2</span></span>
 <span><span class="fu">resourcecode</span><span class="fu">::</span><span class="fu"><a href="reference/rscd_mapplot.html">rscd_mapplot</a></span><span class="op">(</span><span class="va">rscd_field</span><span class="op">$</span><span class="va">depth</span>, name <span class="op">=</span> <span class="st">"Depth (m)"</span>, transform <span class="op">=</span> <span class="st">"sqrt"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-plot-bathymetry-1.png" width="100%" style="display: block; margin: auto;"></p>
 <p>See the variables available in the database:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">rscd_variables</span><span class="op">)</span></span>
 <span><span class="co">#&gt;        name         longname         unit</span></span>
 <span><span class="co">#&gt; 1 longitude        longitude  degree_east</span></span>
@@ -95,7 +102,7 @@
 <span><span class="co">#&gt; 5       dpt            depth            m</span></span>
 <span><span class="co">#&gt; 6      ucur eastward current        m s-1</span></span></code></pre></div>
 <p>Download a time series of significant wave height next to the coast of Finistère:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_parameters.html">get_parameters</a></span><span class="op">(</span>node <span class="op">=</span> <span class="st">"134865"</span>, parameters <span class="op">=</span> <span class="st">"hs"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; tibble [8,760 × 2] (S3: tbl_df/tbl/data.frame)</span></span>
@@ -143,6 +150,7 @@
 <ul class="list-unstyled">
 <li><a href="https://github.com/Resourcecode-project/r-resourcecode/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/Resourcecode-project/r-resourcecode/actions/workflows/R-CMD-check.yaml/badge.svg?branch=main" alt="R-CMD-check"></a></li>
 <li><a href="https://app.codecov.io/gh/NRaillard/resourcecode?branch=main" class="external-link"><img src="https://codecov.io/gh/NRaillard/resourcecode/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://resourcecode-project.r-universe.dev/resourcecode" class="external-link"><img src="https://resourcecode-project.r-universe.dev/resourcecode/badges/version" alt="resourcecode status badge"></a></li>
 </ul>
 </div>
 
