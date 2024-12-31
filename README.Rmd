@@ -35,6 +35,7 @@ if (!has_data) {
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/Resourcecode-project/r-resourcecode/actions/workflows/R-CMD-check.yaml/badge.svg?branch=main)](https://github.com/Resourcecode-project/r-resourcecode/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/NRaillard/resourcecode/branch/main/graph/badge.svg)](https://app.codecov.io/gh/NRaillard/resourcecode?branch=main)
+[![resourcecode status badge](https://resourcecode-project.r-universe.dev/resourcecode/badges/version)](https://resourcecode-project.r-universe.dev/resourcecode)
 <!-- badges: end -->
 
 The goal of `{resourcecode}` is to provide an easy access to the Resourcecode hindcast database of sea-states. More information on the database can be found [here](https://resourcecode.ifremer.fr). This website only contains information about the way to retrieve data from this data base and the functionalities offred by this package.
@@ -45,15 +46,25 @@ This package depends on data in a data package `{resourcecodedata}` that is avai
 To use the `{resourcecode}` package, you will need to install `{resourcecodedata}` on your computer, using the following `install.packages` function (and later update it using the `update.packages` function):
 
 ```{r install-data, eval=F}
-install.packages("resourcecodedata",
-  repos = "https://resourcecode-project.github.io/drat/",
-  type = "source"
-)
+install.packages("resourcecodedata", repos = c("https://resourcecode-project.r-universe.dev", "https://cloud.r-project.org"))
 ```
 
-The `{resourcecode}` package is not yet on CRAN. Meanwhile, you can install the development version of `{resourcecode}` like so:
+The `{resourcecode}` package is on CRAN so you can simply run :
 
 ```{r install, eval=F}
+install.packages("resourcecode")
+```
+
+You can install the development version of `{resourcecode}` thanks to [r-universe](https://resourcecode-project.r-universe.dev/resourcecode):
+
+```{r install-r-universe, eval=F}
+install.packages('resourcecode', 
+                 repos = c('https://resourcecode-project.r-universe.dev',
+                           'https://cloud.r-project.org'))
+```
+
+or using the classical:    
+```{r install-dev, eval=F}
 devtools::install_github("Resourcecode-project/r-resourcecode")
 ```
 

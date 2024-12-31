@@ -8,6 +8,8 @@
 [![R-CMD-check](https://github.com/Resourcecode-project/r-resourcecode/actions/workflows/R-CMD-check.yaml/badge.svg?branch=main)](https://github.com/Resourcecode-project/r-resourcecode/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/NRaillard/resourcecode/branch/main/graph/badge.svg)](https://app.codecov.io/gh/NRaillard/resourcecode?branch=main)
+[![resourcecode status
+badge](https://resourcecode-project.r-universe.dev/resourcecode/badges/version)](https://resourcecode-project.r-universe.dev/resourcecode)
 <!-- badges: end -->
 
 The goal of `{resourcecode}` is to provide an easy access to the
@@ -25,13 +27,25 @@ on your computer, using the following `install.packages` function (and
 later update it using the `update.packages` function):
 
 ``` r
-install.packages('resourcecodedata',
-                 repos='https://resourcecode-project.github.io/drat/',
-                 type='source')
+install.packages("resourcecodedata", repos = c("https://resourcecode-project.r-universe.dev", "https://cloud.r-project.org"))
 ```
 
-The `{resourcecode}` package is not yet on CRAN. Meanwhile, you can
-install the development version of `{resourcecode}` like so:
+The `{resourcecode}` package is on CRAN so you can simply run :
+
+``` r
+install.packages("resourcecode")
+```
+
+You can install the development version of `{resourcecode}` thanks to
+[r-universe](https://resourcecode-project.r-universe.dev/resourcecode):
+
+``` r
+install.packages('resourcecode', 
+                 repos = c('https://resourcecode-project.r-universe.dev',
+                           'https://cloud.r-project.org'))
+```
+
+or using the classical:
 
 ``` r
 devtools::install_github("Resourcecode-project/r-resourcecode")
@@ -44,6 +58,7 @@ Plot the bathymetry used in the project
 ``` r
 library(resourcecode)
 library(resourcecodedata)
+#> Warning: le package 'resourcecodedata' a été compilé avec la version R 4.4.2
 resourcecode::rscd_mapplot(rscd_field$depth, name = "Depth (m)", transform = "sqrt")
 ```
 
