@@ -1,4 +1,4 @@
-# resourcecode (development version)
+# resourcecode 0.2.2
 
 - `rscd_mapplot()`: add Resourcecode caption.
 - New helpers:
