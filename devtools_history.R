@@ -112,7 +112,10 @@ rhub::rhub_platforms()
 rhub::rhub_check() # launch manually
 
 # _win devel CRAN
-devtools::check_win_devel()
+devtools::check_win_release()
+devtools::check_win_oldrelease()
+devtools::check_mac_release()
+
 
 # Upgrade version number
 usethis::use_version(which = c("patch", "minor", "major", "dev")[1])
