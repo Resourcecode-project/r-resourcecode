@@ -159,6 +159,11 @@ jonswap <- function(hs = 5, tp = 15, fmax = rscd_freq, df = NULL, gam = 3.3) {
   }
   nptsp <- length(frq)
 
+  #Stops if the Gamma parameter is lower than 1
+  if (gam < 1) {
+    stop("Gamma parameter `gam` should be greater than 1")
+  }
+
   # Compute the parameters of the spectrum
   fm <- 1 / tp
   lgam <- log(gam)

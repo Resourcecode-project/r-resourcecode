@@ -42,6 +42,7 @@ test_that("JONSWAP computation works", {
   expect_snapshot_output(jonswap())
   expect_snapshot_output(jonswap(fmax = 0.95, df = 0.003))
   expect_error(jonswap(hs = 4, tp = 15, fmax = 0.95))
+  expect_error(jonswap(gam = 0.5))
 })
 
 test_that("Directional means are accurately computed", {
