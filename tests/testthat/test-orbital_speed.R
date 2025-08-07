@@ -17,7 +17,7 @@ test_that("obital speed computation works", {
   expect_equal(dim(orb_speed_bottom), c(10, 2))
   expect_equal(dim(orb_speed_bottom_spec), c(10, 36, 2))
   expect_equal(orb_speed_bottom[, 2], rep(0, 10))
-  expect_equal(orb_speed_bottom_spec[,, 2], matrix(0, ncol = 36, nrow = 10))
+  expect_equal(orb_speed_bottom_spec[, , 2], matrix(0, ncol = 36, nrow = 10))
   expect_snapshot_value(orb_speed_bottom, style = "serialize")
   expect_snapshot_value(orb_speed_half, style = "serialize")
   expect_snapshot_value(orb_speed_top, style = "serialize")

@@ -4,6 +4,7 @@
 - New helpers:
   - `mean_direction()` to compute (weighted) mean values of directional variables,
   - `cut_directions()` to bin a vector of directions into sectors, centred North.
+ - Fixed #7 (thanks @paalves).
 
 # resourcecode 0.2.1
 

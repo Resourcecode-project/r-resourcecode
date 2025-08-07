@@ -141,4 +141,4 @@ devtools::check_mac_release()
 usethis::use_version(which = c("patch", "minor", "major", "dev")[1])
 
 
-devtools::submit_cran()
+devtools::release()

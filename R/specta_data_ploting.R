@@ -37,7 +37,7 @@ plot_2d_specta <- function(
   df_freq$frequency2 <- spec$frequency2[df_freq$frequency1]
   df_freq$frequency1 <- spec$frequency1[df_freq$frequency1]
 
-  df <- tibble::tibble(df_freq, ef = c(spec$efth[,, time]))
+  df <- tibble::tibble(df_freq, ef = c(spec$efth[, , time]))
 
   legend_text <- "Power spectrum\n(m^2.s)"
 
