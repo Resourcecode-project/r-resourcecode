@@ -67,7 +67,7 @@ rscd_mapplot <- function(z,
     geom_path(
       data = resourcecodedata::rscd_coastline,
       aes(x = .data$longitude, y = .data$latitude),
-      linewidth = .2,
+      linewidth = 0.2,
       inherit.aes = FALSE
     ) +
     geom_path(
@@ -77,7 +77,7 @@ rscd_mapplot <- function(z,
         y = .data$latitude,
         group = .data$ID
       ),
-      linewidth = .2,
+      linewidth = 0.2,
       inherit.aes = FALSE
     ) +
     coord_sf(expand = FALSE, crs = sf::st_crs(4326)) +
@@ -85,7 +85,7 @@ rscd_mapplot <- function(z,
     labs(caption = "Source: Resourcecode hindcast database\nresourcecode.ifremer.fr") +
     theme(
       legend.position = "inside",
-      legend.position.inside = c(.8, 0.2),
+      legend.position.inside = c(0.8, 0.2),
       legend.margin = margin(
         t = 0,
         r = 0,

@@ -184,3 +184,177 @@ jonswap <- function(hs = 5, tp = 15, fmax = rscd_freq, df = NULL, gam = 3.3) {
   attr(sp, "Note") <- paste0("JONSWAP Spectrum, Hs=", hs, ", Tp=", tp, ", gamma=", gam)
   return(tibble::as_tibble(sp))
 }
+
+#' Mean Direction
+#'
+#' Function for computing the (weighted) arithmetic mean of
+#' directional data in \strong{meteorological convention}.
+#'
+#' @param directions numeric vector of directions, in degree, 0° being the North
+#' @param weights numeric vector, usually wind speed of wave height.
+#'
+#' @returns
+#' The (weighted) mean of the values in \code{directions} is computed.
+#'
+#' @export
+#'
+#' @examples
+#' # Test with some wind directions (unweighted)
+#' wind_directions <- c(10, 20, 350, 5, 15) # Directions mostly around North
+#' mean_dir <- mean_direction(wind_directions)
+#' cat("Mean wind direction (unweighted):", round(mean_dir, 1), "degrees\n")
+# Test with wind speeds as weights
+#' wind_directions <- c(350, 10, 20, 340, 30) # Directions around North
+#' wind_speeds <- c(15, 5, 2, 12, 3) # Higher speeds for directions closer to North
+#' mean_dir_weighted <- mean_direction(wind_directions, wind_speeds)
+#' cat("Mean wind direction (weighted):", round(mean_dir_weighted, 1), "degrees\n")
+#'
+#' # Compare weighted vs unweighted for the same data
+#' mean_dir_unweighted <- mean_direction(wind_directions)
+#' cat("Same data unweighted:", round(mean_dir_unweighted, 1), "degrees\n")
+mean_direction <- function(directions, weights = NULL) {
+  # If weights provided, check they have the same length as directions
+  if (!is.null(weights)) {
+    if (length(directions) != length(weights)) {
+      stop("Length of 'directions' and 'speeds' must be equal")
+    }
+    valid_indices <- !is.na(directions) & !is.na(weights)
+    directions <- directions[valid_indices]
+    weights <- weights[valid_indices]
+  } else {
+    # Remove NA values from directions only
+    directions <- directions[!is.na(directions)]
+  }
+
+  # Check for negative weights (which would cause issues with weighting)
+  if (any(weights < 0)) {
+    warning("Negative weights detected. Using absolute values.")
+    weights <- abs(weights)
+  }
+
+  # Ensure directions are in [0, 360) range
+  directions <- directions %% 360
+
+  # Check if we have any valid directions
+  if (length(directions) == 0) {
+    return(NA)
+  }
+
+  # Set default weights (equal weighting) if weights not provided
+  if (is.null(weights)) {
+    weights <- rep(1, length(directions))
+  }
+
+  # Convert degrees to radians
+  radians <- directions * pi / 180
+
+  # Convert to unit vectors (x = sin, y = cos for meteorological convention)
+  # In meteorological convention: North = 0°, East = 90°
+  x_components <- sin(radians)
+  y_components <- cos(radians)
+
+  # Calculate weighted mean components
+  mean_x <- stats::weighted.mean(x_components, w = weights)
+  mean_y <- stats::weighted.mean(y_components, w = weights)
+
+  # Calculate mean direction in radians
+  mean_radians <- atan2(mean_x, mean_y)
+
+  # Convert back to degrees
+  mean_degrees <- mean_radians * 180 / pi
+
+  # Ensure result is in [0, 360) range using modulo
+  mean_degrees <- mean_degrees %% 360
+
+  return(mean_degrees)
+}
+
+#' Directional binning
+#'
+#' Cuts direction vector into directional bins
+# with North bin always centred on 0 degrees.
+#'
+#' @param directions vector of directions to be binned, in degree, 0° being the North.
+#' @param n_bins number of bins, default: 8 sectors.
+#' @param labels optional character vector giving the sectors names.
+#'
+#' @returns
+#' a factor vector the same size as \code{directions} with the values binned into sectors.
+#'
+#' @export
+#'
+#' @examples
+#' # Example usage and demonstration
+#' set.seed(123)
+#' directions <- runif(20, 0, 360)
+#'
+#' # Test with different numbers of bins
+#' cat("Original directions:\n")
+#' print(round(directions, 1))
+#'
+#' cat("\n8 bins (default):\n")
+#' bins_8 <- cut_directions(directions, n_bins = 8)
+#' print(bins_8)
+#'
+#' cat("\n4 bins:\n")
+#' bins_4 <- cut_directions(directions, n_bins = 4)
+#' print(bins_4)
+cut_directions <- function(directions, n_bins = 8, labels = NULL) {
+  # Validate inputs
+  if (!is.numeric(directions)) {
+    stop("directions must be numeric")
+  }
+
+  if (n_bins < 2) {
+    stop("n_bins must be at least 2")
+  }
+
+  # Normalize directions to 0-360 range
+  directions <- directions %% 360
+
+  # Calculate bin width
+  bin_width <- 360 / n_bins
+  half_bin <- bin_width / 2
+
+  # Create breaks - North bin is centered on 0
+  # So breaks go from -half_bin to 360-half_bin
+  breaks <- seq(-half_bin, 360 - half_bin, by = bin_width)
+
+  # Adjust directions for the split North bin
+  # Values in the upper part of North bin (360-half_bin to 360)
+  # need to be mapped to negative values (-half_bin to 0)
+  adjusted_directions <- ifelse(directions > (360 - half_bin),
+    directions - 360,
+    directions
+  )
+
+  # Create labels if not provided
+  if (is.null(labels)) {
+    # Calculate center angles for each bin
+    centers <- seq(0, 360 - bin_width, by = bin_width)
+
+    # Create descriptive labels based on number of bins
+    if (n_bins == 4) {
+      labels <- c("N", "E", "S", "W")
+    } else if (n_bins == 8) {
+      labels <- c("N", "NE", "E", "SE", "S", "SW", "W", "NW")
+    } else if (n_bins == 16) {
+      labels <- c(
+        "N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE",
+        "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"
+      )
+    } else {
+      # Generic labels with center angles
+      labels <- paste0("Bin_", sprintf("%.0f", centers))
+    }
+  }
+  # Cut the adjusted directions
+  result <- cut(adjusted_directions,
+    breaks = breaks,
+    labels = labels,
+    include.lowest = TRUE,
+    right = FALSE
+  )
+
+  return(result)
+}

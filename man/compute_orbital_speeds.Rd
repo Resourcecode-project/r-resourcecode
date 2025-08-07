@@ -27,7 +27,9 @@ Compute the orbital speed at a given depth from the wave elevation 1D spectra
 }
 \examples{
 # Compute orbital speed for varying Hs
-S <- t(sapply(1:10, \(h) jonswap(h)$spec))
+S <- t(sapply(1:10, function(h) {
+  jonswap(h)$spec
+}))
 orb_speeds <- compute_orbital_speeds(S, rscd_freq, depth = 100, z = 10)
 plot(1:10, orb_speeds[, 1],
   type = "l",

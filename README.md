@@ -40,9 +40,12 @@ You can install the development version of `{resourcecode}` thanks to
 [r-universe](https://resourcecode-project.r-universe.dev/resourcecode):
 
 ``` r
-install.packages('resourcecode', 
-                 repos = c('https://resourcecode-project.r-universe.dev',
-                           'https://cloud.r-project.org'))
+install.packages("resourcecode",
+  repos = c(
+    "https://resourcecode-project.r-universe.dev",
+    "https://cloud.r-project.org"
+  )
+)
 ```
 
 or using the classical:
@@ -58,7 +61,6 @@ Plot the bathymetry used in the project
 ``` r
 library(resourcecode)
 library(resourcecodedata)
-#> Warning: le package 'resourcecodedata' a été compilé avec la version R 4.4.2
 resourcecode::rscd_mapplot(rscd_field$depth, name = "Depth (m)", transform = "sqrt")
 ```
 

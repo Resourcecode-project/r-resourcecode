@@ -228,7 +228,7 @@ compute_sea_state_2d_spectrum <- function(spec, ...) {
     to = nk,
     length = 30 * nk
   ))
-  spec_1d_smooth <- apply(spec_1d, 2, \(y) {
+  spec_1d_smooth <- apply(spec_1d, 2, function(y) {
     stats::spline(
       x = spec$freq,
       xout = freqp$y,
@@ -377,7 +377,7 @@ compute_sea_state_1d_spectrum <- function(spec, ...) {
     to = nk,
     length = 30 * nk
   ))
-  spec_1d_smooth <- apply(spec$ef, 2, \(y) {
+  spec_1d_smooth <- apply(spec$ef, 2, function(y) {
     stats::spline(
       x = spec$freq,
       xout = freqp$y,

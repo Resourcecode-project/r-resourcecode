@@ -37,10 +37,7 @@ get_parameters_raw <- function(parameter = "hs",
   res <- jsonlite::fromJSON(request)
 
   if (res$errorcode != 0) {
-    stop(paste0(
-      "Unable to get a response from the database.\nStatus code: ",
-      res$errormessage
-    ))
+    stop("Unable to get a response from the database.\nStatus code: ", res$errormessage)
   }
 
   data <- res$result$data
@@ -81,7 +78,7 @@ get_parameters <- function(parameters = "hs",
 
   parameters <- tolower(parameters)
 
-  stopifnot(all(parameters %in% c("tp", resourcecodedata::rscd_variables$name)))
+  stopifnot(parameters %in% c("tp", resourcecodedata::rscd_variables$name))
 
   node <- as.integer(node)
 

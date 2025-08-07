@@ -16,12 +16,12 @@
 #' @importFrom ggplot2 ggplot geom_rect scale_x_continuous scale_y_continuous
 #'                     theme_bw coord_polar scale_color_distiller scale_fill_distiller
 #'                     labs expansion
-plot_2d_specta <- function(spec, time = 1L, normalize = TRUE, trim = 0.01, cut_off = .4, ...) {
+plot_2d_specta <- function(spec, time = 1L, normalize = TRUE, trim = 0.01, cut_off = 0.4, ...) {
   if (is.character(time)) {
     time <- as.POSIXct(time, tz = "UTC")
   }
 
-  if ("POSIXct" %in% class(time)) {
+  if (inherits(time, "POSIXct")) {
     time <- which(time == spec$forcings$time)
   }
 

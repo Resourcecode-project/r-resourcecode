@@ -15,6 +15,7 @@ Useful links:
 \itemize{
   \item \url{https://github.com/Resourcecode-project/r-resourcecode}
   \item \url{https://resourcecode-project.github.io/r-resourcecode/}
+  \item \url{https://resourcecode-project.r-universe.dev/resourcecode}
   \item Report bugs at \url{https://github.com/Resourcecode-project/r-resourcecode/issues}
 }
 

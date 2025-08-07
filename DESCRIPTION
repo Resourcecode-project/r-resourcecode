@@ -14,7 +14,7 @@ Description: Utility functions to download data from the 'RESOURCECODE'
     surface elevation variance spectral density.
 License: GPL (>= 3)
 URL: https://github.com/Resourcecode-project/r-resourcecode,
-    https://resourcecode-project.github.io/r-resourcecode/
+    https://resourcecode-project.github.io/r-resourcecode/,
     https://resourcecode-project.r-universe.dev/resourcecode
 BugReports: https://github.com/Resourcecode-project/r-resourcecode/issues
 Depends: 

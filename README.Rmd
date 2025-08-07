@@ -58,9 +58,12 @@ install.packages("resourcecode")
 You can install the development version of `{resourcecode}` thanks to [r-universe](https://resourcecode-project.r-universe.dev/resourcecode):
 
 ```{r install-r-universe, eval=F}
-install.packages('resourcecode', 
-                 repos = c('https://resourcecode-project.r-universe.dev',
-                           'https://cloud.r-project.org'))
+install.packages("resourcecode",
+  repos = c(
+    "https://resourcecode-project.r-universe.dev",
+    "https://cloud.r-project.org"
+  )
+)
 ```
 
 or using the classical:    
