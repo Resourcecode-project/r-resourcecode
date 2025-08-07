@@ -17,10 +17,7 @@
 #' plot(freq, k1, type = "l")
 #' lines(freq, k10, col = "red")
 #' lines(freq, kInf, col = "green")
-dispersion <- function(frequencies,
-                       depth,
-                       iter_max = 200,
-                       tol = 1e-6) {
+dispersion <- function(frequencies, depth, iter_max = 200, tol = 1e-6) {
   g <- 9.81
   infinite_depth_dispersion <- (4 * pi^2 / g) * frequencies^2
 
@@ -195,17 +192,20 @@ compute_sea_state_2d_spectrum <- function(spec, ...) {
 
   # Compute spectral moments
   m0 <- apply(spec_1d, 2, pracma::trapz, x = spec$freq)
-  m1 <- apply(sweep(spec_1d, 1, spec$freq, FUN = "*"),
+  m1 <- apply(
+    sweep(spec_1d, 1, spec$freq, FUN = "*"),
     2,
     pracma::trapz,
     x = spec$freq
   )
-  m2 <- apply(sweep(spec_1d, 1, spec$freq^2, FUN = "*"),
+  m2 <- apply(
+    sweep(spec_1d, 1, spec$freq^2, FUN = "*"),
     2,
     pracma::trapz,
     x = spec$freq
   )
-  me <- apply(sweep(spec_1d, 1, 1 / spec$freq, FUN = "*"),
+  me <- apply(
+    sweep(spec_1d, 1, 1 / spec$freq, FUN = "*"),
     2,
     pracma::trapz,
     x = spec$freq
@@ -223,11 +223,15 @@ compute_sea_state_2d_spectrum <- function(spec, ...) {
   nk <- length(spec$freq)
 
   # Augment frequency resolution by 30
-  freqp <- stats::approx(1:nk, spec$freq, xout = seq(
-    from = 1,
-    to = nk,
-    length = 30 * nk
-  ))
+  freqp <- stats::approx(
+    1:nk,
+    spec$freq,
+    xout = seq(
+      from = 1,
+      to = nk,
+      length = 30 * nk
+    )
+  )
   spec_1d_smooth <- apply(spec_1d, 2, function(y) {
     stats::spline(
       x = spec$freq,
@@ -255,11 +259,7 @@ compute_sea_state_2d_spectrum <- function(spec, ...) {
 
   # wave length
   disper_vec <- Vectorize(dispersion, vectorize.args = c("depth"))
-  k <- disper_vec(spec$freq,
-    spec$forcings$dpt,
-    iter_max = 200,
-    tol = 1e-6
-  )
+  k <- disper_vec(spec$freq, spec$forcings$dpt, iter_max = 200, tol = 1e-6)
   kd <- k * as.numeric(spec$forcings$dpt)
 
   out$km <- apply(k * spec_1d, 2, pracma::trapz, x = spec$freq) / m0
@@ -270,9 +270,11 @@ compute_sea_state_2d_spectrum <- function(spec, ...) {
   c2 <- sqrt(g * tanh(kd) / k)
   cg <- 0.5 * c1 * c2
 
-
   # Energy flux
-  out$cge <- water_density * g * apply(cg * spec_1d, 2, pracma::trapz, x = spec$freq) / 1000
+  out$cge <- water_density *
+    g *
+    apply(cg * spec_1d, 2, pracma::trapz, x = spec$freq) /
+    1000
   # convert to kW/m to be consistent with outputs from WWIII
 
   # Compute mean direction from  and spreading (°)
@@ -283,9 +285,7 @@ compute_sea_state_2d_spectrum <- function(spec, ...) {
   bm <- apply(apply(bb * ddir, c(2, 3), sum), 2, pracma::trapz, x = spec$freq)
 
   out$dir <- (atan2(bm, am) * 180 / pi + 180) %% 360
-  out$spr <- (sqrt(2 * (1 - sqrt((
-    am^2 + bm^2
-  ) / m0^2))) * 180 / pi) %% 360
+  out$spr <- (sqrt(2 * (1 - sqrt((am^2 + bm^2) / m0^2))) * 180 / pi) %% 360
 
   # Compute mean direction and spreading at peak frequency (°)
   ind_efm <- apply(spec_1d, 2, which.max) # peak of the spectrum
@@ -295,8 +295,16 @@ compute_sea_state_2d_spectrum <- function(spec, ...) {
     efm[, t] <- spec$efth[, ind_efm[t], t]
   } # don't know how to avoid the loop, maybe using slice.index ?
 
-  apm <- apply(sweep(efm, 1, as.array(cos(spec$dir * pi / 180)), "*") * ddir, 2, sum)
-  bpm <- apply(sweep(efm, 1, as.array(sin(spec$dir * pi / 180)), "*") * ddir, 2, sum)
+  apm <- apply(
+    sweep(efm, 1, as.array(cos(spec$dir * pi / 180)), "*") * ddir,
+    2,
+    sum
+  )
+  bpm <- apply(
+    sweep(efm, 1, as.array(sin(spec$dir * pi / 180)), "*") * ddir,
+    2,
+    sum
+  )
 
   out$dp <- (atan2(bpm, apm) * 180 / pi + 180) %% 360
 
@@ -345,17 +353,20 @@ compute_sea_state_1d_spectrum <- function(spec, ...) {
 
   # Compute spectral moments
   m0 <- apply(spec$ef, 2, pracma::trapz, x = spec$freq)
-  m1 <- apply(sweep(spec$ef, 1, spec$freq, FUN = "*"),
+  m1 <- apply(
+    sweep(spec$ef, 1, spec$freq, FUN = "*"),
     2,
     pracma::trapz,
     x = spec$freq
   )
-  m2 <- apply(sweep(spec$ef, 1, spec$freq^2, FUN = "*"),
+  m2 <- apply(
+    sweep(spec$ef, 1, spec$freq^2, FUN = "*"),
     2,
     pracma::trapz,
     x = spec$freq
   )
-  me <- apply(sweep(spec$ef, 1, 1 / spec$freq, FUN = "*"),
+  me <- apply(
+    sweep(spec$ef, 1, 1 / spec$freq, FUN = "*"),
     2,
     pracma::trapz,
     x = spec$freq
@@ -372,11 +383,15 @@ compute_sea_state_1d_spectrum <- function(spec, ...) {
   # fp evaluaton using spline fitting around Ef peak
   nk <- length(spec$freq)
   # Augment frequency resolution by 30
-  freqp <- stats::approx(1:nk, spec$freq, xout = seq(
-    from = 1,
-    to = nk,
-    length = 30 * nk
-  ))
+  freqp <- stats::approx(
+    1:nk,
+    spec$freq,
+    xout = seq(
+      from = 1,
+      to = nk,
+      length = 30 * nk
+    )
+  )
   spec_1d_smooth <- apply(spec$ef, 2, function(y) {
     stats::spline(
       x = spec$freq,
@@ -402,11 +417,7 @@ compute_sea_state_1d_spectrum <- function(spec, ...) {
 
   # wave length
   disper_vec <- Vectorize(dispersion, vectorize.args = c("depth"))
-  k <- disper_vec(spec$freq,
-    spec$forcings$dpt,
-    iter_max = 200,
-    tol = 1e-6
-  )
+  k <- disper_vec(spec$freq, spec$forcings$dpt, iter_max = 200, tol = 1e-6)
   kd <- k * as.numeric(spec$forcings$dpt)
 
   out$km <- apply(k * spec$ef, 2, pracma::trapz, x = spec$freq) / m0
@@ -418,7 +429,10 @@ compute_sea_state_1d_spectrum <- function(spec, ...) {
   cg <- 0.5 * c1 * c2
 
   # Energy flux, converted to kW/m to be consistent with outputs from WWIII
-  out$cge <- water_density * g * apply(cg * spec$ef, 2, pracma::trapz, x = spec$freq) / 1000
+  out$cge <- water_density *
+    g *
+    apply(cg * spec$ef, 2, pracma::trapz, x = spec$freq) /
+    1000
 
   # Compute mean direction from  and spreading (°)
 

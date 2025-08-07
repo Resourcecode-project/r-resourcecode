@@ -26,7 +26,8 @@ get_2d_spectrum_raw <- function(point, year, month) {
 
   temp <- tempfile(fileext = ".nc")
 
-  tryCatch(curl::curl_download(url, destfile = temp, mode = "wb"),
+  tryCatch(
+    curl::curl_download(url, destfile = temp, mode = "wb"),
     error = function(e) {
       message("An error occurred while downloading the spectral data:\n", e)
     },
@@ -34,7 +35,6 @@ get_2d_spectrum_raw <- function(point, year, month) {
       message("A warning occured while downloading the spectral data:\n", w)
     }
   )
-
 
   nc <- ncdf4::nc_open(temp)
 
@@ -48,7 +48,11 @@ get_2d_spectrum_raw <- function(point, year, month) {
   dir_ordred <- order(dir)
 
   time <- nc$dim$time$vals
-  time <- as.POSIXct(time * 24 * 3600, origin = "1990-01-01Z00:00:00", tz = "UTC")
+  time <- as.POSIXct(
+    time * 24 * 3600,
+    origin = "1990-01-01Z00:00:00",
+    tz = "UTC"
+  )
 
   var_out <- list("longitude", "latitude", "frequency1", "frequency2", "efth")
   out <- lapply(var_out, ncdf4::ncvar_get, nc = nc)
@@ -99,7 +103,8 @@ get_1d_spectrum_raw <- function(point, year, month) {
   )
   temp <- tempfile(fileext = ".nc")
 
-  tryCatch(curl::curl_download(url, destfile = temp, mode = "wb"),
+  tryCatch(
+    curl::curl_download(url, destfile = temp, mode = "wb"),
     error = function(e) {
       message("An error occurred while downloading the spectral data:\n", e)
     },
@@ -118,12 +123,22 @@ get_1d_spectrum_raw <- function(point, year, month) {
   freq <- nc$dim$frequency$vals
 
   time <- nc$dim$time$vals
-  time <- as.POSIXct(time * 24 * 3600, origin = "1990-01-01Z00:00:00", tz = "UTC")
+  time <- as.POSIXct(
+    time * 24 * 3600,
+    origin = "1990-01-01Z00:00:00",
+    tz = "UTC"
+  )
 
   var_out <- list(
-    "longitude", "latitude",
-    "frequency1", "frequency2",
-    "ef", "th1m", "th2m", "sth1m", "sth2m"
+    "longitude",
+    "latitude",
+    "frequency1",
+    "frequency2",
+    "ef",
+    "th1m",
+    "th2m",
+    "sth1m",
+    "sth2m"
   )
   out <- lapply(var_out, ncdf4::ncvar_get, nc = nc)
   names(out) <- var_out
@@ -133,8 +148,19 @@ get_1d_spectrum_raw <- function(point, year, month) {
   out$freq <- freq
 
   var_out_1d <- list(
-    "dpt", "wnd", "wnddir", "cur", "curdir",
-    "hs", "fp", "f02", "f0m1", "th1p", "sth1p", "dir", "spr"
+    "dpt",
+    "wnd",
+    "wnddir",
+    "cur",
+    "curdir",
+    "hs",
+    "fp",
+    "f02",
+    "f0m1",
+    "th1p",
+    "sth1p",
+    "dir",
+    "spr"
   )
   forcings <- lapply(var_out_1d, ncdf4::ncvar_get, nc = nc)
 
@@ -204,16 +230,23 @@ get_2d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
   }
 
   if (is.numeric(start)) {
-    start <- as.POSIXct(start, tz = "UTC", origin = as.POSIXct("1970-01-01 00:00:00", tz = "UTC"))
+    start <- as.POSIXct(
+      start,
+      tz = "UTC",
+      origin = as.POSIXct("1970-01-01 00:00:00", tz = "UTC")
+    )
   }
   if (is.numeric(end)) {
-    end <- as.POSIXct(end, tz = "UTC", origin = as.POSIXct("1970-01-01 00:00:00", tz = "UTC"))
+    end <- as.POSIXct(
+      end,
+      tz = "UTC",
+      origin = as.POSIXct("1970-01-01 00:00:00", tz = "UTC")
+    )
   }
 
   stopifnot(format(start, "%Y") >= format(rscd_hindcast_start_date, "%Y"))
   stopifnot(format(end, "%Y") <= format(rscd_hindcast_end_date, "%Y"))
   stopifnot(end >= start)
-
 
   dates <- seq.POSIXt(from = start, to = end, by = "month")
   years <- format(dates, format = "%Y")
@@ -301,10 +334,18 @@ get_1d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
   }
 
   if (is.numeric(start)) {
-    start <- as.POSIXct(start, tz = "UTC", origin = as.POSIXct("1970-01-01", tz = "UTC"))
+    start <- as.POSIXct(
+      start,
+      tz = "UTC",
+      origin = as.POSIXct("1970-01-01", tz = "UTC")
+    )
   }
   if (is.numeric(end)) {
-    end <- as.POSIXct(end, tz = "UTC", origin = as.POSIXct("1970-01-01", tz = "UTC"))
+    end <- as.POSIXct(
+      end,
+      tz = "UTC",
+      origin = as.POSIXct("1970-01-01", tz = "UTC")
+    )
   }
 
   stopifnot(format(start, "%Y") >= format(rscd_hindcast_start_date, "%Y"))

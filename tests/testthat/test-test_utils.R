@@ -20,7 +20,10 @@ test_that("Node selection works", {
   node_test <- 134938
   spec_test <- 2124
   expect_equal(closest_point_field(point_test)$point, node_test)
-  expect_equal(closest_point_field(point_test[1], point_test[2])$point, node_test)
+  expect_equal(
+    closest_point_field(point_test[1], point_test[2])$point,
+    node_test
+  )
   expect_equal(closest_point_spec(point_test)$point, 2124)
   expect_equal(closest_point_spec(point_test[1], point_test[2])$point, 2124)
 })
@@ -61,16 +64,32 @@ test_that("Directional binning works", {
   )
   expect_equal(
     cut_directions(c(10, 80, 170, 280), n_bins = 8),
-    factor(c("N", "E", "S", "W"), levels = c("N", "NE", "E", "SE", "S", "SW", "W", "NW"))
+    factor(
+      c("N", "E", "S", "W"),
+      levels = c("N", "NE", "E", "SE", "S", "SW", "W", "NW")
+    )
   )
   expect_equal(
     cut_directions(c(10, 80, 170, 280), n_bins = 16),
-    factor(c("N", "E", "S", "W"),
+    factor(
+      c("N", "E", "S", "W"),
       levels = c(
-        "N", "NNE", "NE", "ENE",
-        "E", "ESE", "SE", "SSE",
-        "S", "SSW", "SW", "WSW",
-        "W", "WNW", "NW", "NNW"
+        "N",
+        "NNE",
+        "NE",
+        "ENE",
+        "E",
+        "ESE",
+        "SE",
+        "SSE",
+        "S",
+        "SSW",
+        "SW",
+        "WSW",
+        "W",
+        "WNW",
+        "NW",
+        "NNW"
       )
     )
   )

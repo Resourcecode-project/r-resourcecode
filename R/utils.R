@@ -142,7 +142,8 @@ zmcomp2metconv <- function(u, v = NULL, names = c("wspd", "wdir")) {
 #' lines(S2, col = "red")
 #' abline(v = 1 / 15)
 jonswap <- function(hs = 5, tp = 15, fmax = rscd_freq, df = NULL, gam = 3.3) {
-  if (length(fmax) > 1) { # Case when the frequency vector if given
+  if (length(fmax) > 1) {
+    # Case when the frequency vector if given
     freq <- fmax
     fmin <- min(freq)
     fmax <- max(freq)
@@ -178,10 +179,16 @@ jonswap <- function(hs = 5, tp = 15, fmax = rscd_freq, df = NULL, gam = 3.3) {
   fr <- c(0, frq)
   fr <- fr[1:nptsp]
 
-
   sp <- stats::approx(frq, sp, freq)
   names(sp) <- c("freq", "spec")
-  attr(sp, "Note") <- paste0("JONSWAP Spectrum, Hs=", hs, ", Tp=", tp, ", gamma=", gam)
+  attr(sp, "Note") <- paste0(
+    "JONSWAP Spectrum, Hs=",
+    hs,
+    ", Tp=",
+    tp,
+    ", gamma=",
+    gam
+  )
   return(tibble::as_tibble(sp))
 }
 
@@ -323,7 +330,8 @@ cut_directions <- function(directions, n_bins = 8, labels = NULL) {
   # Adjust directions for the split North bin
   # Values in the upper part of North bin (360-half_bin to 360)
   # need to be mapped to negative values (-half_bin to 0)
-  adjusted_directions <- ifelse(directions > (360 - half_bin),
+  adjusted_directions <- ifelse(
+    directions > (360 - half_bin),
     directions - 360,
     directions
   )
@@ -340,8 +348,22 @@ cut_directions <- function(directions, n_bins = 8, labels = NULL) {
       labels <- c("N", "NE", "E", "SE", "S", "SW", "W", "NW")
     } else if (n_bins == 16) {
       labels <- c(
-        "N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE",
-        "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"
+        "N",
+        "NNE",
+        "NE",
+        "ENE",
+        "E",
+        "ESE",
+        "SE",
+        "SSE",
+        "S",
+        "SSW",
+        "SW",
+        "WSW",
+        "W",
+        "WNW",
+        "NW",
+        "NNW"
       )
     } else {
       # Generic labels with center angles
@@ -349,7 +371,8 @@ cut_directions <- function(directions, n_bins = 8, labels = NULL) {
     }
   }
   # Cut the adjusted directions
-  result <- cut(adjusted_directions,
+  result <- cut(
+    adjusted_directions,
     breaks = breaks,
     labels = labels,
     include.lowest = TRUE,

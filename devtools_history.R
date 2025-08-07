@@ -22,18 +22,29 @@ usethis::use_build_ignore("dev/")
 usethis::use_git()
 usethis::use_github()
 
-rscd_freq = array(0.0339*1.1^(0:35))
-rscd_dir = array(seq(from=0,to=350,by=10))
-usethis::use_data(rscd_freq,rscd_dir,version=3,overwrite = TRUE)
+rscd_freq = array(0.0339 * 1.1^(0:35))
+rscd_dir = array(seq(from = 0, to = 350, by = 10))
+usethis::use_data(rscd_freq, rscd_dir, version = 3, overwrite = TRUE)
 
 rcd_cassandra_url = "https://resourcecode-datacharts.ifremer.fr/"
-rscd_hindcast_start_date=as.POSIXct("1994-01-01 00:00:00",tz='UTC')
-rscd_hindcast_end_date=as.POSIXct("2022-12-31 23:00:00",tz='UTC')
+rscd_hindcast_start_date = as.POSIXct("1994-01-01 00:00:00", tz = 'UTC')
+rscd_hindcast_end_date = as.POSIXct("2022-12-31 23:00:00", tz = 'UTC')
 
-rscd_casandra_start_date=as.POSIXct("1994-01-01 00:00:00",tz='UTC')
-rscd_casandra_end_date=as.POSIXct("2020-12-31 23:00:00",tz='UTC')
+rscd_casandra_start_date = as.POSIXct("1994-01-01 00:00:00", tz = 'UTC')
+rscd_casandra_end_date = as.POSIXct("2020-12-31 23:00:00", tz = 'UTC')
 
-usethis::use_data(rcd_cassandra_url,rscd_hindcast_start_date,rscd_hindcast_end_date,rscd_casandra_start_date,rscd_casandra_end_date,rscd_freq,rscd_dir,internal = TRUE,version=3,overwrite = TRUE)
+usethis::use_data(
+  rcd_cassandra_url,
+  rscd_hindcast_start_date,
+  rscd_hindcast_end_date,
+  rscd_casandra_start_date,
+  rscd_casandra_end_date,
+  rscd_freq,
+  rscd_dir,
+  internal = TRUE,
+  version = 3,
+  overwrite = TRUE
+)
 
 
 #set up automatic "check" on several plateforms
@@ -47,15 +58,22 @@ usethis::use_pkgdown_github_pages()
 #Hex Logo
 library(showtext)
 sysfonts::font_add_google("Exo 2", "Exo 2")
-hexSticker::sticker("rscd.png", package="resourceCODE", p_size=20, s_x=1, s_y=.75, s_width=.55,
-                    p_family="Exo 2",
-                    p_color = '#756662',
-                    h_fill = "white",
-                    h_color = "#00AAE1",
-                    url = "https://resourcecode.ifremer.fr",
-                    u_family="Exo 2",
-                    u_size = 5,
-        filename = "resourcecode_logo.png")
+hexSticker::sticker(
+  "rscd.png",
+  package = "resourceCODE",
+  p_size = 20,
+  s_x = 1,
+  s_y = .75,
+  s_width = .55,
+  p_family = "Exo 2",
+  p_color = '#756662',
+  h_fill = "white",
+  h_color = "#00AAE1",
+  url = "https://resourcecode.ifremer.fr",
+  u_family = "Exo 2",
+  u_size = 5,
+  filename = "resourcecode_logo.png"
+)
 usethis::use_logo("resourcecode_logo.png")
 usethis::use_vignette("resourcecode")
 
@@ -83,16 +101,18 @@ styler::style_pkg()
 
 devtools::load_all()
 devtools::spell_check()
-attachment::att_amend_desc(extra.suggests = "resourcecodedata",
-                           pkg_ignore = "resourcecodedata",
-                           check_if_suggests_is_installed = TRUE,
-                           use.config = FALSE)
+attachment::att_amend_desc(
+  extra.suggests = "resourcecodedata",
+  pkg_ignore = "resourcecodedata",
+  check_if_suggests_is_installed = TRUE,
+  use.config = FALSE
+)
 devtools::document()
 devtools::run_examples()
 urlchecker::url_check()
 devtools::build_readme()
 devtools::install()
-testthat::test_dir("tests/testthat/",package = "resourcecode")
+testthat::test_dir("tests/testthat/", package = "resourcecode")
 
 # Check content
 # install.packages('checkhelper', repos = 'https://thinkr-open.r-universe.dev')
