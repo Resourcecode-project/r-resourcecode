@@ -530,7 +530,7 @@ cut_seasons <- function(datetime,
                  ") must match number of unique seasons (", length(unique_seasons), ")", sep = ""))
     }
     # Create mapping from old to new labels
-    label_mapping <- setNames(labels, sort(unique_seasons))
+    label_mapping <- stats::setNames(labels, sort(unique_seasons))
     seasons <- label_mapping[seasons]
   }
 
