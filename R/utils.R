@@ -36,17 +36,42 @@ closest_point_field <- function(x, lat = NULL, closest = 1L, ...) {
   has_data()
 
   if (!is.null(lat)) {
-    stopifnot(length(x) == length(lat))
-    return(closest_point_field(cbind(x, lat)))
+    if (!(length(x) == length(lat))) {
+      stop("If 'lat' is provided, it sould be the same length as 'x'.")
+    }
+    return(closest_point_field(cbind(x, lat), lat = NULL, closest = closest, ...))
   }
 
-  stopifnot(is.integer(closest) & closest >= 1L)
-  dist <- geosphere::distGeo(x, resourcecodedata::rscd_field[, c(2, 3)])
-  ind_min <- order(dist)[1:closest]
+  # Concert the input to a matrix with 2 columns, one point per line
+  x <- matrix(x, ncol = 2)
+
+  if (!is.numeric(closest) || closest < 1L) {
+    stop("'closest' must be an integer greater than 1.")
+  }
+
+  # Compute the distance matrix between the points and Resourcecode's grid
+  dist <- geosphere::distm(x, resourcecodedata::rscd_field[, c(2, 3)])
+
+  if (closest == 1L) {
+    ind_min <- apply(dist, 1, which.min)
+  } else {
+    ind_min <- apply(dist, 1, function(distances) {
+      order(distances)[1:closest]
+    })
+  }
+
+  distance <- matrix(NA, NROW(x), closest)
+  for (p in seq_len(NROW(x))) {
+    distance[p, ] <- if (closest == 1) {
+      dist[p, ind_min[p]]
+    } else {
+      dist[p, ind_min[, p]]
+    }
+  }
 
   return(list(
-    point = ind_min,
-    distance = dist[ind_min]
+    points = t(ind_min),
+    distances = distance
   ))
 }
 
@@ -67,17 +92,42 @@ closest_point_spec <- function(x, lat = NULL, closest = 1L, ...) {
   has_data()
 
   if (!is.null(lat)) {
-    stopifnot(length(x) == length(lat))
-    return(closest_point_spec(cbind(x, lat)))
+    if (!(length(x) == length(lat))) {
+      stop("If 'lat' is provided, it sould be the same length as 'x'.")
+    }
+    return(closest_point_spec(cbind(x, lat), lat = NULL, closest = closest, ...))
   }
 
-  stopifnot(is.integer(closest) & closest >= 1L)
-  dist <- geosphere::distGeo(x, resourcecodedata::rscd_spectral[, c(1, 2)])
-  ind_min <- order(dist)[1:closest]
+  # Concert the input to a matrix with 2 columns, one point per line
+  x <- matrix(x, ncol = 2)
+
+  if (!is.numeric(closest) || closest < 1L) {
+    stop("'closest' must be an integer greater than 1.")
+  }
+
+  # Compute the distance matrix between the points and Resourcecode's grid
+  dist <- geosphere::distm(x, resourcecodedata::rscd_spectral[, c(1, 2)])
+
+  if (closest == 1L) {
+    ind_min <- apply(dist, 1, which.min)
+  } else {
+    ind_min <- apply(dist, 1, function(distances) {
+      order(distances)[1:closest]
+    })
+  }
+
+  distance <- matrix(NA, NROW(x), closest)
+  for (p in seq_len(NROW(x))) {
+    distance[p, ] <- if (closest == 1) {
+      dist[p, ind_min[p]]
+    } else {
+      dist[p, ind_min[, p]]
+    }
+  }
 
   return(list(
-    point = ind_min,
-    distance = dist[ind_min]
+    points = t(ind_min),
+    distances = distance
   ))
 }
 

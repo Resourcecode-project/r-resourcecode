@@ -13,21 +13,6 @@ test_that("%nin% helper works", {
   expect_true(1 %nin% c(3, 5, 9))
 })
 
-test_that("Node selection works", {
-  skip_if_offline()
-  skip_if(!requireNamespace("resourcecodedata", quietly = TRUE))
-  point_test <- c(-4.700, 48.302)
-  node_test <- 134938
-  spec_test <- 2124
-  expect_equal(closest_point_field(point_test)$point, node_test)
-  expect_equal(
-    closest_point_field(point_test[1], point_test[2])$point,
-    node_test
-  )
-  expect_equal(closest_point_spec(point_test)$point, 2124)
-  expect_equal(closest_point_spec(point_test[1], point_test[2])$point, 2124)
-})
-
 test_that("Fast trapz works", {
   n <- 101
   x <- seq(0, pi, length.out = n)

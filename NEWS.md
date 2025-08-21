@@ -1,8 +1,9 @@
 # resourcecode (development version)
 
-# resourcecode 0.3.0
+- `closest_point_field()` and `closest_point_field()` now accept a list of locations
+  instead of a single one (#3).
 
-# resourcecode 0.2.2
+# resourcecode 0.3.0
 
 - `rscd_mapplot()`: add Resourcecode caption.
 - New helpers:
