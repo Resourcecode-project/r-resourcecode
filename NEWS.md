@@ -2,8 +2,6 @@
 
 # resourcecode 0.3.0
 
-# resourcecode 0.2.2
-
 - `rscd_mapplot()`: add Resourcecode caption.
 - New helpers:
   - `mean_direction()` to compute (weighted) mean values of directional variables,
