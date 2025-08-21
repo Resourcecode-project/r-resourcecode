@@ -386,3 +386,176 @@ cut_directions <- function(directions, n_bins = 8, labels = NULL) {
 
   return(result)
 }
+
+
+
+#' Get season from date time object
+#'
+#' @param datetime a POSIXct vector from with the season is constructed
+#' @param definition the definition used to compute the season. See details section.
+#' @param hemisphere in the Southern hemisphere, seasons are reversed compared to the Northern one.
+#' @param labels optional, a character vector of length fours with the seasons' names.
+#'
+#' @returns a Factor vector with 4 levels depending on the definitions (and labels if provided)
+#' @export
+#'
+#' @details
+#' Available Definitions:
+#'   - meteorological: Standard seasons (Dec-Feb = Winter, etc.)
+#'   - astronomical: Based on equinoxes/solstices
+#'   - djf: Dec-Jan-Feb, Mar-Apr-May, Jun-Jul-Aug, Sep-Oct-Nov
+#'   - jfm: Jan-Feb-Mar, Apr-May-Jun, Jul-Aug-Sep, Oct-Nov-Dec
+#'   - fma: Feb-Mar-Apr, May-Jun-Jul, Aug-Sep-Oct, Nov-Dec-Jan
+#'   - amj, jas, ond: Alternative starting points for quarterly seasons
+#'
+#' @examples
+#' dates = seq(from = as.POSIXct("2023-01-15"),
+#'             to = as.POSIXct("2023-12-15"),
+#'             by = "month")
+#' cut_seasons(dates)
+cut_seasons <- function(datetime,
+                        definition = "meteorological",
+                        hemisphere = "northern",
+                        labels = NULL) {
+
+  # Validate inputs
+  if (!inherits(datetime, "POSIXct")) {
+    stop("datetime must be a POSIXct object")
+  }
+
+  if (!definition %in% c("meteorological", "astronomical",
+                         "djf", "jfm", "amj", "jas", "ond", "fma")) {
+    stop("definition must be one of: 'meteorological', 'astronomical',
+         'djf', 'jfm', 'amj', 'jas', 'ond', 'fma'")
+  }
+
+  if (!hemisphere %in% c("northern", "southern")) {
+    stop("hemisphere must be 'northern' or 'southern'")
+  }
+
+  # Extract month and day-of-year
+  month <- as.numeric(format(datetime, "%m"))
+  yday <- as.numeric(format(datetime, "%j"))
+  year <- as.numeric(format(datetime, "%Y"))
+
+  # Define season boundaries based on definition
+  if (definition == "meteorological") {
+    # Dec-Jan-Feb = Winter, Mar-Apr-May = Spring, etc.
+    season_month <- c(12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
+    season_labels <- c("Winter", "Winter", "Winter", "Spring", "Spring", "Spring",
+                       "Summer", "Summer", "Summer", "Autumn", "Autumn", "Autumn")
+    seasons <- season_labels[match(month, season_month)]
+
+  } else if (definition == "astronomical") {
+    # Based on equinoxes and solstices (approximate dates)
+    # Northern hemisphere: Dec 21 - Mar 20 = Winter, etc.
+    seasons <- rep(NA, length(datetime))
+
+    for (i in seq_along(datetime)) {
+      y <- year[i]
+      d <- yday[i]
+
+      # Approximate astronomical dates (can vary by 1-2 days)
+      spring_equinox <- as.numeric(format(as.Date(paste(y, "03", "20", sep = "-")), "%j"))
+      summer_solstice <- as.numeric(format(as.Date(paste(y, "06", "21", sep = "-")), "%j"))
+      autumn_equinox <- as.numeric(format(as.Date(paste(y, "09", "22", sep = "-")), "%j"))
+      winter_solstice <- as.numeric(format(as.Date(paste(y, "12", "21", sep = "-")), "%j"))
+
+      if (d >= winter_solstice || d < spring_equinox) {
+        seasons[i] <- "Winter"
+      } else if (d >= spring_equinox && d < summer_solstice) {
+        seasons[i] <- "Spring"
+      } else if (d >= summer_solstice && d < autumn_equinox) {
+        seasons[i] <- "Summer"
+      } else {
+        seasons[i] <- "Autumn"
+      }
+    }
+
+  } else if (definition == "djf") {
+    # Dec-Jan-Feb, Mar-Apr-May, Jun-Jul-Aug, Sep-Oct-Nov
+    season_month <- c(12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
+    season_labels <- c("DJF", "DJF", "DJF", "MAM", "MAM", "MAM",
+                       "JJA", "JJA", "JJA", "SON", "SON", "SON")
+    seasons <- season_labels[match(month, season_month)]
+
+  } else if (definition == "jfm") {
+    # Jan-Feb-Mar, Apr-May-Jun, Jul-Aug-Sep, Oct-Nov-Dec
+    season_month <- 1:12
+    season_labels <- c("JFM", "JFM", "JFM", "AMJ", "AMJ", "AMJ",
+                       "JAS", "JAS", "JAS", "OND", "OND", "OND")
+    seasons <- season_labels[match(month, season_month)]
+
+  } else if (definition == "amj") {
+    # Apr-May-Jun, Jul-Aug-Sep, Oct-Nov-Dec, Jan-Feb-Mar
+    season_month <- 1:12
+    season_labels <- c("JFM", "JFM", "JFM", "AMJ", "AMJ", "AMJ",
+                       "JAS", "JAS", "JAS", "OND", "OND", "OND")
+    seasons <- season_labels[match(month, season_month)]
+
+  } else if (definition == "jas") {
+    # Jul-Aug-Sep, Oct-Nov-Dec, Jan-Feb-Mar, Apr-May-Jun
+    season_month <- 1:12
+    season_labels <- c("JFM", "JFM", "JFM", "AMJ", "AMJ", "AMJ",
+                       "JAS", "JAS", "JAS", "OND", "OND", "OND")
+    seasons <- season_labels[match(month, season_month)]
+
+  } else if (definition == "ond") {
+    # Oct-Nov-Dec, Jan-Feb-Mar, Apr-May-Jun, Jul-Aug-Sep
+    season_month <- 1:12
+    season_labels <- c("JFM", "JFM", "JFM", "AMJ", "AMJ", "AMJ",
+                       "JAS", "JAS", "JAS", "OND", "OND", "OND")
+    seasons <- season_labels[match(month, season_month)]
+
+  } else if (definition == "fma") {
+    # Feb-Mar-Apr, May-Jun-Jul, Aug-Sep-Oct, Nov-Dec-Jan
+    season_month <- 1:12
+    season_labels <- c("NDJ", "FMA", "FMA", "FMA", "MJJ", "MJJ",
+                       "MJJ", "ASO", "ASO", "ASO", "NDJ", "NDJ")
+    seasons <- season_labels[match(month, season_month)]
+  }
+
+  # Flip seasons for southern hemisphere
+  if (hemisphere == "southern" && definition %in% c("meteorological", "astronomical")) {
+    season_mapping <- c("Spring" = "Autumn", "Summer" = "Winter",
+                        "Autumn" = "Spring", "Winter" = "Summer")
+    seasons <- season_mapping[seasons]
+  }
+
+  # Apply custom labels if provided
+  if (!is.null(labels)) {
+    unique_seasons <- unique(seasons[!is.na(seasons)])
+    if (length(labels) != length(unique_seasons)) {
+      stop(paste("Number of labels (", length(labels),
+                 ") must match number of unique seasons (", length(unique_seasons), ")", sep = ""))
+    }
+    # Create mapping from old to new labels
+    label_mapping <- setNames(labels, sort(unique_seasons))
+    seasons <- label_mapping[seasons]
+  }
+
+  # Convert to factor with logical level ordering
+  if (definition == "meteorological" || definition == "astronomical") {
+    if (hemisphere == "northern") {
+      level_order <- c("Spring", "Summer", "Autumn", "Winter")
+    } else {
+      level_order <- c("Autumn", "Winter", "Spring", "Summer")
+    }
+  } else if (definition == "djf") {
+    level_order <- c("DJF", "MAM", "JJA", "SON")
+  } else if (definition == "jfm") {
+    level_order <- c("JFM", "AMJ", "JAS", "OND")
+  } else if (definition == "fma") {
+    level_order <- c("FMA", "MJJ", "ASO", "NDJ")
+  } else {
+    level_order <- c("JFM", "AMJ", "JAS", "OND")  # Default for amj, jas, ond
+  }
+
+  # Apply custom labels to level order if provided
+  if (!is.null(labels)) {
+    level_order <- labels[match(level_order, sort(unique_seasons))]
+  }
+
+  result <- factor(seasons, levels = level_order)
+  return(result)
+}

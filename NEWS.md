@@ -3,7 +3,8 @@
 - `rscd_mapplot()`: add Resourcecode caption.
 - New helpers:
   - `mean_direction()` to compute (weighted) mean values of directional variables,
-  - `cut_directions()` to bin a vector of directions into sectors, centered North.
+  - `cut_directions()` to bin a vector of directions into sectors, centered North;
+  - `cut_seasons()` to compute the season from a datetime, with different definitions.
  - Fixed #7 (thanks @paalves).
 
 # resourcecode 0.2.1
