@@ -10,6 +10,8 @@
 coverage](https://codecov.io/gh/Resourcecode-project/r-resourcecode/branch/main/graph/badge.svg)](https://app.codecov.io/gh/NRaillard/resourcecode?branch=main)
 [![resourcecode status
 badge](https://resourcecode-project.r-universe.dev/resourcecode/badges/version)](https://resourcecode-project.r-universe.dev/resourcecode)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/resourcecode)](https://CRAN.R-project.org/package=resourcecode)
 <!-- badges: end -->
 
 The goal of `{resourcecode}` is to provide an easy access to the

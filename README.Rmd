@@ -36,6 +36,7 @@ if (!has_data) {
 [![R-CMD-check](https://github.com/Resourcecode-project/r-resourcecode/actions/workflows/R-CMD-check.yaml/badge.svg?branch=main)](https://github.com/Resourcecode-project/r-resourcecode/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/Resourcecode-project/r-resourcecode/branch/main/graph/badge.svg)](https://app.codecov.io/gh/NRaillard/resourcecode?branch=main)
 [![resourcecode status badge](https://resourcecode-project.r-universe.dev/resourcecode/badges/version)](https://resourcecode-project.r-universe.dev/resourcecode)
+[![CRAN status](https://www.r-pkg.org/badges/version/resourcecode)](https://CRAN.R-project.org/package=resourcecode)
 <!-- badges: end -->
 
 The goal of `{resourcecode}` is to provide an easy access to the Resourcecode hindcast database of sea-states. More information on the database can be found [here](https://resourcecode.ifremer.fr). This website only contains information about the way to retrieve data from this data base and the functionalities offred by this package.
