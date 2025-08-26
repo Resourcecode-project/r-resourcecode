@@ -2,3 +2,4 @@ url: https://resourcecode-project.github.io/r-resourcecode/
 template:
   bootstrap: 5
   light-switch: true
+   bootswatch: litera
