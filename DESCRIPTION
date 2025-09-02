@@ -28,6 +28,7 @@ Imports:
     ncdf4,
     pracma,
     Rcpp,
+    resourcecodedata,
     rlang,
     sf,
     stats,
@@ -35,7 +36,6 @@ Imports:
     tidyr
 Suggests: 
     knitr,
-    resourcecodedata,
     rmarkdown,
     testthat,
     vdiffr
@@ -44,7 +44,6 @@ LinkingTo:
     RcppArmadillo
 VignetteBuilder: 
     knitr
-Additional_repositories: https://resourcecode-project.github.io/drat/
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Encoding: UTF-8

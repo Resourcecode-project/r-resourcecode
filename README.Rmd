@@ -15,21 +15,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r echo = FALSE}
-has_data <- requireNamespace("resourcecodedata", quietly = TRUE)
-if (!has_data) {
-  knitr::opts_chunk$set(eval = FALSE)
-  msg <- paste(
-    "Note: Examples in this vignette require that the",
-    "`resourcecodedata` package be installed. The system",
-    "currently running this vignette does not have that package",
-    "installed, so code examples will not be evaluated."
-  )
-  msg <- paste(strwrap(msg), collapse = "\n")
-  message(msg)
-}
-```
-
 # Resource**code** <a href="https://github.com/Resourcecode-project/r-resourcecode"><img src="man/figures/logo.png" align="right" height="139" alt="resourcecode website" /></a>
 
 <!-- badges: start -->
@@ -42,13 +27,6 @@ if (!has_data) {
 The goal of `{resourcecode}` is to provide an easy access to the Resourcecode hindcast database of sea-states. More information on the database can be found [here](https://resourcecode.ifremer.fr). This website only contains information about the way to retrieve data from this data base and the functionalities offred by this package.
 
 ## Installation
-
-This package depends on data in a data package `{resourcecodedata}` that is available through a `drat` repository on GitHub.
-To use the `{resourcecode}` package, you will need to install `{resourcecodedata}` on your computer, using the following `install.packages` function (and later update it using the `update.packages` function):
-
-```{r install-data, eval=F}
-install.packages("resourcecodedata", repos = c("https://resourcecode-project.r-universe.dev", "https://cloud.r-project.org"))
-```
 
 The `{resourcecode}` package is on CRAN so you can simply run :
 
@@ -71,6 +49,8 @@ or using the classical:
 ```{r install-dev, eval=F}
 devtools::install_github("Resourcecode-project/r-resourcecode")
 ```
+
+This package depends on data in a data package `{resourcecodedata}` that is available on CRAN on will be installed when installing the package for the first time.
 
 ## Examples
 

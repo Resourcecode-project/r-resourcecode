@@ -22,16 +22,6 @@ this data base and the functionalities offred by this package.
 
 ## Installation
 
-This package depends on data in a data package `{resourcecodedata}` that
-is available through a `drat` repository on GitHub. To use the
-`{resourcecode}` package, you will need to install `{resourcecodedata}`
-on your computer, using the following `install.packages` function (and
-later update it using the `update.packages` function):
-
-``` r
-install.packages("resourcecodedata", repos = c("https://resourcecode-project.r-universe.dev", "https://cloud.r-project.org"))
-```
-
 The `{resourcecode}` package is on CRAN so you can simply run :
 
 ``` r
@@ -55,6 +45,10 @@ or using the classical:
 ``` r
 devtools::install_github("Resourcecode-project/r-resourcecode")
 ```
+
+This package depends on data in a data package `{resourcecodedata}` that
+is available on CRAN on will be installed when installing the package
+for the first time.
 
 ## Examples
 
@@ -88,8 +82,8 @@ Finistère:
 data <- get_parameters(node = "134865", parameters = "hs")
 str(data)
 #> tibble [8,760 × 2] (S3: tbl_df/tbl/data.frame)
-#>  $ time: POSIXct[1:8760], format: "1994-01-01 01:00:00" "1994-01-01 02:00:00" ...
-#>  $ hs  : num [1:8760] 4.98 5.19 5.37 5.48 5.52 ...
+#>  $ time: POSIXct[1:8760], format: "1994-01-01 00:00:00" "1994-01-01 01:00:00" ...
+#>  $ hs  : num [1:8760] 4.82 4.98 5.19 5.37 5.48 ...
 #>  - attr(*, "node")= num 134864
 plot(data, type = "l")
 ```

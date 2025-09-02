@@ -1,5 +1,6 @@
 # resourcecode (development version)
 
+- Adds`{resourcecodedata}` package as dependence, to ease the use of the package 
 - `closest_point_field()` and `closest_point_field()` now accept a list of locations
   instead of a single one (#3).
 

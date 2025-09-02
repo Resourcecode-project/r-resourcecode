@@ -25,15 +25,9 @@
 #' @export
 #'
 #' @examples
-#' # Ensure that data package is available before running the example.
-#' #  If it is not, see the `resourcecode` package vignette for details
-#' # on installing the required data package.
-#' if (requireNamespace("resourcecodedata", quietly = TRUE)) {
-#'   semrev_west <- closest_point_field(c(-2.786, 47.239))
-#'   semrev_west
-#' }
+#' semrev_west <- closest_point_field(c(-2.786, 47.239))
+#' semrev_west
 closest_point_field <- function(x, lat = NULL, closest = 1L, ...) {
-  has_data()
 
   if (!is.null(lat)) {
     if (!(length(x) == length(lat))) {
@@ -85,11 +79,10 @@ closest_point_field <- function(x, lat = NULL, closest = 1L, ...) {
 #' @return a list with two components: the closest point(s) of the grid and the distance (s).
 #' @export
 #'
-#' @examplesIf requireNamespace("resourcecodedata", quietly = TRUE)
+#' @examples
 #' semrev_west <- closest_point_spec(c(-2.786, 47.239))
 #' semrev_west
 closest_point_spec <- function(x, lat = NULL, closest = 1L, ...) {
-  has_data()
 
   if (!is.null(lat)) {
     if (!(length(x) == length(lat))) {

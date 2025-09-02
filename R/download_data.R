@@ -13,8 +13,8 @@
 get_parameters_raw <- function(
   parameter = "hs",
   node = 42,
-  start = as.POSIXct("1994-01-01Z00:00:00"),
-  end = as.POSIXct("1994-12-31Z23:00:00")
+  start = as.POSIXct("1994-01-01Z00:00:00", tz = "UTC"),
+  end = as.POSIXct("1994-12-31Z23:00:00", tz = "UTC")
 ) {
   if (parameter == "tp") {
     single_parameter <- "fp"
@@ -22,8 +22,8 @@ get_parameters_raw <- function(
     single_parameter <- parameter
   }
 
-  start_str <- strftime(start, format = "%Y-%m-%dT%H:%M:%SZ")
-  end_str <- strftime(end, format = "%Y-%m-%dT%H:%M:%SZ")
+  start_str <- strftime(start, format = "%Y-%m-%dT%H:%M:%SZ",tz = 'UTC')
+  end_str <- strftime(end, format = "%Y-%m-%dT%H:%M:%SZ",tz = 'UTC')
 
   # Cassandra database start indexing at 1, so decrements node number
   node <- node - 1
@@ -77,7 +77,7 @@ get_parameters_raw <- function(
 #' @return a tibble with N-rows and `length(parameters)` columns.
 #' @export
 #'
-#' @examplesIf requireNamespace("resourcecodedata", quietly = TRUE)
+#' @examplesIf curl::has_internet()
 #' ts <- get_parameters(parameters = c("hs", "tp"), node = 42)
 #' plot(ts$time, ts$hs, type = "l")
 get_parameters <- function(

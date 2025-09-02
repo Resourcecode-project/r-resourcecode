@@ -51,7 +51,7 @@ A list with 12 elements:
 Download the 1D spectrum data from IFREMER ftp
 }
 \examples{
-\dontshow{if (requireNamespace("resourcecodedata", quietly = TRUE) & curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 spec1D <- get_1d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
 r <- as.POSIXct(round(range(spec1D$forcings$time), "month"))
 image(spec1D$forcings$time, spec1D$freq, t(spec1D$ef),

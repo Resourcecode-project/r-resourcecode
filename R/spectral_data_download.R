@@ -205,7 +205,7 @@ get_1d_spectrum_raw <- function(point, year, month) {
 #' }
 #' @export
 #'
-#' @examplesIf requireNamespace("resourcecodedata", quietly = TRUE) & curl::has_internet()
+#' @examplesIf curl::has_internet()
 #' spec2D <- get_2d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
 #' image(spec2D$dir, spec2D$freq, spec2D$efth[, , 1],
 #'   xlab = "Direction (°)",
@@ -213,8 +213,6 @@ get_1d_spectrum_raw <- function(point, year, month) {
 #' )
 get_2d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
   stopifnot(length(point) == 1)
-
-  has_data()
 
   if (is.numeric(point)) {
     point <- resourcecodedata::rscd_spectral[point, "name"]
@@ -304,7 +302,7 @@ get_2d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
 #' }
 #' @export
 #'
-#' @examplesIf requireNamespace("resourcecodedata", quietly = TRUE) & curl::has_internet()
+#' @examplesIf curl::has_internet()
 #' spec1D <- get_1d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
 #' r <- as.POSIXct(round(range(spec1D$forcings$time), "month"))
 #' image(spec1D$forcings$time, spec1D$freq, t(spec1D$ef),
@@ -318,7 +316,6 @@ get_2d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
 get_1d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
   stopifnot(length(point) == 1)
 
-  has_data()
 
   if (is.numeric(point)) {
     point <- resourcecodedata::rscd_spectral[point, "name"]

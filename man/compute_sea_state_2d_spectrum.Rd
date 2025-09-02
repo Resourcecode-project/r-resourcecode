@@ -18,10 +18,6 @@ a tibble with the sea-state parameters computed from the time series of 2D spect
 Compute sea_state parameter from wave directional spectrum
 }
 \examples{
-# Ensure that data package is available before running the example.
-#  If it is not, see the `resourcecode` package vignette for details
-# on installing the required data package.
-if (requireNamespace("resourcecodedata", quietly = TRUE)) {
   rscd_params <- get_parameters(
     node = "134865",
     start = "1994-01-01",
@@ -40,5 +36,4 @@ if (requireNamespace("resourcecodedata", quietly = TRUE)) {
   plot(param_calc$time, param_calc$dp, type = "l", xlab = "Time", ylab = "Dp (°)")
   lines(rscd_params$time, rscd_params$dp, col = "red")
   par(oldpar)
-}
 }

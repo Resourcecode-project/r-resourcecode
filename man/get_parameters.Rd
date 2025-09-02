@@ -27,7 +27,7 @@ a tibble with N-rows and \code{length(parameters)} columns.
 Download time series of sea-state parameters from RESOURCECODE database
 }
 \examples{
-\dontshow{if (requireNamespace("resourcecodedata", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ts <- get_parameters(parameters = c("hs", "tp"), node = 42)
 plot(ts$time, ts$hs, type = "l")
 \dontshow{\}) # examplesIf}

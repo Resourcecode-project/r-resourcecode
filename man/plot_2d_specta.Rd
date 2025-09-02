@@ -33,8 +33,5 @@ a ggplot object
 Plot a wave density 2D spectrum
 }
 \examples{
-\dontshow{if (requireNamespace("resourcecodedata", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-spec <- get_2d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-01-31")
-plot_2d_specta(spec, 1)
-\dontshow{\}) # examplesIf}
+plot_2d_specta(resourcecodedata::rscd_2d_spectra, 1)
 }
