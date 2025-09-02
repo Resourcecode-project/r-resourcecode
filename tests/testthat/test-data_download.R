@@ -1,6 +1,29 @@
+test_that("Errors in 'get_parameters()' are handled correcly", {
+  expect_error(get_parameters("tépé"),
+               "Requested parameters do not exists in the database: tépé")
+  expect_error(get_parameters(node = 0),
+               "The requested location do no exist in the database.")
+  expect_error(get_parameters(node = c(10, 100)),
+               "The function can retreive only one location a time.")
+  expect_error(get_parameters(start = 1),
+               paste0("'start' is outside the covered period: ",
+                      paste(format(c(rscd_casandra_start_date,
+                                     rscd_casandra_end_date),
+                                   format = "%Y-%m-%d %H:%M %Z"),
+                            collapse = " \u2014 ")))
+  expect_error(get_parameters(end = 1e10),
+               paste0("'end' is outside the covered period: ",
+                      paste(format(c(rscd_casandra_start_date,
+                                     rscd_casandra_end_date),
+                                   format = "%Y-%m-%d %H:%M %Z"),
+                            collapse = " \u2014 ")))
+  expect_error(get_parameters(start = "1994-01-31 01:00:00",
+                              end = "1994-01-11 01:00:00"),
+               "'end' must be after 'start'")
+})
+
 test_that("downloading parameters data works", {
   skip_if_offline()
-  skip_if(!requireNamespace("resourcecodedata", quietly = TRUE))
   dat <- get_parameters(
     parameters = c("hs", "tp"),
     node = 42,
@@ -23,7 +46,6 @@ test_that("downloading parameters data works", {
 
 test_that("downloading 1D spectral data works", {
   skip_if_offline()
-  skip_if(!requireNamespace("resourcecodedata", quietly = TRUE))
   spec <- get_1d_spectrum(
     1L,
     start = "1994-12-01 00:00:00 UTC",
@@ -55,7 +77,6 @@ test_that("downloading 1D spectral data works", {
 
 test_that("downloading 2D spectral data works", {
   skip_if_offline()
-  skip_if(!requireNamespace("resourcecodedata", quietly = TRUE))
   spec <- get_2d_spectrum(
     1L,
     start = "1994-12-01 00:00:00 UTC",

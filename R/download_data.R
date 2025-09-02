@@ -86,16 +86,23 @@ get_parameters <- function(
   start = as.POSIXct("1994-01-01 00:00:00", tz = "UTC"),
   end = as.POSIXct("1994-12-31 23:00:00", tz = "UTC")
 ) {
-  has_data()
 
   parameters <- tolower(parameters)
 
-  stopifnot(parameters %in% c("tp", resourcecodedata::rscd_variables$name))
+  if (any(parameters %nin% c("tp", resourcecodedata::rscd_variables$name))) {
+    errors <- parameters[parameters %nin% c("tp", resourcecodedata::rscd_variables$name)]
+    stop("Requested parameters do not exists in the database: ",
+         paste0(errors, collapse = ", "), ".")
+  }
 
   node <- as.integer(node)
 
-  stopifnot(length(node) == 1)
-  stopifnot(node %in% resourcecodedata::rscd_field$node)
+  if (length(node) != 1) {
+    stop("The function can retreive only one location a time.")
+  }
+  if (node %nin% resourcecodedata::rscd_field$node) {
+    stop("The requested location do no exist in the database.")
+  }
 
   if (is.character(start)) {
     start <- as.POSIXct(start, tz = "UTC")
@@ -119,8 +126,21 @@ get_parameters <- function(
     )
   }
 
-  stopifnot(start >= rscd_casandra_start_date)
-  stopifnot(end <= rscd_casandra_end_date)
+  if (start < rscd_casandra_start_date) {
+    stop("'start' is outside the covered period: ",
+         paste(format(c(rscd_casandra_start_date, rscd_casandra_end_date),
+                      format = "%Y-%m-%d %H:%M %Z"),
+               collapse = " \u2014 "))
+  }
+  if (end > rscd_casandra_end_date) {
+    stop("'end' is outside the covered period: ",
+         paste(format(c(rscd_casandra_start_date, rscd_casandra_end_date),
+                      format = "%Y-%m-%d %H:%M %Z"),
+               collapse = " \u2014 "))
+  }
+  if (start >= end) {
+    stop("'end' must be after 'start'")
+  }
 
   out <- get_parameters_raw(
     parameters[1],
