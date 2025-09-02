@@ -22,8 +22,8 @@ get_parameters_raw <- function(
     single_parameter <- parameter
   }
 
-  start_str <- strftime(start, format = "%Y-%m-%dT%H:%M:%SZ",tz = 'UTC')
-  end_str <- strftime(end, format = "%Y-%m-%dT%H:%M:%SZ",tz = 'UTC')
+  start_str <- strftime(start, format = "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
+  end_str <- strftime(end, format = "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
 
   # Cassandra database start indexing at 1, so decrements node number
   node <- node - 1
