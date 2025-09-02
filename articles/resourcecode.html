@@ -78,10 +78,10 @@ the database can be found <a href="https://resourcecode.ifremer.fr" class="exter
 vignette the way to retrieve data from this database and some the
 functionalities offered by this package.</p>
 <p>This package depends on data in a data package
-<a href="https://github.com/Resourcecode-project/r-resourcecodedata" class="external-link">resourcecodedata</a> that is available through a
+<a href="https://github.com/Resourcecode-project/r-resourcecodedata/" class="external-link">resourcecodedata</a> that is available through a
 <code>drat</code> repository on GitHub. To use the
 <a href="https://github.com/Resourcecode-project/r-resourcecode" class="external-link">resourcecode</a> package, you will need to install
-<a href="https://github.com/Resourcecode-project/r-resourcecodedata" class="external-link">resourcecodedata</a> on your computer, using the following
+<a href="https://github.com/Resourcecode-project/r-resourcecodedata/" class="external-link">resourcecodedata</a> on your computer, using the following
 <code>install.packages</code> function (and later update it using the
 <code>update.packages</code> function):</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -91,7 +91,7 @@ functionalities offered by this package.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Once the packages are installed, we can proceed as usual:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Resourcecode-project/r-resourcecodedata" class="external-link">resourcecodedata</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Resourcecode-project/r-resourcecodedata/" class="external-link">resourcecodedata</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Resourcecode-project/r-resourcecode" class="external-link">resourcecode</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
@@ -118,7 +118,6 @@ the bottom sediment type.</p>
 <span><span class="co">#&gt;  $ latitude : num  62.9 62.9 62.9 62.9 62.9 ...</span></span>
 <span><span class="co">#&gt;  $ depth    : num  3 3 3 3 3 3 3 3 3 3 ...</span></span>
 <span><span class="co">#&gt;  $ d50      : num  0 1.32 1.32 1.32 1.32 ...</span></span>
-<span><span class="co">#&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt;</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">rscd_field</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   node longitude latitude depth   d50</span></span>
 <span><span class="co">#&gt; 1    1  6.922498 62.91467     3 0.000</span></span>
@@ -174,7 +173,6 @@ coverage.</p>
 <span><span class="co">#&gt;  $ name     : chr  "E001500N52000" "W005500N52000" "W006000N52000" "W006500N52000" ...</span></span>
 <span><span class="co">#&gt;  $ depth    : num  15.4 89.6 95.8 52.7 54.7 ...</span></span>
 <span><span class="co">#&gt;  $ d50      : num  0.737 -0.8265 -1.585 0.737 0.0346 ...</span></span>
-<span><span class="co">#&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt;</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">rscd_spectral</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   longitude latitude          name    depth         d50</span></span>
 <span><span class="co">#&gt; 1       1.5     52.0 E001500N52000 15.41327  0.73700004</span></span>
