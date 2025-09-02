@@ -268,10 +268,18 @@ jonswap <- function(hs = 5, tp = 15, fmax = rscd_freq, df = NULL, gam = 3.3) {
 #' mean_dir_unweighted <- mean_direction(wind_directions)
 #' cat("Same data unweighted:", round(mean_dir_unweighted, 1), "degrees\n")
 mean_direction <- function(directions, weights = NULL) {
+  #Verify that directions are numeric
+  if (!is.numeric(directions)) {
+      stop("'directions' must be numeric")
+  }
   # If weights provided, check they have the same length as directions
   if (!is.null(weights)) {
     if (length(directions) != length(weights)) {
       stop("Length of 'directions' and 'speeds' must be equal")
+    }
+    #Verify that weights are numeric
+    if (!is.numeric(weights)) {
+      stop("'weights' must be numeric")
     }
     valid_indices <- !is.na(directions) & !is.na(weights)
     directions <- directions[valid_indices]
@@ -280,6 +288,7 @@ mean_direction <- function(directions, weights = NULL) {
     # Remove NA values from directions only
     directions <- directions[!is.na(directions)]
   }
+
 
   # Check for negative weights (which would cause issues with weighting)
   if (any(weights < 0)) {
@@ -292,7 +301,7 @@ mean_direction <- function(directions, weights = NULL) {
 
   # Check if we have any valid directions
   if (length(directions) == 0) {
-    return(NA)
+    return(numeric(0))
   }
 
   # Set default weights (equal weighting) if weights not provided
@@ -357,11 +366,15 @@ mean_direction <- function(directions, weights = NULL) {
 cut_directions <- function(directions, n_bins = 8, labels = NULL) {
   # Validate inputs
   if (!is.numeric(directions)) {
-    stop("directions must be numeric")
+    stop("'directions' must be numeric")
+  }
+
+  if (length(directions) == 0) {
+    return(numeric(0))
   }
 
   if (n_bins < 2) {
-    stop("n_bins must be at least 2")
+    stop("'n_bins' must be at least 2")
   }
 
   # Normalize directions to 0-360 range
