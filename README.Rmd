@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/Resourcecode-project/r-resourcecode/actions/workflows/R-CMD-check.yaml/badge.svg?branch=main)](https://github.com/Resourcecode-project/r-resourcecode/actions/workflows/R-CMD-check.yaml)
-[![Codecov test coverage](https://codecov.io/gh/Resourcecode-project/r-resourcecode/branch/main/graph/badge.svg)](https://app.codecov.io/gh/NRaillard/resourcecode?branch=main)
+[![Codecov test coverage](https://codecov.io/gh/Resourcecode-project/r-resourcecode/branch/main/graph/badge.svg)](https://app.codecov.io/gh/Resourcecode-project/resourcecode?branch=main)
 [![resourcecode status badge](https://resourcecode-project.r-universe.dev/resourcecode/badges/version)](https://resourcecode-project.r-universe.dev/resourcecode)
 [![CRAN status](https://www.r-pkg.org/badges/version/resourcecode)](https://CRAN.R-project.org/package=resourcecode)
 <!-- badges: end -->
@@ -56,7 +56,7 @@ This package depends on data in a data package `{resourcecodedata}` that is avai
 
 Plot the bathymetry used in the project
 
-```{r plot-bathymetry,fig.retina=2}
+```{r bathymetry, fig.retina=3}
 library(resourcecode)
 library(resourcecodedata)
 resourcecode::rscd_mapplot(rscd_field$depth, name = "Depth (m)", transform = "sqrt")
@@ -69,7 +69,7 @@ head(rscd_variables)
 ```
 
 Download a time series of significant wave height next to the coast of Finistère:
-```{r data_fetcher,fig.retina=2}
+```{r data_fetcher, fig.retina=3}
 data <- get_parameters(node = "134865", parameters = "hs")
 str(data)
 plot(data, type = "l")

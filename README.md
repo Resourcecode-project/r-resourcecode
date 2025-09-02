@@ -7,7 +7,7 @@
 
 [![R-CMD-check](https://github.com/Resourcecode-project/r-resourcecode/actions/workflows/R-CMD-check.yaml/badge.svg?branch=main)](https://github.com/Resourcecode-project/r-resourcecode/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
-coverage](https://codecov.io/gh/Resourcecode-project/r-resourcecode/branch/main/graph/badge.svg)](https://app.codecov.io/gh/NRaillard/resourcecode?branch=main)
+coverage](https://codecov.io/gh/Resourcecode-project/r-resourcecode/branch/main/graph/badge.svg)](https://app.codecov.io/gh/Resourcecode-project/resourcecode?branch=main)
 [![resourcecode status
 badge](https://resourcecode-project.r-universe.dev/resourcecode/badges/version)](https://resourcecode-project.r-universe.dev/resourcecode)
 [![CRAN
@@ -60,7 +60,7 @@ library(resourcecodedata)
 resourcecode::rscd_mapplot(rscd_field$depth, name = "Depth (m)", transform = "sqrt")
 ```
 
-<img src="man/figures/README-plot-bathymetry-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="man/figures/README-bathymetry-1.png" width="100%" style="display: block; margin: auto;" />
 
 See the variables available in the database:
 
