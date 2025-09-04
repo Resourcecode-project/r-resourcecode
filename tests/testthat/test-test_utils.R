@@ -34,8 +34,8 @@ test_that("Directional means are accurately computed", {
   expect_error(mean_direction())
   expect_equal(mean_direction(rep(0, 10)), 0)
   expect_equal(mean_direction(rep(0, 10)), mean_direction(rep(360, 10)))
-  expect_error(mean_direction("one"),"'directions' must be numeric")
-  expect_error(mean_direction(1:2,c("one","two")),"'weights' must be numeric")
+  expect_error(mean_direction("one"), "'directions' must be numeric")
+  expect_error(mean_direction(1:2, c("one", "two")), "'weights' must be numeric")
 })
 
 test_that("Weighted directional means are accurately computed", {
@@ -43,13 +43,13 @@ test_that("Weighted directional means are accurately computed", {
   expect_error(mean_direction(c(0, 90), weights = c(1)))
   expect_equal(mean_direction(c(0, 90), weights = c(50, 50)), 45)
   expect_equal(mean_direction(c(0, 90), weights = c(0, 1)), 90)
-  expect_equal(mean_direction(directions = numeric(0)),numeric(0))
+  expect_equal(mean_direction(directions = numeric(0)), numeric(0))
 })
 
 test_that("Directional binning works", {
-  expect_error(cut_directions("one"),"'directions' must be numeric")
-  expect_error(cut_directions(1,1),"'n_bins' must be at least 2")
-  expect_equal(cut_directions(numeric()),numeric())
+  expect_error(cut_directions("one"), "'directions' must be numeric")
+  expect_error(cut_directions(1, 1), "'n_bins' must be at least 2")
+  expect_equal(cut_directions(numeric()), numeric())
   expect_equal(
     cut_directions(c(10, 80, 170, 280), n_bins = 4),
     factor(c("N", "E", "S", "W"), levels = c("N", "E", "S", "W"))

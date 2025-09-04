@@ -270,7 +270,7 @@ jonswap <- function(hs = 5, tp = 15, fmax = rscd_freq, df = NULL, gam = 3.3) {
 mean_direction <- function(directions, weights = NULL) {
   #Verify that directions are numeric
   if (!is.numeric(directions)) {
-      stop("'directions' must be numeric")
+    stop("'directions' must be numeric")
   }
   # If weights provided, check they have the same length as directions
   if (!is.null(weights)) {
