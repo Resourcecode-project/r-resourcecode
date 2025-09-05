@@ -22,6 +22,7 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/Resourcecode-project/r-resourcecode/branch/main/graph/badge.svg)](https://app.codecov.io/gh/Resourcecode-project/r-resourcecode)
 [![resourcecode status badge](https://resourcecode-project.r-universe.dev/resourcecode/badges/version)](https://resourcecode-project.r-universe.dev/resourcecode)
 [![CRAN status](https://www.r-pkg.org/badges/version/resourcecode)](https://CRAN.R-project.org/package=resourcecode)
+[![CRAN downloads](https://cranlogs.r-pkg.org/badges/resourcecode)](https://CRAN.R-project.org/package=resourcecode)
 <!-- badges: end -->
 
 The goal of `{resourcecode}` is to provide an easy access to the Resourcecode hindcast database of sea-states. More information on the database can be found [here](https://resourcecode.ifremer.fr). This website only contains information about the way to retrieve data from this data base and the functionalities offred by this package.
@@ -61,7 +62,6 @@ library(resourcecode)
 library(resourcecodedata)
 resourcecode::rscd_mapplot(rscd_field$depth, name = "Depth (m)", transform = "sqrt")
 ```
-
 
 See the variables available in the database:
 ```{r variables}

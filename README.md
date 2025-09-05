@@ -7,11 +7,13 @@
 
 [![R-CMD-check](https://github.com/Resourcecode-project/r-resourcecode/actions/workflows/R-CMD-check.yaml/badge.svg?branch=main)](https://github.com/Resourcecode-project/r-resourcecode/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
-coverage](https://codecov.io/gh/Resourcecode-project/r-resourcecode/branch/main/graph/badge.svg)](https://app.codecov.io/gh/Resourcecode-project/resourcecode?branch=main)
+coverage](https://codecov.io/gh/Resourcecode-project/r-resourcecode/branch/main/graph/badge.svg)](https://app.codecov.io/gh/Resourcecode-project/r-resourcecode)
 [![resourcecode status
 badge](https://resourcecode-project.r-universe.dev/resourcecode/badges/version)](https://resourcecode-project.r-universe.dev/resourcecode)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/resourcecode)](https://CRAN.R-project.org/package=resourcecode)
+[![CRAN
+downloads](https://cranlogs.r-pkg.org/badges/resourcecode)](https://CRAN.R-project.org/package=resourcecode)
 <!-- badges: end -->
 
 The goal of `{resourcecode}` is to provide an easy access to the
