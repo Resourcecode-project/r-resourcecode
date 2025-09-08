@@ -124,7 +124,7 @@ closest_point_spec <- function(x, lat = NULL, closest = 1L, ...) {
   ))
 }
 
-#' Vector conversion
+#' Convert u/v to meteorological wind speed and direction
 #'
 #' Converts wind or current zonal and meridional velocity components to
 #' magnitude and direction according to meteorological convention.
@@ -153,6 +153,50 @@ zmcomp2metconv <- function(u, v = NULL, names = c("wspd", "wdir")) {
   names(out) <- names
   return(out)
 }
+
+#' Convert meteorological wind speed and direction to u/v components
+#'
+#' @description
+#' Converts wind speed (magnitude) and direction (in degrees, meteorological
+#' convention: direction from which the wind blows, measured clockwise from north)
+#' into zonal (u) and meridional (v) components.
+#'
+#' @param speed Numeric vector of wind speeds.
+#' @param direction Numeric vector of wind directions in degrees (0° = from north,
+#' 90° = from east, 180° = from south, 270° = from west).
+#' @param names (optional) ames to construct the resulting data.frame.
+#'
+#' @return A data.frame with two columns:
+#' \describe{
+#'   \item{u}{Zonal wind component (m/s), positive eastward.}
+#'   \item{v}{Meridional wind component (m/s), positive northward.}
+#' }
+#'
+#' @examples
+#' # Example 1: North wind of 10 m/s (blowing southward)
+#' metconv2zmcomp(10, 0)
+#'
+#' # Example 2: East wind of 5 m/s (blowing westward)
+#' metconv2zmcomp(5, 90)
+#'
+#' # Example 3: South wind of 8 m/s (blowing northward)
+#' metconv2zmcomp(8, 180)
+#'
+#' @export
+metconv2zmcomp <- function(speed, direction, names = c("uwnd", "vwnd")) {
+  # Convert to radians
+  dir_rad <- direction * pi / 180
+
+  # Components
+  u <- -speed * sin(dir_rad)
+  v <- -speed * cos(dir_rad)
+
+  out <- data.frame(u = u, v = v)
+  names(out) <- names
+  out
+}
+
+
 
 #' JONWSAP spectrum
 #'

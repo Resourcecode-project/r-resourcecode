@@ -8,6 +8,39 @@ test_that("meridional conversion works", {
   expect_equal(zmcomp2metconv(u, v), res)
 })
 
+
+test_that("metconv2zmcomp returns correct components for cardinal winds", {
+  # North wind (10 m/s) → blows southward → u = 0, v = -10
+  res <- metconv2zmcomp(10, 0)
+  expect_equal(res$u, 0, tolerance = 1e-12)
+  expect_equal(res$v, -10, tolerance = 1e-12)
+
+  # East wind (5 m/s) → blows westward → u = -5, v = 0
+  res <- metconv2zmcomp(5, 90)
+  expect_equal(res$u, -5, tolerance = 1e-12)
+  expect_equal(res$v, 0, tolerance = 1e-12)
+
+  # South wind (8 m/s) → blows northward → u = 0, v = +8
+  res <- metconv2zmcomp(8, 180)
+  expect_equal(res$u, 0, tolerance = 1e-12)
+  expect_equal(res$v, 8, tolerance = 1e-12)
+
+  # West wind (12 m/s) → blows eastward → u = +12, v = 0
+  res <- metconv2zmcomp(12, 270)
+  expect_equal(res$u, 12, tolerance = 1e-12)
+  expect_equal(res$v, 0, tolerance = 1e-12)
+})
+
+test_that("metconv2zmcomp works with vector inputs", {
+  spd <- c(10, 5, 8, 12)
+  dir <- c(0, 90, 180, 270)
+  res <- metconv2zmcomp(spd, dir)
+
+  expect_equal(nrow(res), 4)
+  expect_equal(res$u, c(0, -5, 0, 12), tolerance = 1e-12)
+  expect_equal(res$v, c(-10, 0, 8, 0), tolerance = 1e-12)
+})
+
 test_that("%nin% helper works", {
   expect_false(1 %nin% c(1, 3, 5, 9))
   expect_true(1 %nin% c(3, 5, 9))

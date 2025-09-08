@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{zmcomp2metconv}
 \alias{zmcomp2metconv}
-\title{Vector conversion}
+\title{Convert u/v to meteorological wind speed and direction}
 \usage{
 zmcomp2metconv(u, v = NULL, names = c("wspd", "wdir"))
 }
