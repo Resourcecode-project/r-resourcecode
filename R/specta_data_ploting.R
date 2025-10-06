@@ -163,9 +163,9 @@ plot_1d_specta <- function(
     text <- paste0("**Sea-state parameters:**\n
 Hs=", round(spec$forcings$hs[time], 2), "m<br>
 Tp=", round(1 / spec$forcings$fp[time], 2), "s<br>
-Dir=", round(spec$forcings$dir[time], 2), "°<br>
+Dir=", round(spec$forcings$dir[time], 2), "\u00b0<br>
 Wspd=", round(spec$forcings$wnd[time], 2), "m/s<br>
-Wdir=", round(spec$forcings$wnddir[time], 2), "°<br>")
+Wdir=", round(spec$forcings$wnddir[time], 2), "\u00b0<br>")
 
     out_plot <- out_plot +
       patchwork::inset_element(
