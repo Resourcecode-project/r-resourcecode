@@ -11,11 +11,10 @@
 #' @return a tibble with 2 columns and as many rows as needed
 #' @noRd
 get_parameters_raw <- function(
-  parameter = "hs",
-  node = 42,
-  start = as.POSIXct("1994-01-01Z00:00:00", tz = "UTC"),
-  end = as.POSIXct("1994-12-31Z23:00:00", tz = "UTC")
-) {
+    parameter = "hs",
+    node = 42,
+    start = as.POSIXct("1994-01-01Z00:00:00", tz = "UTC"),
+    end = as.POSIXct("1994-12-31Z23:00:00", tz = "UTC")) {
   if (parameter == "tp") {
     single_parameter <- "fp"
   } else {
@@ -81,18 +80,18 @@ get_parameters_raw <- function(
 #' ts <- get_parameters(parameters = c("hs", "tp"), node = 42)
 #' plot(ts$time, ts$hs, type = "l")
 get_parameters <- function(
-  parameters = "hs",
-  node = 42,
-  start = as.POSIXct("1994-01-01 00:00:00", tz = "UTC"),
-  end = as.POSIXct("1994-12-31 23:00:00", tz = "UTC")
-) {
-
+    parameters = "hs",
+    node = 42,
+    start = as.POSIXct("1994-01-01 00:00:00", tz = "UTC"),
+    end = as.POSIXct("1994-12-31 23:00:00", tz = "UTC")) {
   parameters <- tolower(parameters)
 
   if (any(parameters %nin% c("tp", resourcecodedata::rscd_variables$name))) {
     errors <- parameters[parameters %nin% c("tp", resourcecodedata::rscd_variables$name)]
-    stop("Requested parameters do not exists in the database: ",
-         paste0(errors, collapse = ", "), ".")
+    stop(
+      "Requested parameters do not exists in the database: ",
+      paste0(errors, collapse = ", "), "."
+    )
   }
 
   node <- as.integer(node)
@@ -127,16 +126,26 @@ get_parameters <- function(
   }
 
   if (start < rscd_casandra_start_date) {
-    stop("'start' is outside the covered period: ",
-         paste(format(c(rscd_casandra_start_date, rscd_casandra_end_date),
-                      format = "%Y-%m-%d %H:%M %Z"),
-               collapse = " \u2014 "))
+    stop(
+      "'start' is outside the covered period: ",
+      paste(
+        format(c(rscd_casandra_start_date, rscd_casandra_end_date),
+          format = "%Y-%m-%d %H:%M %Z"
+        ),
+        collapse = " \u2014 "
+      )
+    )
   }
   if (end > rscd_casandra_end_date) {
-    stop("'end' is outside the covered period: ",
-         paste(format(c(rscd_casandra_start_date, rscd_casandra_end_date),
-                      format = "%Y-%m-%d %H:%M %Z"),
-               collapse = " \u2014 "))
+    stop(
+      "'end' is outside the covered period: ",
+      paste(
+        format(c(rscd_casandra_start_date, rscd_casandra_end_date),
+          format = "%Y-%m-%d %H:%M %Z"
+        ),
+        collapse = " \u2014 "
+      )
+    )
   }
   if (start >= end) {
     stop("'end' must be after 'start'")

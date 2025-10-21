@@ -18,7 +18,7 @@ plot_2d_specta(
 
 \item{time}{the time to plot. Either an integer or the date.}
 
-\item{normalize}{Should the spectrum be normalized to have maimum 1 before ploting}
+\item{normalize}{Should the spectrum be normalized to have maximum 1 before plotting}
 
 \item{trim}{removes the values of the spectral density lower than this value}
 

@@ -16,6 +16,10 @@ usethis::use_news_md()
 # tools::resaveRdaFiles("data/")
 # tools::checkRdaFiles("data/")
 
+rscd_data_example = resourcecode::get_parameters(node = "123456",end = as.POSIXct("1999-12-31 23:00:00", tz = "UTC"), parameters = c("hs","tp","dp","uwnd","vwnd","dpt"))
+usethis::use_data(rscd_data_example,version=3,overwrite = TRUE)
+tools::resaveRdaFiles("data/")
+
 usethis::use_description()
 
 usethis::use_build_ignore("dev/")
@@ -97,7 +101,6 @@ install.packages("styler")
 lintr::use_lintr()
 lintr::lint_package()
 usethis::use_github_action("lint")
-styler::style_pkg()
 
 devtools::load_all()
 devtools::spell_check()

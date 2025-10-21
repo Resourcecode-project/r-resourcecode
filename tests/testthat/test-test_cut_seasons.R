@@ -3,30 +3,41 @@
 # ==============================================================================
 
 test_that("Input validation works correctly", {
-
   # Test non-POSIXct input
-  expect_error(cut_seasons("2023-01-01"),
-               "datetime must be a POSIXct object")
+  expect_error(
+    cut_seasons("2023-01-01"),
+    "datetime must be a POSIXct object"
+  )
 
-  expect_error(cut_seasons(as.Date("2023-01-01")),
-               "datetime must be a POSIXct object")
+  expect_error(
+    cut_seasons(as.Date("2023-01-01")),
+    "datetime must be a POSIXct object"
+  )
 
-  expect_error(cut_seasons(c(1, 2, 3)),
-               "datetime must be a POSIXct object")
+  expect_error(
+    cut_seasons(c(1, 2, 3)),
+    "datetime must be a POSIXct object"
+  )
 
   # Test invalid definition
-  expect_error(cut_seasons(as.POSIXct("2023-01-01"), definition = "invalid"),
-               "definition must be one of: 'meteorological', 'astronomical',
-         'djf', 'jfm', 'amj', 'jas', 'ond', 'fma'")
+  expect_error(
+    cut_seasons(as.POSIXct("2023-01-01"), definition = "invalid"),
+    "definition must be one of: 'meteorological', 'astronomical',
+         'djf', 'jfm', 'amj', 'jas', 'ond', 'fma'"
+  )
 
   # Test invalid hemisphere
-  expect_error(cut_seasons(as.POSIXct("2023-01-01"), hemisphere = "eastern"),
-               "hemisphere must be 'northern' or 'southern'")
+  expect_error(
+    cut_seasons(as.POSIXct("2023-01-01"), hemisphere = "eastern"),
+    "hemisphere must be 'northern' or 'southern'"
+  )
 
   # Test label length mismatch
   test_date <- as.POSIXct("2023-01-01")
-  expect_error(cut_seasons(test_date, definition = "djf", labels = c("Only", "Two")),
-               "Number of labels .* must match number of unique seasons")
+  expect_error(
+    cut_seasons(test_date, definition = "djf", labels = c("Only", "Two")),
+    "Number of labels .* must match number of unique seasons"
+  )
 })
 
 # ==============================================================================
@@ -34,7 +45,6 @@ test_that("Input validation works correctly", {
 # ==============================================================================
 
 test_that("Meteorological seasons work correctly for Northern Hemisphere", {
-
   # Test representative dates for each season
   winter_date <- as.POSIXct("2023-01-15")
   spring_date <- as.POSIXct("2023-04-15")

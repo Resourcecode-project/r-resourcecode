@@ -24,6 +24,7 @@ get_2d_spectrum_raw <- function(point, year, month) {
     "_spec.nc"
   )
 
+
   temp <- tempfile(fileext = ".nc")
 
   tryCatch(

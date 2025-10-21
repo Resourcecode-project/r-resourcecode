@@ -38,8 +38,10 @@ Available Definitions:
 }
 }
 \examples{
-dates = seq(from = as.POSIXct("2023-01-15"),
-            to = as.POSIXct("2023-12-15"),
-            by = "month")
+dates <- seq(
+  from = as.POSIXct("2023-01-15"),
+  to = as.POSIXct("2023-12-15"),
+  by = "month"
+)
 cut_seasons(dates)
 }

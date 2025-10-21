@@ -2,7 +2,7 @@
 #'
 #' @param spec the spectral data, as an output from `get_2Dspectrum`
 #' @param time the time to plot. Either an integer or the date.
-#' @param normalize Should the spectrum be normalized to have maimum 1 before ploting
+#' @param normalize Should the spectrum be normalized to have maximum 1 before plotting
 #' @param trim removes the values of the spectral density lower than this value
 #' @param cut_off cut-off frequency above which the spectrum is not plotted
 #' @param ... currently unused
@@ -16,13 +16,12 @@
 #'                     theme_linedraw coord_polar scale_color_distiller scale_fill_distiller
 #'                     labs expansion
 plot_2d_specta <- function(
-  spec,
-  time = 1L,
-  normalize = TRUE,
-  trim = 0.01,
-  cut_off = 0.4,
-  ...
-) {
+    spec,
+    time = 1L,
+    normalize = TRUE,
+    trim = 0.01,
+    cut_off = 0.4,
+    ...) {
   if (is.character(time)) {
     time <- as.POSIXct(time, tz = "UTC")
   }
@@ -107,7 +106,7 @@ plot_2d_specta <- function(
 #'
 #' @param spec the spectral data, as an output from `get_2Dspectrum`
 #' @param time the time to plot. Either an integer or the date.
-#' @param print_sea_state should the sea_states parameters beeing plot ? Default to TRUE.
+#' @param print_sea_state should the sea_states parameters being plot ? Default to TRUE.
 #' @param ... currently unused
 #'
 #' @return a ggplot object
@@ -119,11 +118,10 @@ plot_2d_specta <- function(
 #'                     theme_linedraw
 #'                     labs expansion
 plot_1d_specta <- function(
-  spec,
-  time = 1L,
-  print_sea_state = TRUE,
-  ...
-) {
+    spec,
+    time = 1L,
+    print_sea_state = TRUE,
+    ...) {
   if (is.character(time)) {
     time <- as.POSIXct(time, tz = "UTC")
   }
@@ -144,21 +142,26 @@ plot_1d_specta <- function(
     spectral_density = spec$ef[, time]
   )
 
-  out_plot <- ggplot(df_plot,
-                     aes(x = .data$freq, y = .data$spectral_density)) +
+  out_plot <- ggplot(
+    df_plot,
+    aes(x = .data$freq, y = .data$spectral_density)
+  ) +
     geom_line(col = "#045A8D") + # Colour is the darkest from 'PuBu' for consistency with 2d plot
     theme_linedraw() +
     scale_x_continuous(
-                       name = "Frequency (Hz)",
-                       breaks = seq(from = 0, to = 1, by = 0.2),
-                       expand = FALSE) +
+      name = "Frequency (Hz)",
+      breaks = seq(from = 0, to = 1, by = 0.2),
+      expand = FALSE
+    ) +
     scale_y_continuous(
-                       name = latex2exp::TeX("Wave spectral density ($m^2s)"),
-                       expand = expansion(c(0, .01), c(0, .05))) +
+      name = latex2exp::TeX("Wave spectral density ($m^2s)"),
+      expand = expansion(c(0, .01), c(0, .05))
+    ) +
     labs(
-         title = paste("Wave energy spectrum at location", spec$station),
-         subtitle = format(spec$forcings$time[time], format = "%Y-%m-%d %H:%M"),
-         caption = "Source: Resourcecode hindcast database\nresourcecode.ifremer.fr")
+      title = paste("Wave energy spectrum at location", spec$station),
+      subtitle = format(spec$forcings$time[time], format = "%Y-%m-%d %H:%M"),
+      caption = "Source: Resourcecode hindcast database\nresourcecode.ifremer.fr"
+    )
   if (print_sea_state) {
     text <- paste0("**Sea-state parameters:**\n
 Hs=", round(spec$forcings$hs[time], 2), "m<br>
@@ -169,17 +172,18 @@ Wdir=", round(spec$forcings$wnddir[time], 2), "\u00b0<br>")
 
     out_plot <- out_plot +
       patchwork::inset_element(
-                               gridtext::textbox_grob(
-                                 text,
-                                 box_gp = grid::gpar(col = "black"),
-                                 r = grid::unit(5, "pt"),
-                                 padding = grid::unit(c(10, 0, 0, 5), "pt"),
-                                 margin = grid::unit(c(0, 0, 0, 0), "pt")
-                               ),
-                               left = 0.7,
-                               bottom = 0.77,
-                               right = .95,
-                               top = .99)
+        gridtext::textbox_grob(
+          text,
+          box_gp = grid::gpar(col = "black"),
+          r = grid::unit(5, "pt"),
+          padding = grid::unit(c(10, 0, 0, 5), "pt"),
+          margin = grid::unit(c(0, 0, 0, 0), "pt")
+        ),
+        left = 0.7,
+        bottom = 0.77,
+        right = .95,
+        top = .99
+      )
   }
   out_plot
 }

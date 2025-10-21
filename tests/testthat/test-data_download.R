@@ -1,25 +1,55 @@
 test_that("Errors in 'get_parameters()' are handled correcly", {
-  expect_error(get_parameters("tépé"),
-               "Requested parameters do not exists in the database: tépé")
-  expect_error(get_parameters(node = 0),
-               "The requested location do no exist in the database.")
-  expect_error(get_parameters(node = c(10, 100)),
-               "The function can retreive only one location a time.")
-  expect_error(get_parameters(start = 1),
-               paste0("'start' is outside the covered period: ",
-                      paste(format(c(resourcecode:::rscd_casandra_start_date,
-                                     resourcecode:::rscd_casandra_end_date),
-                                   format = "%Y-%m-%d %H:%M %Z"),
-                            collapse = " \u2014 ")))
-  expect_error(get_parameters(end = 1e10),
-               paste0("'end' is outside the covered period: ",
-                      paste(format(c(resourcecode:::rscd_casandra_start_date,
-                                     resourcecode:::rscd_casandra_end_date),
-                                   format = "%Y-%m-%d %H:%M %Z"),
-                            collapse = " \u2014 ")))
-  expect_error(get_parameters(start = "1994-01-31 01:00:00",
-                              end = "1994-01-11 01:00:00"),
-               "'end' must be after 'start'")
+  expect_error(
+    get_parameters("tépé"),
+    "Requested parameters do not exists in the database: tépé"
+  )
+  expect_error(
+    get_parameters(node = 0),
+    "The requested location do no exist in the database."
+  )
+  expect_error(
+    get_parameters(node = c(10, 100)),
+    "The function can retreive only one location a time."
+  )
+  expect_error(
+    get_parameters(start = 1),
+    paste0(
+      "'start' is outside the covered period: ",
+      paste(
+        format(
+          c(
+            resourcecode:::rscd_casandra_start_date,
+            resourcecode:::rscd_casandra_end_date
+          ),
+          format = "%Y-%m-%d %H:%M %Z"
+        ),
+        collapse = " \u2014 "
+      )
+    )
+  )
+  expect_error(
+    get_parameters(end = 1e10),
+    paste0(
+      "'end' is outside the covered period: ",
+      paste(
+        format(
+          c(
+            resourcecode:::rscd_casandra_start_date,
+            resourcecode:::rscd_casandra_end_date
+          ),
+          format = "%Y-%m-%d %H:%M %Z"
+        ),
+        collapse = " \u2014 "
+      )
+    )
+  )
+  expect_error(
+    get_parameters(
+      start = "1994-01-31 01:00:00",
+      end = "1994-01-11 01:00:00"
+    ),
+    "'end' must be after 'start'"
+  )
 })
 
 test_that("downloading parameters data works", {

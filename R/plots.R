@@ -14,16 +14,14 @@
 #' @export
 #'
 #' @examples
-#'   rscd_mapplot(resourcecodedata::rscd_field$depth)
+#' rscd_mapplot(resourcecodedata::rscd_field$depth)
 rscd_mapplot <- function(
-  z,
-  name = "Depth (m)",
-  zlim = NULL,
-  palette = "YlOrRd",
-  direction = 1,
-  transform = "identity"
-) {
-
+    z,
+    name = "Depth (m)",
+    zlim = NULL,
+    palette = "YlOrRd",
+    direction = 1,
+    transform = "identity") {
   xyzgz <- tibble::tibble(
     x = resourcecodedata::rscd_field$longitude[
       resourcecodedata::rscd_triangles

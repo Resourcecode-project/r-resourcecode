@@ -4,24 +4,35 @@
 
 
 test_that("Input validation works correctly", {
+  # Test ill-formed coordinates input
+  expect_error(
+    closest_point_field(c(1, 2), 1),
+    "If 'lat' is provided, it sould be the same length as 'x'."
+  )
+
+  expect_error(
+    closest_point_field(c(1, 2), closest = "one"),
+    "'closest' must be an integer greater than 1."
+  )
+  expect_error(
+    closest_point_field(c(1, 2), closest = 0),
+    "'closest' must be an integer greater than 1."
+  )
 
   # Test ill-formed coordinates input
-  expect_error(closest_point_field(c(1, 2), 1),
-               "If 'lat' is provided, it sould be the same length as 'x'.")
+  expect_error(
+    closest_point_spec(c(1, 2), 1),
+    "If 'lat' is provided, it sould be the same length as 'x'."
+  )
 
-  expect_error(closest_point_field(c(1, 2), closest = "one"),
-               "'closest' must be an integer greater than 1.")
-  expect_error(closest_point_field(c(1, 2), closest = 0),
-               "'closest' must be an integer greater than 1.")
-
-  # Test ill-formed coordinates input
-  expect_error(closest_point_spec(c(1, 2), 1),
-               "If 'lat' is provided, it sould be the same length as 'x'.")
-
-  expect_error(closest_point_spec(c(1, 2), closest = "one"),
-               "'closest' must be an integer greater than 1.")
-  expect_error(closest_point_spec(c(1, 2), closest = 0),
-               "'closest' must be an integer greater than 1.")
+  expect_error(
+    closest_point_spec(c(1, 2), closest = "one"),
+    "'closest' must be an integer greater than 1."
+  )
+  expect_error(
+    closest_point_spec(c(1, 2), closest = 0),
+    "'closest' must be an integer greater than 1."
+  )
 })
 
 # ==============================================================================
@@ -52,11 +63,15 @@ test_that("Unique node selection works", {
 test_that("Multiple nodes selection works", {
   skip_if(!requireNamespace("resourcecodedata", quietly = TRUE))
 
-  point_test <- matrix(c(resourcecodedata::rscd_field[c(100, 1000), 2],
-                         resourcecodedata::rscd_field[c(100, 1000), 3]),
-                       ncol = 2)
+  point_test <- matrix(
+    c(
+      resourcecodedata::rscd_field[c(100, 1000), 2],
+      resourcecodedata::rscd_field[c(100, 1000), 3]
+    ),
+    ncol = 2
+  )
   node_test <- matrix(c(100, 1000), ncol = 2)
-  spec_test <-  matrix(c(23045, 22274), ncol = 2)
+  spec_test <- matrix(c(23045, 22274), ncol = 2)
 
 
   output <- closest_point_field(point_test)
@@ -87,9 +102,13 @@ test_that("Multiple nodes selection works", {
 test_that("List of closest nodes selection works", {
   skip_if(!requireNamespace("resourcecodedata", quietly = TRUE))
 
-  point_test <- matrix(c(resourcecodedata::rscd_field[c(100, 1000), 2],
-                         resourcecodedata::rscd_field[c(100, 1000), 3]),
-                       ncol = 2)
+  point_test <- matrix(
+    c(
+      resourcecodedata::rscd_field[c(100, 1000), 2],
+      resourcecodedata::rscd_field[c(100, 1000), 3]
+    ),
+    ncol = 2
+  )
   node_test <- matrix(c(100, 101, 99, 1000, 1001, 999), ncol = 3, byrow = TRUE)
   closest <- 3
 

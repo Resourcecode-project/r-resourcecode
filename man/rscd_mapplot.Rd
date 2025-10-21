@@ -36,5 +36,5 @@ a ggplot2 object
 Create a map of the provided variable on the RESOURCECODE field grid
 }
 \examples{
-  rscd_mapplot(resourcecodedata::rscd_field$depth)
+rscd_mapplot(resourcecodedata::rscd_field$depth)
 }

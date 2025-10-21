@@ -11,7 +11,7 @@ plot_1d_specta(spec, time = 1L, print_sea_state = TRUE, ...)
 
 \item{time}{the time to plot. Either an integer or the date.}
 
-\item{print_sea_state}{should the sea_states parameters beeing plot ? Default to TRUE.}
+\item{print_sea_state}{should the sea_states parameters being plot ? Default to TRUE.}
 
 \item{...}{currently unused}
 }

@@ -25,12 +25,11 @@
 #' )
 #' lines(1:10, orb_speeds[, 2], type = "l", col = "red")
 compute_orbital_speeds <- function(
-  spec,
-  freq,
-  z = 0,
-  depth = Inf,
-  output_speeds = FALSE
-) {
+    spec,
+    freq,
+    z = 0,
+    depth = Inf,
+    output_speeds = FALSE) {
   # z: distance above sea floor
 
   dims <- dim(spec)
