@@ -1,5 +1,9 @@
 # resourcecode (development version)
 
+- New example data: `rscd_data_example` with an extract of some variables at a given node.
+  See `?rscd_data_example` for details.
+- New helper: `fractional_day_of_year()` to compute the fractional time since
+  the beginning of a year.
 - New function `plot_1d_specta()` to plot 1D spectral data, with sea-states parameters.
 - New function `metconv2zmcomp()` to compute the u/v components.
   from meteorological wind speed and direction.
