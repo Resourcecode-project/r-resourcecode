@@ -7,7 +7,7 @@
 - New function `plot_1d_specta()` to plot 1D spectral data, with sea-states parameters.
 - New function `metconv2zmcomp()` to compute the u/v components.
   from meteorological wind speed and direction.
-- Adds`{resourcecodedata}` package as dependence, to ease the use of the package .
+- Adds `{resourcecodedata}` package as dependence, to ease the use of the package .
 - `closest_point_field()` and `closest_point_field()` now accept a list of locations
   instead of a single one (#3).
 
