@@ -151,7 +151,7 @@ convert_spectrum_2d1d <- function(spec, ...) {
 #' @return a tibble with the sea-state parameters computed from the time series of 2D spectrum
 #' @export
 #'
-#' @examples
+#' @examplesIf identical(tolower(Sys.getenv("NOT_CRAN")), "true")
 #' rscd_params <- get_parameters(
 #'   node = "134865",
 #'   start = "1994-01-01",
