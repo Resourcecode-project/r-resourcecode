@@ -13,8 +13,9 @@
 #' @return a ggplot2 object
 #' @export
 #'
-#' @examples
+#' @examplesIf identical(tolower(Sys.getenv("NOT_CRAN")), "true")
 #' rscd_mapplot(resourcecodedata::rscd_field$depth)
+#'
 rscd_mapplot <- function(
     z,
     name = "Depth (m)",

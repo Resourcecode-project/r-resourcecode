@@ -36,5 +36,7 @@ a ggplot2 object
 Create a map of the provided variable on the RESOURCECODE field grid
 }
 \examples{
+\dontshow{if (identical(tolower(Sys.getenv("NOT_CRAN")), "true")) withAutoprint(\{ # examplesIf}
 rscd_mapplot(resourcecodedata::rscd_field$depth)
+\dontshow{\}) # examplesIf}
 }
