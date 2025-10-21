@@ -29,12 +29,13 @@
 #'
 #'@format ## A data frame with 87,648 rows and 7 variables:
 #' \describe{
-#'   \item{time}{POSIXct. Timestamp in UTC corresponding to the observation time (hourly resolution).}
+#'   \item{time}{POSIXct. Timestamp in UTC (hourly resolution).}
 #'   \item{hs}{numeric. Significant wave height (m).}
 #'   \item{tp}{numeric. Peak wave period (s).}
 #'   \item{dp}{numeric. Mean wave direction (degrees, coming from true North, clockwise).}
 #'   \item{uwnd}{numeric. Zonal (east–west) component of the 10-m wind (m/s). Positive eastward.}
-#'   \item{vwnd}{numeric. Meridional (north–south) component of the 10-m wind (m/s). Positive northward.}
+#'   \item{vwnd}{numeric. Meridional (north–south) component of the 10-m wind (m/s).
+#'   Positive northward.}
 #'   \item{dpt}{numeric.Depth (m).}
 #' }
 #'
