@@ -1,3 +1,5 @@
+# resourcecode (development version)
+
 # resourcecode 0.4.0
 
 - New example data: `rscd_data_example` with an extract of some variables at a given node.
