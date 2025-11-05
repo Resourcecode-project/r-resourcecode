@@ -24,9 +24,24 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// ww_calc_cpp
+NumericVector ww_calc_cpp(NumericVector times, double winlen_hours, bool allow_overlap, double tstep_secs);
+RcppExport SEXP _resourcecode_ww_calc_cpp(SEXP timesSEXP, SEXP winlen_hoursSEXP, SEXP allow_overlapSEXP, SEXP tstep_secsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type times(timesSEXP);
+    Rcpp::traits::input_parameter< double >::type winlen_hours(winlen_hoursSEXP);
+    Rcpp::traits::input_parameter< bool >::type allow_overlap(allow_overlapSEXP);
+    Rcpp::traits::input_parameter< double >::type tstep_secs(tstep_secsSEXP);
+    rcpp_result_gen = Rcpp::wrap(ww_calc_cpp(times, winlen_hours, allow_overlap, tstep_secs));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_resourcecode_fastTrapz", (DL_FUNC) &_resourcecode_fastTrapz, 3},
+    {"_resourcecode_ww_calc_cpp", (DL_FUNC) &_resourcecode_ww_calc_cpp, 4},
     {NULL, NULL, 0}
 };
 

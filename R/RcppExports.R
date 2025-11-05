@@ -18,3 +18,7 @@ fastTrapz <- function(x, Y, dim = 1L) {
     .Call(`_resourcecode_fastTrapz`, x, Y, dim)
 }
 
+ww_calc_cpp <- function(times, winlen_hours, allow_overlap, tstep_secs) {
+    .Call(`_resourcecode_ww_calc_cpp`, times, winlen_hours, allow_overlap, tstep_secs)
+}
+

@@ -26,10 +26,6 @@ usethis::use_build_ignore("dev/")
 usethis::use_git()
 usethis::use_github()
 
-rscd_freq = array(0.0339 * 1.1^(0:35))
-rscd_dir = array(seq(from = 0, to = 350, by = 10))
-usethis::use_data(rscd_freq, rscd_dir, version = 3, overwrite = TRUE)
-
 rcd_cassandra_url = "https://resourcecode-datacharts.ifremer.fr/"
 rscd_hindcast_start_date = as.POSIXct("1994-01-01 00:00:00", tz = 'UTC')
 rscd_hindcast_end_date = as.POSIXct("2024-12-31 23:00:00", tz = 'UTC')
@@ -94,6 +90,7 @@ usethis::use_github_action("test-coverage")
 
 #Rcpp Armadillo for fast multivariate trapz
 usethis::use_rcpp_armadillo("fast_trapz.cpp")
+usethis::use_rcpp("ww_calc_cpp.cpp")
 
 # Lintr checks and GHA
 install.packages("lintr")

@@ -18,6 +18,7 @@ a tibble with the sea-state parameters computed from the time series of 2D spect
 Compute sea_state parameter from wave directional spectrum
 }
 \examples{
+\dontshow{if (identical(tolower(Sys.getenv("NOT_CRAN")), "true")) withAutoprint(\{ # examplesIf}
 rscd_params <- get_parameters(
   node = "134865",
   start = "1994-01-01",
@@ -36,4 +37,5 @@ lines(rscd_params$time, rscd_params$tp, col = "red")
 plot(param_calc$time, param_calc$dp, type = "l", xlab = "Time", ylab = "Dp (°)")
 lines(rscd_params$time, rscd_params$dp, col = "red")
 par(oldpar)
+\dontshow{\}) # examplesIf}
 }
