@@ -134,7 +134,7 @@ devtools::check_mac_release()
 
 
 # Upgrade version number
-usethis::use_version(which = c("patch", "minor", "major", "dev")[1])
+usethis::use_version(which = c("patch", "minor", "major", "dev")[2])
 
 usethis::use_release_issue()
 
