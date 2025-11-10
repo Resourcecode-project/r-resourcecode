@@ -1,3 +1,41 @@
+#' Helper function to download netCDF file given its URL
+#'
+#' @param url the remote file to download
+#' @param destfile the destination file
+#'
+#' @returns the path to the destination file, or NULL if an error occurred.
+#'
+#' @noRd
+#' @keywords internal
+download_nc_data <- function(url, destfile) {
+
+  # Ensure destfile exists only if successful
+  success <- tryCatch(
+    {
+      curl::curl_download(url, destfile = destfile, mode = "wb")
+      TRUE
+    },
+    error = function(e) {
+      message("Could not download spectral data.
+              The remote server may be unavailable or the URL may have changed.")
+      FALSE
+    },
+    warning = function(w) {
+      message("A warning occurred while downloading the spectral data.
+              The resource may have changed.\n", w)
+      FALSE
+    }
+  )
+
+  # If download failed, return NULL (do not leave partial file)
+  if (!success || !file.exists(destfile)) {
+    NULL
+  }
+
+  destfile
+}
+
+
 #' Download the 2D spectrum data from IFREMER ftp for a single data.
 #'
 #' No consistency checks are made, this function should not be called directly by the user
@@ -27,17 +65,9 @@ get_2d_spectrum_raw <- function(point, year, month) {
 
   temp <- tempfile(fileext = ".nc")
 
-  tryCatch(
-    curl::curl_download(url, destfile = temp, mode = "wb"),
-    error = function(e) {
-      message("An error occurred while downloading the spectral data:\n", e)
-    },
-    warning = function(w) {
-      message("A warning occured while downloading the spectral data:\n", w)
-    }
-  )
+  file <- download_nc_data(url, temp)
 
-  nc <- ncdf4::nc_open(temp)
+  nc <- ncdf4::nc_open(file)
 
   on.exit({
     ncdf4::nc_close(nc)
@@ -104,17 +134,9 @@ get_1d_spectrum_raw <- function(point, year, month) {
   )
   temp <- tempfile(fileext = ".nc")
 
-  tryCatch(
-    curl::curl_download(url, destfile = temp, mode = "wb"),
-    error = function(e) {
-      message("An error occurred while downloading the spectral data:\n", e)
-    },
-    warning = function(w) {
-      message("A warning occured while downloading the spectral data:\n", w)
-    }
-  )
+  file <- download_nc_data(url, temp)
 
-  nc <- ncdf4::nc_open(temp)
+  nc <- ncdf4::nc_open(file)
 
   on.exit({
     ncdf4::nc_close(nc)

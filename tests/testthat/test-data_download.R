@@ -165,3 +165,24 @@ test_that("downloading 2D spectral data works", {
   expect_equal(NROW(spec$forcings), 1488)
   expect_equal(spec$station, "E001500N52000")
 })
+
+
+library(testthat)
+library(mockery)
+
+test_that("download_nc_data() fails gracefully when FTP not available", {
+
+  download_nc_data <- getFromNamespace("download_nc_data", "resourcecode")
+  # Mock curl_download to throw an error (simulating network failure)
+  mock_download <- function(...) stop("FTP connection failed")
+
+  # Replace curl_download inside the function
+  stub(download_nc_data, "curl::curl_download", mock_download)
+
+  expect_message(
+    result <- download_nc_data("ftp://example.org/file.dat", tempfile()),
+    "Could not download spectral data"
+  )
+
+  expect_null(result)
+})
