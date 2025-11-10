@@ -29,7 +29,7 @@ get_parameters_raw <- function(
 
   request <- paste0(
     rcd_cassandra_url,
-    "/api/timeseries",
+    "api/timeseries",
     "?parameter=",
     single_parameter,
     "&node=",
