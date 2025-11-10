@@ -1,0 +1,61 @@
+# JONWSAP spectrum
+
+Creates a JONWSAP density spectrum (one-sided), defined by its integral
+parameters.
+
+## Usage
+
+``` r
+jonswap(hs = 5, tp = 15, fmax = rscd_freq, df = NULL, gam = 3.3)
+```
+
+## Arguments
+
+- hs:
+
+  Hs (default: 5m)
+
+- tp:
+
+  Period (default: 10s)
+
+- fmax:
+
+  higher frequency of the spectrum or vector of frequencies (default to
+  resourcecode frequency vector)
+
+- df:
+
+  frequency step (unused if fmax=vector of frequencies)
+
+- gam:
+
+  peak enhancement factor (default: 3.3)
+
+## Value
+
+Density spectrum with corresponding parameters
+
+## Details
+
+Reference :
+
+- O.G.Houmb and T.Overvik, "Parametrization of Wave Spectra and Long
+  Term Joint Distribution of Wave Height and Period," in Proceedings,
+  First International Conference on Behaviour of Offshore Structures
+  (BOSS), Trondheim 1976. 23rd International Towing Tank Conference,
+  vol. II, pp. 544-551
+
+- ITTC Committee, 2002, "The Specialist Committee on Waves - Final
+  Report and Recommendations to the 23rd ITTC", Proc. ITTC, vol. II, pp.
+  505-736.
+
+## Examples
+
+``` r
+S1 <- jonswap(tp = 15)
+S2 <- jonswap(tp = 15, fmax = 0.95, df = 0.003)
+plot(S1, type = "l", ylim = c(0, 72))
+lines(S2, col = "red")
+abline(v = 1 / 15)
+```

@@ -1,0 +1,49 @@
+# Compute Fractional Day of Year from POSIXct
+
+Calculates the fractional day of year from a POSIXct datetime object.
+The fractional day is zero-indexed, starting at 0 for January 1st at
+midnight and ending at approximately 365.958 for December 31st at 23:00
+in a non-leap year (or 366.958 in a leap year).
+
+## Usage
+
+``` r
+fractional_day_of_year(datetime)
+```
+
+## Arguments
+
+- datetime:
+
+  A POSIXct object or vector of POSIXct objects representing date-time
+  values. Must have a timezone attribute.
+
+## Value
+
+A numeric vector of the same length as `datetime`, containing fractional
+day of year values. January 1st at midnight corresponds to 0, and each
+hour adds approximately 0.04167 (1/24) to the value.
+
+## Details
+
+The function computes the time difference in hours between the input
+datetime and midnight on January 1st of the same year, then divides by
+24 to obtain fractional days. The calculation accounts for leap years
+automatically.
+
+## Examples
+
+``` r
+dates <- seq(
+  from = as.POSIXct("2024-01-01 00:00:00", tz = "UTC"),
+  to = as.POSIXct("2024-01-02 00:00:00", tz = "UTC"),
+  by = "6 hours"
+)
+fractional_day_of_year(dates) # Returns 0.00, 0.25, 0.50, 0.75, 1.00
+#> [1] 0.00 0.25 0.50 0.75 1.00
+
+# End of year
+dt_end <- as.POSIXct("2024-12-31 23:00:00", tz = "UTC")
+fractional_day_of_year(dt_end) # Returns ~365.958
+#> [1] 365.9583
+```
