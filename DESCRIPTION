@@ -41,6 +41,7 @@ Imports:
     tidyr
 Suggests: 
     knitr,
+    mockery,
     rmarkdown,
     testthat,
     vdiffr

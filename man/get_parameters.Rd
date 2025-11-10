@@ -24,7 +24,8 @@ get_parameters(
 a tibble with N-rows and \code{length(parameters)} columns.
 }
 \description{
-Download time series of sea-state parameters from RESOURCECODE database
+If the remote resource is unavailable or returns an error, the function returns NULL
+and emits an informative message.
 }
 \examples{
 \dontshow{if (curl::has_internet()) withAutoprint(\{ # examplesIf}

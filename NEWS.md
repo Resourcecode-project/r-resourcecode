@@ -1,5 +1,7 @@
 # resourcecode (development version)
 
+- Update the data retrieving function to fail gracefully
+whenever the remote database is not accessible.
 - New function 'weather_windows()' to compute weather windows of a given duration.
 - Update the ending date of the Hindcast to 2024-12-31.
 

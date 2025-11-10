@@ -40,14 +40,26 @@ get_parameters_raw <- function(
     end_str
   )
 
-  res <- jsonlite::fromJSON(request)
+  # Try retrieving and parsing JSON
+  res <- tryCatch(
+    jsonlite::fromJSON(request),
+    error = function(e) {
+      message("Could not retrieve data from the remote resource. ",
+              "The server may be unavailable or the URL may have changed.")
+      NULL   # graceful fallback
+    }
+  )
 
-  if (res$errorcode != 0) {
-    stop(
-      "Unable to get a response from the database.\nStatus code: ",
-      res$errormessage
-    )
+  # If retrieval failed, exit
+  if (is.null(res)) return(NULL)
+
+  # Check API-level error
+  if (!is.null(res$errorcode) && res$errorcode != 0) {
+    message("The data source returned an error: ", res$errormessage,
+            "\nReturning NULL.")
+    return(NULL)   # graceful fallback
   }
+
 
   data <- res$result$data
   colnames(data) <- c("time", parameter)
@@ -67,6 +79,9 @@ get_parameters_raw <- function(
 }
 
 #' Download time series of sea-state parameters from RESOURCECODE database
+#'
+#' If the remote resource is unavailable or returns an error, the function returns NULL
+#' and emits an informative message.
 #'
 #' @param parameters character vector of sea-state parameters
 #' @param node single integer with the node to get
