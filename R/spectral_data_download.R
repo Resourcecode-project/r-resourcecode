@@ -30,9 +30,9 @@ download_nc_data <- function(url, destfile) {
   # If download failed, return NULL (do not leave partial file)
   if (!success || !file.exists(destfile)) {
     NULL
+  } else {
+    destfile
   }
-
-  destfile
 }
 
 
