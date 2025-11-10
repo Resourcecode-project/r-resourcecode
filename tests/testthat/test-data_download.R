@@ -78,7 +78,7 @@ test_that("get_parameters_raw() returns NULL and message on failure", {
 
   get_parameters_raw <- getFromNamespace("get_parameters_raw", "resourcecode")
   # mock a function that throws error (as if network/API failed)
-  mock_fromJSON <- function(...) stop("network failure")
+  mock_fromJSON <- function(...) stop("network failure") # nolint
 
   # temporarily replace fromJSON inside your function
   mockery::stub(get_parameters_raw, "jsonlite::fromJSON", mock_fromJSON)
@@ -96,7 +96,7 @@ test_that("get_parameters_raw() handles API-side error codes", {
   get_parameters_raw <- getFromNamespace("get_parameters_raw", "resourcecode")
   fake_api_response <- list(errorcode = 123, errormessage = "Invalid request")
 
-  mock_fromJSON <- function(...) fake_api_response
+  mock_fromJSON <- function(...) fake_api_response # nolint
 
   mockery::stub(get_parameters_raw, "jsonlite::fromJSON", mock_fromJSON)
 
