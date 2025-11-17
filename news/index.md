@@ -4,6 +4,8 @@
 
 ## resourcecode 0.5.0
 
+CRAN release: 2025-11-10
+
 - Update the data retrieving function to fail gracefully whenever the
   remote database is not accessible.
 - New function ‘weather_windows()’ to compute weather windows of a given
