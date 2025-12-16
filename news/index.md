@@ -1,5 +1,7 @@
 # Changelog
 
+## resourcecode (development version)
+
 ## resourcecode 0.5.1
 
 - Remove dependency on [latex2exp](https://www.stefanom.io/latex2exp/)
