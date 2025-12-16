@@ -18,6 +18,10 @@ fastTrapz <- function(x, Y, dim = 1L) {
     .Call(`_resourcecode_fastTrapz`, x, Y, dim)
 }
 
+rasterize_triangles <- function(tri_mat, x, y, z, nx = 500L, ny = 500L, draw_edges = FALSE) {
+    .Call(`_resourcecode_rasterize_triangles`, tri_mat, x, y, z, nx, ny, draw_edges)
+}
+
 ww_calc_cpp <- function(times, winlen_hours, allow_overlap, tstep_secs) {
     .Call(`_resourcecode_ww_calc_cpp`, times, winlen_hours, allow_overlap, tstep_secs)
 }

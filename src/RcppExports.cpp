@@ -24,6 +24,23 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rasterize_triangles
+List rasterize_triangles(NumericMatrix tri_mat, NumericVector x, NumericVector y, NumericVector z, int nx, int ny, bool draw_edges);
+RcppExport SEXP _resourcecode_rasterize_triangles(SEXP tri_matSEXP, SEXP xSEXP, SEXP ySEXP, SEXP zSEXP, SEXP nxSEXP, SEXP nySEXP, SEXP draw_edgesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type tri_mat(tri_matSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type z(zSEXP);
+    Rcpp::traits::input_parameter< int >::type nx(nxSEXP);
+    Rcpp::traits::input_parameter< int >::type ny(nySEXP);
+    Rcpp::traits::input_parameter< bool >::type draw_edges(draw_edgesSEXP);
+    rcpp_result_gen = Rcpp::wrap(rasterize_triangles(tri_mat, x, y, z, nx, ny, draw_edges));
+    return rcpp_result_gen;
+END_RCPP
+}
 // ww_calc_cpp
 NumericVector ww_calc_cpp(NumericVector times, double winlen_hours, bool allow_overlap, double tstep_secs);
 RcppExport SEXP _resourcecode_ww_calc_cpp(SEXP timesSEXP, SEXP winlen_hoursSEXP, SEXP allow_overlapSEXP, SEXP tstep_secsSEXP) {
@@ -41,6 +58,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_resourcecode_fastTrapz", (DL_FUNC) &_resourcecode_fastTrapz, 3},
+    {"_resourcecode_rasterize_triangles", (DL_FUNC) &_resourcecode_rasterize_triangles, 7},
     {"_resourcecode_ww_calc_cpp", (DL_FUNC) &_resourcecode_ww_calc_cpp, 4},
     {NULL, NULL, 0}
 };
