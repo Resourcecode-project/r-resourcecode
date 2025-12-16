@@ -57,10 +57,52 @@ test_that("Fast trapz works", {
 test_that("JONSWAP computation works", {
   expect_vector(jonswap())
   expect_vector(jonswap(hs = 1, tp = 15))
-  expect_snapshot_output(jonswap())
-  expect_snapshot_output(jonswap(fmax = 0.95, df = 0.003))
   expect_error(jonswap(hs = 4, tp = 15, fmax = 0.95))
   expect_error(jonswap(gam = 0.5))
+})
+
+test_that("JONSWAP default are not changed", {
+  true_spec = tibble::tribble(
+    ~freq             , ~spec                 ,
+    0.0339            ,  0                    ,
+    0.03729           ,  1.78912458747991e-05 ,
+    0.041019          ,  0.0152443362934968   ,
+    0.0451209         ,  0.361780824645876    ,
+    0.04963299        ,  2.48937306355604     ,
+    0.054596289       ,  8.3487239124918      ,
+    0.0600559179      , 19.0193973615578      ,
+    0.06606150969     , 51.0681971008098      ,
+    0.072667660659000 , 61.4298599997782      ,
+    0.079934426724900 , 23.0790154205524      ,
+    0.087927869397390 , 15.0852082849038      ,
+    0.096720656337129 , 10.7789730474366      ,
+    0.106392721970842 ,  7.32188794399809     ,
+    0.117031994167926 ,  4.81071104041718     ,
+    0.128735193584719 ,  3.08518113899385     ,
+    0.141608712943191 ,  1.95686309248167     ,
+    0.15576958423751  ,  1.22683045725158     ,
+    0.171346542661261 ,  0.766163735497102    ,
+    0.188481196927387 ,  0.475995782202428    ,
+    0.207329316620126 ,  0.294907527414745    ,
+    0.228062248282138 ,  0.182596088371805    ,
+    0.250868473110352 ,  0.112880437673245    ,
+    0.275955320421387 ,  0.0698400710094801   ,
+    0.303550852463526 ,  0.0431793187224093   ,
+    0.333905937709879 ,  0.0266975644741862   ,
+    0.367296531480867 ,  0.0165092697144078   ,
+    0.404026184628953 ,  0.0102108753204184   ,
+    0.444428803091849 ,  0.00631725412559007  ,
+    0.488871683401034 ,  0.00390981800223497  ,
+    0.537758851741137 ,  0.00242039217856272  ,
+    0.591534736915251 ,  0.00149866668912047  ,
+    0.650688210606776 ,  0.000928085964857926 ,
+    0.715757031667453 ,  0.000574934487590613 ,
+    0.787332734834199 ,  0.000356233212602035 ,
+    0.866066008317619 ,  0.000220764277203686 ,
+    0.952672609149381 ,  0.000136827317172514
+  )
+  attr(true_spec, "Note") <- "JONSWAP Spectrum, Hs=5, Tp=15, gamma=3.3"
+  expect_equal(jonswap(), true_spec)
 })
 
 test_that("Directional means are accurately computed", {
@@ -68,7 +110,10 @@ test_that("Directional means are accurately computed", {
   expect_equal(mean_direction(rep(0, 10)), 0)
   expect_equal(mean_direction(rep(0, 10)), mean_direction(rep(360, 10)))
   expect_error(mean_direction("one"), "'directions' must be numeric")
-  expect_error(mean_direction(1:2, c("one", "two")), "'weights' must be numeric")
+  expect_error(
+    mean_direction(1:2, c("one", "two")),
+    "'weights' must be numeric"
+  )
 })
 
 test_that("Weighted directional means are accurately computed", {

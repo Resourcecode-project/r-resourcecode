@@ -1,5 +1,4 @@
 test_that("we can plot the 2D spectrum", {
-  skip_if_offline()
   spec <- resourcecodedata::rscd_2d_spectra
   plot_from_index <- plot_2d_specta(spec, 1)
   plot_not_normalized <- plot_2d_specta(spec, 1, normalize = FALSE)

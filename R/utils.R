@@ -32,7 +32,12 @@ closest_point_field <- function(x, lat = NULL, closest = 1L, ...) {
     if (!(length(x) == length(lat))) {
       stop("If 'lat' is provided, it sould be the same length as 'x'.")
     }
-    return(closest_point_field(cbind(x, lat), lat = NULL, closest = closest, ...))
+    return(closest_point_field(
+      cbind(x, lat),
+      lat = NULL,
+      closest = closest,
+      ...
+    ))
   }
 
   # Concert the input to a matrix with 2 columns, one point per line
@@ -86,7 +91,12 @@ closest_point_spec <- function(x, lat = NULL, closest = 1L, ...) {
     if (!(length(x) == length(lat))) {
       stop("If 'lat' is provided, it sould be the same length as 'x'.")
     }
-    return(closest_point_spec(cbind(x, lat), lat = NULL, closest = closest, ...))
+    return(closest_point_spec(
+      cbind(x, lat),
+      lat = NULL,
+      closest = closest,
+      ...
+    ))
   }
 
   # Concert the input to a matrix with 2 columns, one point per line
@@ -195,7 +205,6 @@ metconv2zmcomp <- function(speed, direction, names = c("uwnd", "vwnd")) {
 }
 
 
-
 #' JONWSAP spectrum
 #'
 #' Creates a JONWSAP density spectrum (one-sided), defined by its integral parameters.
@@ -279,6 +288,7 @@ jonswap <- function(hs = 5, tp = 15, fmax = rscd_freq, df = NULL, gam = 3.3) {
     ", gamma=",
     gam
   )
+  sp$freq <- as.vector(sp$freq)
   tibble::as_tibble(sp)
 }
 
@@ -330,7 +340,6 @@ mean_direction <- function(directions, weights = NULL) {
     # Remove NA values from directions only
     directions <- directions[!is.na(directions)]
   }
-
 
   # Check for negative weights (which would cause issues with weighting)
   if (any(weights < 0)) {
@@ -486,7 +495,6 @@ cut_directions <- function(directions, n_bins = 8, labels = NULL) {
 }
 
 
-
 #' Get season from date time object
 #'
 #' @param datetime a POSIXct vector from with the season is constructed
@@ -513,21 +521,34 @@ cut_directions <- function(directions, n_bins = 8, labels = NULL) {
 #'   by = "month"
 #' )
 #' cut_seasons(dates)
-cut_seasons <- function(datetime,
-                        definition = "meteorological",
-                        hemisphere = "northern",
-                        labels = NULL) {
+cut_seasons <- function(
+  datetime,
+  definition = "meteorological",
+  hemisphere = "northern",
+  labels = NULL
+) {
   # Validate inputs
   if (!inherits(datetime, "POSIXct")) {
     stop("datetime must be a POSIXct object")
   }
 
-  if (!definition %in% c(
-    "meteorological", "astronomical",
-    "djf", "jfm", "amj", "jas", "ond", "fma"
-  )) {
-    stop("definition must be one of: 'meteorological', 'astronomical',
-         'djf', 'jfm', 'amj', 'jas', 'ond', 'fma'")
+  if (
+    !definition %in%
+      c(
+        "meteorological",
+        "astronomical",
+        "djf",
+        "jfm",
+        "amj",
+        "jas",
+        "ond",
+        "fma"
+      )
+  ) {
+    stop(
+      "definition must be one of: 'meteorological', 'astronomical',
+         'djf', 'jfm', 'amj', 'jas', 'ond', 'fma'"
+    )
   }
 
   if (!hemisphere %in% c("northern", "southern")) {
@@ -544,8 +565,18 @@ cut_seasons <- function(datetime,
     # Dec-Jan-Feb = Winter, Mar-Apr-May = Spring, etc.
     season_month <- c(12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
     season_labels <- c(
-      "Winter", "Winter", "Winter", "Spring", "Spring", "Spring",
-      "Summer", "Summer", "Summer", "Autumn", "Autumn", "Autumn"
+      "Winter",
+      "Winter",
+      "Winter",
+      "Spring",
+      "Spring",
+      "Spring",
+      "Summer",
+      "Summer",
+      "Summer",
+      "Autumn",
+      "Autumn",
+      "Autumn"
     )
     seasons <- season_labels[match(month, season_month)]
   } else if (definition == "astronomical") {
@@ -558,10 +589,22 @@ cut_seasons <- function(datetime,
       d <- yday[i]
 
       # Approximate astronomical dates (can vary by 1-2 days)
-      spring_equinox <- as.numeric(format(as.Date(paste(y, "03", "20", sep = "-")), "%j"))
-      summer_solstice <- as.numeric(format(as.Date(paste(y, "06", "21", sep = "-")), "%j"))
-      autumn_equinox <- as.numeric(format(as.Date(paste(y, "09", "22", sep = "-")), "%j"))
-      winter_solstice <- as.numeric(format(as.Date(paste(y, "12", "21", sep = "-")), "%j"))
+      spring_equinox <- as.numeric(format(
+        as.Date(paste(y, "03", "20", sep = "-")),
+        "%j"
+      ))
+      summer_solstice <- as.numeric(format(
+        as.Date(paste(y, "06", "21", sep = "-")),
+        "%j"
+      ))
+      autumn_equinox <- as.numeric(format(
+        as.Date(paste(y, "09", "22", sep = "-")),
+        "%j"
+      ))
+      winter_solstice <- as.numeric(format(
+        as.Date(paste(y, "12", "21", sep = "-")),
+        "%j"
+      ))
 
       if (d >= winter_solstice || d < spring_equinox) {
         seasons[i] <- "Winter"
@@ -577,57 +620,122 @@ cut_seasons <- function(datetime,
     # Dec-Jan-Feb, Mar-Apr-May, Jun-Jul-Aug, Sep-Oct-Nov
     season_month <- c(12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
     season_labels <- c(
-      "DJF", "DJF", "DJF", "MAM", "MAM", "MAM",
-      "JJA", "JJA", "JJA", "SON", "SON", "SON"
+      "DJF",
+      "DJF",
+      "DJF",
+      "MAM",
+      "MAM",
+      "MAM",
+      "JJA",
+      "JJA",
+      "JJA",
+      "SON",
+      "SON",
+      "SON"
     )
     seasons <- season_labels[match(month, season_month)]
   } else if (definition == "jfm") {
     # Jan-Feb-Mar, Apr-May-Jun, Jul-Aug-Sep, Oct-Nov-Dec
     season_month <- 1:12
     season_labels <- c(
-      "JFM", "JFM", "JFM", "AMJ", "AMJ", "AMJ",
-      "JAS", "JAS", "JAS", "OND", "OND", "OND"
+      "JFM",
+      "JFM",
+      "JFM",
+      "AMJ",
+      "AMJ",
+      "AMJ",
+      "JAS",
+      "JAS",
+      "JAS",
+      "OND",
+      "OND",
+      "OND"
     )
     seasons <- season_labels[match(month, season_month)]
   } else if (definition == "amj") {
     # Apr-May-Jun, Jul-Aug-Sep, Oct-Nov-Dec, Jan-Feb-Mar
     season_month <- 1:12
     season_labels <- c(
-      "JFM", "JFM", "JFM", "AMJ", "AMJ", "AMJ",
-      "JAS", "JAS", "JAS", "OND", "OND", "OND"
+      "JFM",
+      "JFM",
+      "JFM",
+      "AMJ",
+      "AMJ",
+      "AMJ",
+      "JAS",
+      "JAS",
+      "JAS",
+      "OND",
+      "OND",
+      "OND"
     )
     seasons <- season_labels[match(month, season_month)]
   } else if (definition == "jas") {
     # Jul-Aug-Sep, Oct-Nov-Dec, Jan-Feb-Mar, Apr-May-Jun
     season_month <- 1:12
     season_labels <- c(
-      "JFM", "JFM", "JFM", "AMJ", "AMJ", "AMJ",
-      "JAS", "JAS", "JAS", "OND", "OND", "OND"
+      "JFM",
+      "JFM",
+      "JFM",
+      "AMJ",
+      "AMJ",
+      "AMJ",
+      "JAS",
+      "JAS",
+      "JAS",
+      "OND",
+      "OND",
+      "OND"
     )
     seasons <- season_labels[match(month, season_month)]
   } else if (definition == "ond") {
     # Oct-Nov-Dec, Jan-Feb-Mar, Apr-May-Jun, Jul-Aug-Sep
     season_month <- 1:12
     season_labels <- c(
-      "JFM", "JFM", "JFM", "AMJ", "AMJ", "AMJ",
-      "JAS", "JAS", "JAS", "OND", "OND", "OND"
+      "JFM",
+      "JFM",
+      "JFM",
+      "AMJ",
+      "AMJ",
+      "AMJ",
+      "JAS",
+      "JAS",
+      "JAS",
+      "OND",
+      "OND",
+      "OND"
     )
     seasons <- season_labels[match(month, season_month)]
   } else if (definition == "fma") {
     # Feb-Mar-Apr, May-Jun-Jul, Aug-Sep-Oct, Nov-Dec-Jan
     season_month <- 1:12
     season_labels <- c(
-      "NDJ", "FMA", "FMA", "FMA", "MJJ", "MJJ",
-      "MJJ", "ASO", "ASO", "ASO", "NDJ", "NDJ"
+      "NDJ",
+      "FMA",
+      "FMA",
+      "FMA",
+      "MJJ",
+      "MJJ",
+      "MJJ",
+      "ASO",
+      "ASO",
+      "ASO",
+      "NDJ",
+      "NDJ"
     )
     seasons <- season_labels[match(month, season_month)]
   }
 
   # Flip seasons for southern hemisphere
-  if (hemisphere == "southern" && definition %in% c("meteorological", "astronomical")) {
+  if (
+    hemisphere == "southern" &&
+      definition %in% c("meteorological", "astronomical")
+  ) {
     season_mapping <- c(
-      "Spring" = "Autumn", "Summer" = "Winter",
-      "Autumn" = "Spring", "Winter" = "Summer"
+      "Spring" = "Autumn",
+      "Summer" = "Winter",
+      "Autumn" = "Spring",
+      "Winter" = "Summer"
     )
     seasons <- season_mapping[seasons]
   }
@@ -636,8 +744,12 @@ cut_seasons <- function(datetime,
   if (!is.null(labels)) {
     unique_seasons <- unique(seasons[!is.na(seasons)])
     if (length(labels) != length(unique_seasons)) {
-      stop(paste("Number of labels (", length(labels),
-        ") must match number of unique seasons (", length(unique_seasons), ")",
+      stop(paste(
+        "Number of labels (",
+        length(labels),
+        ") must match number of unique seasons (",
+        length(unique_seasons),
+        ")",
         sep = ""
       ))
     }
@@ -713,7 +825,9 @@ fractional_day_of_year <- function(datetime) {
 
   # Extract timezone (defaults to UTC if missing)
   tz <- attr(datetime, "tzone")
-  if (is.null(tz) || tz == "") tz <- "UTC"
+  if (is.null(tz) || tz == "") {
+    tz <- "UTC"
+  }
 
   # Get the year for each datetime
   year <- as.POSIXlt(datetime, tz = tz)$year + 1900
@@ -731,7 +845,11 @@ fractional_day_of_year <- function(datetime) {
     )
 
     # Compute time difference in hours
-    hours_diff <- as.numeric(difftime(datetime[valid], start_of_year, units = "hours"))
+    hours_diff <- as.numeric(difftime(
+      datetime[valid],
+      start_of_year,
+      units = "hours"
+    ))
 
     # Convert to fractional days
     fractional_day[valid] <- hours_diff / 24
