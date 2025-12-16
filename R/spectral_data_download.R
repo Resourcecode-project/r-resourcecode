@@ -281,7 +281,7 @@ get_2d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
     out$forcings <- rbind(out$forcings, temp$forcings)
   }
 
-  return(out)
+  out
 }
 
 
@@ -388,5 +388,5 @@ get_1d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
     out$forcings <- rbind(out$forcings, temp$forcings)
   }
 
-  return(out)
+  out
 }

@@ -16,12 +16,13 @@
 #'                     theme_linedraw coord_polar scale_color_distiller scale_fill_distiller
 #'                     labs expansion
 plot_2d_specta <- function(
-    spec,
-    time = 1L,
-    normalize = TRUE,
-    trim = 0.01,
-    cut_off = 0.4,
-    ...) {
+  spec,
+  time = 1L,
+  normalize = TRUE,
+  trim = 0.01,
+  cut_off = 0.4,
+  ...
+) {
   if (is.character(time)) {
     time <- as.POSIXct(time, tz = "UTC")
   }
@@ -118,10 +119,11 @@ plot_2d_specta <- function(
 #'                     theme_linedraw
 #'                     labs expansion
 plot_1d_specta <- function(
-    spec,
-    time = 1L,
-    print_sea_state = TRUE,
-    ...) {
+  spec,
+  time = 1L,
+  print_sea_state = TRUE,
+  ...
+) {
   if (is.character(time)) {
     time <- as.POSIXct(time, tz = "UTC")
   }
@@ -131,7 +133,9 @@ plot_1d_specta <- function(
   }
 
   if ("freq" %nin% names(spec)) {
-    warning("Frequency vector not provided: using the default Resourcecode frequency vector.")
+    warning(
+      "Frequency vector not provided: using the default Resourcecode frequency vector."
+    )
     freq_plot <- rscd_freq
   } else {
     freq_plot <- spec$freq
@@ -154,7 +158,7 @@ plot_1d_specta <- function(
       expand = FALSE
     ) +
     scale_y_continuous(
-      name = latex2exp::TeX("Wave spectral density ($m^2s)"),
+      name = "Wave spectral density (m^2.s)",
       expand = expansion(c(0, .01), c(0, .05))
     ) +
     labs(
@@ -163,12 +167,24 @@ plot_1d_specta <- function(
       caption = "Source: Resourcecode hindcast database\nresourcecode.ifremer.fr"
     )
   if (print_sea_state) {
-    text <- paste0("**Sea-state parameters:**\n
-Hs=", round(spec$forcings$hs[time], 2), "m<br>
-Tp=", round(1 / spec$forcings$fp[time], 2), "s<br>
-Dir=", round(spec$forcings$dir[time], 2), "\u00b0<br>
-Wspd=", round(spec$forcings$wnd[time], 2), "m/s<br>
-Wdir=", round(spec$forcings$wnddir[time], 2), "\u00b0<br>")
+    text <- paste0(
+      "**Sea-state parameters:**\n
+Hs=",
+      round(spec$forcings$hs[time], 2),
+      "m<br>
+Tp=",
+      round(1 / spec$forcings$fp[time], 2),
+      "s<br>
+Dir=",
+      round(spec$forcings$dir[time], 2),
+      "\u00b0<br>
+Wspd=",
+      round(spec$forcings$wnd[time], 2),
+      "m/s<br>
+Wdir=",
+      round(spec$forcings$wnddir[time], 2),
+      "\u00b0<br>"
+    )
 
     out_plot <- out_plot +
       patchwork::inset_element(
@@ -182,7 +198,7 @@ Wdir=", round(spec$forcings$wnddir[time], 2), "\u00b0<br>")
         left = 0.7,
         bottom = 0.77,
         right = .95,
-        top = .99
+        top = .95
       )
   }
   out_plot
