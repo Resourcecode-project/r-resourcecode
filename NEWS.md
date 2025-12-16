@@ -1,3 +1,5 @@
+# resourcecode (development version)
+
 # resourcecode 0.5.1
 
 - Remove dependency on `{latex2exp}` that is scheduled for archival on 2026-01-03
