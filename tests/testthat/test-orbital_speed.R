@@ -100,6 +100,7 @@ test_that("obital speed computation works", {
   expect_equal(dim(orb_speed_bottom), c(10, 2))
   expect_equal(dim(orb_speed_bottom_spec), c(10, 36, 2))
   expect_equal(orb_speed_bottom[, 2], rep(0, 10))
+  # nolint next
   expect_equal(orb_speed_bottom_spec[,, 2], matrix(0, ncol = 36, nrow = 10))
   expect_equal(orb_speed_bottom, expected_orb_speed_bottom, tolerance = 1e-7)
   expect_equal(orb_speed_half, expected_orb_speed_half, tolerance = 1e-7)
