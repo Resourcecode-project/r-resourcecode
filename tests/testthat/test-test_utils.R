@@ -62,6 +62,7 @@ test_that("JONSWAP computation works", {
 })
 
 test_that("JONSWAP default are not changed", {
+  # nolint start
   true_spec = tibble::tribble(
     ~freq             , ~spec                 ,
     0.0339            ,  0                    ,
@@ -101,6 +102,7 @@ test_that("JONSWAP default are not changed", {
     0.866066008317619 ,  0.000220764277203686 ,
     0.952672609149381 ,  0.000136827317172514
   )
+  # nolint end
   attr(true_spec, "Note") <- "JONSWAP Spectrum, Hs=5, Tp=15, gamma=3.3"
   expect_equal(jonswap(), true_spec)
 })

@@ -1,5 +1,5 @@
 test_that("dispersion is computed correctly", {
-  true_dispersion = c(
+  true_dispersion <- c(
     0.000000000,
     0.003669946,
     0.007384602,
