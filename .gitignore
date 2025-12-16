@@ -9,7 +9,6 @@ docs
 rscd.png
 resourcecode_logo.png
 logos
-*.svg
 inst/doc
 /doc/
 /Meta/
