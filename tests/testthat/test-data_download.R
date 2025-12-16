@@ -75,7 +75,6 @@ test_that("downloading parameters data works", {
 })
 
 test_that("get_parameters_raw() returns NULL and message on failure", {
-
   get_parameters_raw <- getFromNamespace("get_parameters_raw", "resourcecode")
   # mock a function that throws error (as if network/API failed)
   mock_fromJSON <- function(...) stop("network failure") # nolint
@@ -92,7 +91,6 @@ test_that("get_parameters_raw() returns NULL and message on failure", {
 })
 
 test_that("get_parameters_raw() handles API-side error codes", {
-
   get_parameters_raw <- getFromNamespace("get_parameters_raw", "resourcecode")
   fake_api_response <- list(errorcode = 123, errormessage = "Invalid request")
 
@@ -167,7 +165,6 @@ test_that("downloading 2D spectral data works", {
 })
 
 test_that("download_nc_data() fails gracefully when FTP not available", {
-
   download_nc_data <- getFromNamespace("download_nc_data", "resourcecode")
   # Mock curl_download to throw an error (simulating network failure)
   mock_download <- function(...) stop("FTP connection failed")
@@ -176,7 +173,10 @@ test_that("download_nc_data() fails gracefully when FTP not available", {
   mockery::stub(download_nc_data, "curl::curl_download", mock_download)
 
   expect_message(
-    result <- download_nc_data("ftp://example.org/file.dat", tempfile(fileext = ".nc")),
+    result <- download_nc_data(
+      "ftp://example.org/file.dat",
+      tempfile(fileext = ".nc")
+    ),
     "Could not download spectral data"
   )
 

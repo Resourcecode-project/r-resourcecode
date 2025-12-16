@@ -62,10 +62,10 @@ closest_point_field <- function(x, lat = NULL, closest = 1L, ...) {
     }
   }
 
-  return(list(
+  list(
     points = t(ind_min),
     distances = distance
-  ))
+  )
 }
 
 #' Find the closest point of the SPEC grid to the specified position
@@ -116,10 +116,10 @@ closest_point_spec <- function(x, lat = NULL, closest = 1L, ...) {
     }
   }
 
-  return(list(
+  list(
     points = t(ind_min),
     distances = distance
-  ))
+  )
 }
 
 #' Convert u/v to meteorological wind speed and direction
@@ -149,7 +149,7 @@ zmcomp2metconv <- function(u, v = NULL, names = c("wspd", "wdir")) {
   direction <- (270 - atan2(u[, 2], u[, 1]) * 180 / pi) %% 360
   out <- data.frame(speed, direction)
   names(out) <- names
-  return(out)
+  out
 }
 
 #' Convert meteorological wind speed and direction to u/v components
@@ -279,7 +279,7 @@ jonswap <- function(hs = 5, tp = 15, fmax = rscd_freq, df = NULL, gam = 3.3) {
     ", gamma=",
     gam
   )
-  return(tibble::as_tibble(sp))
+  tibble::as_tibble(sp)
 }
 
 #' Mean Direction
@@ -372,7 +372,7 @@ mean_direction <- function(directions, weights = NULL) {
   # Ensure result is in [0, 360) range using modulo
   mean_degrees <- mean_degrees %% 360
 
-  return(mean_degrees)
+  mean_degrees
 }
 
 #' Directional binning
@@ -482,7 +482,7 @@ cut_directions <- function(directions, n_bins = 8, labels = NULL) {
     right = FALSE
   )
 
-  return(result)
+  result
 }
 
 
@@ -669,7 +669,7 @@ cut_seasons <- function(datetime,
   }
 
   result <- factor(seasons, levels = level_order)
-  return(result)
+  result
 }
 
 #' Compute Fractional Day of Year from POSIXct

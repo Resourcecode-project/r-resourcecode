@@ -27,7 +27,6 @@ Imports:
     grid,
     gridtext,
     jsonlite,
-    latex2exp,
     lubridate,
     ncdf4,
     patchwork,
