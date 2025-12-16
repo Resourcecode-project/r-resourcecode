@@ -33,9 +33,9 @@ CRAN release: 2025-10-22
 - Adds
   [resourcecodedata](https://github.com/Resourcecode-project/r-resourcecodedata/)
   package as dependence, to ease the use of the package .
-- [`closest_point_field()`](https://resourcecode-project.github.io/r-resourcecode/reference/closest_point_FIELD.md)
+- [`closest_point_field()`](https://resourcecode-project.github.io/r-resourcecode/reference/closest_point_field.md)
   and
-  [`closest_point_field()`](https://resourcecode-project.github.io/r-resourcecode/reference/closest_point_FIELD.md)
+  [`closest_point_field()`](https://resourcecode-project.github.io/r-resourcecode/reference/closest_point_field.md)
   now accept a list of locations instead of a single one
   ([\#3](https://github.com/Resourcecode-project/r-resourcecode/issues/3)).
 

@@ -2,10 +2,10 @@
 
 ## All functions
 
-- [`closest_point_field()`](https://resourcecode-project.github.io/r-resourcecode/reference/closest_point_FIELD.md)
+- [`closest_point_field()`](https://resourcecode-project.github.io/r-resourcecode/reference/closest_point_field.md)
   : Find the closest point of the FIELD grid to the specified position
 
-- [`closest_point_spec()`](https://resourcecode-project.github.io/r-resourcecode/reference/closest_point_SPEC.md)
+- [`closest_point_spec()`](https://resourcecode-project.github.io/r-resourcecode/reference/closest_point_spec.md)
   : Find the closest point of the SPEC grid to the specified position
 
 - [`compute_orbital_speeds()`](https://resourcecode-project.github.io/r-resourcecode/reference/compute_orbital_speeds.md)
@@ -18,7 +18,7 @@
 - [`compute_sea_state_2d_spectrum()`](https://resourcecode-project.github.io/r-resourcecode/reference/compute_sea_state_2d_spectrum.md)
   : Compute sea_state parameter from wave directional spectrum
 
-- [`convert_spectrum_2d1d()`](https://resourcecode-project.github.io/r-resourcecode/reference/convert_spectrum_2D1D.md)
+- [`convert_spectrum_2d1d()`](https://resourcecode-project.github.io/r-resourcecode/reference/convert_spectrum_2d1d.md)
   : Converts a 2D spectrum time series to a 1D spectrum
 
 - [`cut_directions()`](https://resourcecode-project.github.io/r-resourcecode/reference/cut_directions.md)

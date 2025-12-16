@@ -207,7 +207,7 @@ spectra on this grid are not available to direct download.</li>
 parameters at some location, the following code can be adapted:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">point_of_interest</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>longitude <span class="op">=</span> <span class="op">-</span><span class="fl">4.6861533</span>, latitude <span class="op">=</span> <span class="fl">48.3026514</span><span class="op">)</span></span>
-<span><span class="va">node</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/closest_point_FIELD.html">closest_point_field</a></span><span class="op">(</span><span class="va">point_of_interest</span><span class="op">)</span></span>
+<span><span class="va">node</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/closest_point_field.html">closest_point_field</a></span><span class="op">(</span><span class="va">point_of_interest</span><span class="op">)</span></span>
 <span><span class="va">node</span></span>
 <span><span class="co">#&gt; $points</span></span>
 <span><span class="co">#&gt;        [,1]</span></span>
@@ -236,7 +236,7 @@ IFREMER FTP using functions <code>get_1Dspectrum()</code> and
 the 2D spectrum.</li>
 </ul>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">node_spectral_grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/closest_point_SPEC.html">closest_point_spec</a></span><span class="op">(</span><span class="va">point_of_interest</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">node_spectral_grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/closest_point_spec.html">closest_point_spec</a></span><span class="op">(</span><span class="va">point_of_interest</span><span class="op">)</span></span></code></pre></div>
 <p>Then one can extract the 1D spectrum time-series and see the contents
 of these downloaded data.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
