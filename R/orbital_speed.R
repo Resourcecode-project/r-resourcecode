@@ -71,10 +71,10 @@ compute_orbital_speeds <- function(
     out <- array(NA, dim = c(dim(spectral_u_component), 2))
     out[, , 1] <- spectral_u_component
     out[, , 2] <- spectral_v_component
-    return(out)
+    out
   } else {
     u_rms <- sqrt(2 * resourcecode::fastTrapz(freq, spectral_u_component, 2))
     v_rms <- sqrt(2 * resourcecode::fastTrapz(freq, spectral_v_component, 2))
-    return(cbind(u_rms, v_rms))
+    cbind(u_rms, v_rms)
   }
 }
