@@ -1,6 +1,6 @@
-This is Resourcecode 0.5.0.
+This is Resourcecode 0.5.1.
 
-All the functions downloading data from remote sources now fail gracefully with an informative message. This solves the problem shown on <https://cran.r-project.org/web/checks/check_results_resourcecode.html>, as per request of Prof. Brian Ripley on 2025-11-07.
+This only a patch release to remove dependency on `{latex2exp}`, that is scheduled for archival on 2026-01-03
 
 ## R CMD check results
 
