@@ -61,7 +61,8 @@ and optional map boundary points via \code{mapsta}.
 # Create a simple grid of points
 points_df <- expand.grid(lon = seq(0, 1, length.out = 5),
                         lat = seq(0, 1, length.out = 5))
-points_df$z <- sqrt(points_df$lon^2+points_df$lat^2) *sin(2*pi * points_df$lon) * cos(2*pi * points_df$lat)
+points_df$z <- sqrt(points_df$lon^2 + points_df$lat^2) *
+                   sin(2 * pi * points_df$lon) * cos( 2 * pi * points_df$lat)
 
 # Define a simple triangular mesh manually (each square split into 2 triangles)
 tri_mat <- matrix(nrow = 3, ncol = 32)  # 4x4 squares * 2 triangles per square
