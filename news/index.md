@@ -1,8 +1,12 @@
 # Changelog
 
-## resourcecode (development version)
+## resourcecode 0.5.2
+
+- Give informative message when remote database is not available
 
 ## resourcecode 0.5.1
+
+CRAN release: 2025-12-16
 
 - Remove dependency on [latex2exp](https://www.stefanom.io/latex2exp/)
   that is scheduled for archival on 2026-01-03
