@@ -182,3 +182,43 @@ test_that("download_nc_data() fails gracefully when FTP not available", {
 
   expect_null(result)
 })
+
+test_that("get_1d_spectrum() fails gracefully when FTP not available", {
+  download_nc_data <- getFromNamespace("download_nc_data", "resourcecode")
+  # Mock curl_download to throw an error (simulating network failure)
+  mock_download <- function(...) stop("FTP connection failed")
+
+  # Replace curl_download inside the function
+  testthat::local_mocked_bindings(download_nc_data = function(...) NULL)
+
+  expect_message(
+    result <- get_1d_spectrum(
+      "SEMREVO",
+      start = "1994-01-01",
+      end = "1994-02-28"
+    ),
+    "Could not download spectral data"
+  )
+
+  expect_null(result)
+})
+
+test_that("get_2d_spectrum() fails gracefully when FTP not available", {
+  download_nc_data <- getFromNamespace("download_nc_data", "resourcecode")
+  # Mock curl_download to throw an error (simulating network failure)
+  mock_download <- function(...) stop("FTP connection failed")
+
+  # Replace curl_download inside the function
+  testthat::local_mocked_bindings(download_nc_data = function(...) NULL)
+
+  expect_message(
+    result <- get_2d_spectrum(
+      "SEMREVO",
+      start = "1994-01-01",
+      end = "1994-02-28"
+    ),
+    "Could not download spectral data"
+  )
+
+  expect_null(result)
+})

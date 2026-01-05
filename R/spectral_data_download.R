@@ -8,7 +8,6 @@
 #' @noRd
 #' @keywords internal
 download_nc_data <- function(url, destfile) {
-
   # Ensure destfile exists only if successful
   success <- tryCatch(
     {
@@ -16,13 +15,18 @@ download_nc_data <- function(url, destfile) {
       TRUE
     },
     error = function(e) {
-      message("Could not download spectral data.
-              The remote server may be unavailable or the URL may have changed.")
+      message(
+        "Could not download spectral data.
+              The remote server may be unavailable or the URL may have changed."
+      )
       FALSE
     },
     warning = function(w) {
-      message("A warning occurred while downloading the spectral data.
-              The resource may have changed.\n", w)
+      message(
+        "A warning occurred while downloading the spectral data.
+              The resource may have changed.\n",
+        w
+      )
       FALSE
     }
   )
@@ -62,10 +66,17 @@ get_2d_spectrum_raw <- function(point, year, month) {
     "_spec.nc"
   )
 
-
   temp <- tempfile(fileext = ".nc")
 
   file <- download_nc_data(url, temp)
+
+  if (is.null(file)) {
+    message(
+      "Could not download spectral data.
+              The remote server may be unavailable or the URL may have changed."
+    )
+    return(NULL)
+  }
 
   nc <- ncdf4::nc_open(file)
 
@@ -135,6 +146,14 @@ get_1d_spectrum_raw <- function(point, year, month) {
   temp <- tempfile(fileext = ".nc")
 
   file <- download_nc_data(url, temp)
+
+  if (is.null(file)) {
+    message(
+      "Could not download spectral data.
+              The remote server may be unavailable or the URL may have changed."
+    )
+    return(NULL)
+  }
 
   nc <- ncdf4::nc_open(file)
 
@@ -338,7 +357,6 @@ get_2d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
 #' )
 get_1d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
   stopifnot(length(point) == 1)
-
 
   if (is.numeric(point)) {
     point <- resourcecodedata::rscd_spectral[point, "name"]
