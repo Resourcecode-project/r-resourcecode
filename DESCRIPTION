@@ -42,8 +42,7 @@ Suggests:
     knitr,
     mockery,
     rmarkdown,
-    testthat,
-    vdiffr
+    testthat
 LinkingTo: 
     Rcpp,
     RcppArmadillo
