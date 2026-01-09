@@ -1,3 +1,5 @@
+# resourcecode (development version)
+
 # resourcecode 0.5.2
 
 - Give informative message when remote database is not available
