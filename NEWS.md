@@ -1,5 +1,7 @@
 # resourcecode (development version)
 
+- Custom labels are now handeled properly in `cut_seasons()` 
+
 # resourcecode 0.5.2
 
 - Give informative message when remote database is not available

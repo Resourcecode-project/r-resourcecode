@@ -740,25 +740,7 @@ cut_seasons <- function(
     seasons <- season_mapping[seasons]
   }
 
-  # Apply custom labels if provided
-  if (!is.null(labels)) {
-    unique_seasons <- unique(seasons[!is.na(seasons)])
-    if (length(labels) != length(unique_seasons)) {
-      stop(paste(
-        "Number of labels (",
-        length(labels),
-        ") must match number of unique seasons (",
-        length(unique_seasons),
-        ")",
-        sep = ""
-      ))
-    }
-    # Create mapping from old to new labels
-    label_mapping <- stats::setNames(labels, sort(unique_seasons))
-    seasons <- label_mapping[seasons]
-  }
-
-  # Convert to factor with logical level ordering
+  # Define level order BEFORE applying custom labels
   if (definition == "meteorological" || definition == "astronomical") {
     if (hemisphere == "northern") {
       level_order <- c("Spring", "Summer", "Autumn", "Winter")
@@ -775,9 +757,24 @@ cut_seasons <- function(
     level_order <- c("JFM", "AMJ", "JAS", "OND") # Default for amj, jas, ond
   }
 
-  # Apply custom labels to level order if provided
+  # Apply custom labels if provided
   if (!is.null(labels)) {
-    level_order <- labels[match(level_order, sort(unique_seasons))]
+    unique_seasons <- unique(seasons[!is.na(seasons)])
+    if (length(labels) != length(unique_seasons)) {
+      stop(paste(
+        "Number of labels (",
+        length(labels),
+        ") must match number of unique seasons (",
+        length(unique_seasons),
+        ")",
+        sep = ""
+      ))
+    }
+    # Create mapping from old to new labels (based on level_order)
+    label_mapping <- stats::setNames(labels, level_order)
+    seasons <- label_mapping[seasons]
+    # Update level order to use custom labels
+    level_order <- labels
   }
 
   result <- factor(seasons, levels = level_order)
