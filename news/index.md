@@ -2,6 +2,8 @@
 
 ## resourcecode 0.5.2
 
+CRAN release: 2026-01-09
+
 - Give informative message when remote database is not available
 
 ## resourcecode 0.5.1
