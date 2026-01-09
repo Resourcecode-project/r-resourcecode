@@ -11,10 +11,11 @@
 #' @return a tibble with 2 columns and as many rows as needed
 #' @noRd
 get_parameters_raw <- function(
-    parameter = "hs",
-    node = 42,
-    start = as.POSIXct("1994-01-01Z00:00:00", tz = "UTC"),
-    end = as.POSIXct("1994-12-31Z23:00:00", tz = "UTC")) {
+  parameter = "hs",
+  node = 42,
+  start = as.POSIXct("1994-01-01Z00:00:00", tz = "UTC"),
+  end = as.POSIXct("1994-12-31Z23:00:00", tz = "UTC")
+) {
   if (parameter == "tp") {
     single_parameter <- "fp"
   } else {
@@ -27,7 +28,7 @@ get_parameters_raw <- function(
   # Cassandra database start indexing at 1, so decrements node number
   node <- node - 1
 
-  request <- paste0(
+  request_url <- paste0(
     rcd_cassandra_url,
     "api/timeseries",
     "?parameter=",
@@ -40,28 +41,68 @@ get_parameters_raw <- function(
     end_str
   )
 
-  # Try retrieving and parsing JSON
-  res <- tryCatch(
-    jsonlite::fromJSON(request),
+  # Try retrieving and parsing JSON using httr2
+  resp <- tryCatch(
+    httr2::request(request_url) |>
+      httr2::req_error(is_error = \(resp) FALSE) |> # Don't auto-error on HTTP errors
+      httr2::req_retry(max_tries = 3) |> # Retry transient failures
+      httr2::req_timeout(30) |> # 30 second timeout
+      httr2::req_perform(),
+    httr2_failure = function(cnd) {
+      message(
+        "Network error: Could not connect to the remote resource. ",
+        "The server may be unavailable."
+      )
+      NULL
+    },
     error = function(e) {
-      message("Could not retrieve data from the remote resource. ",
-              "The server may be unavailable or the URL may have changed.")
-      NULL   # graceful fallback
+      message("Unexpected error retrieving data: ", conditionMessage(e))
+      NULL
     }
   )
 
-  # If retrieval failed, exit
-  if (is.null(res)) return(NULL)
+  # If request failed, exit
+  if (is.null(resp)) {
+    return(NULL)
+  }
+
+  # Check HTTP status
+  if (httr2::resp_status(resp) != 200) {
+    message(
+      "HTTP error ",
+      httr2::resp_status(resp),
+      ": ",
+      httr2::resp_status_desc(resp)
+    )
+    return(NULL)
+  }
+
+  # Parse JSON response
+  res <- tryCatch(
+    httr2::resp_body_json(resp, simplifyVector = TRUE),
+    error = function(e) {
+      message("Error parsing response: Invalid JSON format")
+      NULL
+    }
+  )
+
+  # If parsing failed, exit
+  if (is.null(res)) {
+    return(NULL)
+  }
 
   # Check API-level error
   if (!is.null(res$errorcode) && res$errorcode != 0) {
-    message("The data source returned an error: ", res$errormessage,
-            "\nReturning NULL.")
-    return(NULL)   # graceful fallback
+    message(
+      "The data source returned an error: ",
+      res$errormessage,
+      "\nReturning NULL."
+    )
+    return(NULL) # graceful fallback
   }
 
-
-  data <- res$result$data
+  # Convert list to data frame
+  data <- as.data.frame(res$result$data)
   colnames(data) <- c("time", parameter)
   data <- tibble::as_tibble(data)
 
@@ -70,13 +111,14 @@ get_parameters_raw <- function(
   }
 
   data$time <- as.POSIXct(
-    data$time / 1000,
+    as.numeric(data$time) / 1000,
     origin = as.POSIXct("1970-01-01", tz = "UTC"),
     tz = "UTC"
   ) # Convert UNIX time (ms) to POSIXct format
   attr(data, "node") <- node
   data
 }
+
 
 #' Download time series of sea-state parameters from RESOURCECODE database
 #'
@@ -95,17 +137,21 @@ get_parameters_raw <- function(
 #' ts <- get_parameters(parameters = c("hs", "tp"), node = 42)
 #' plot(ts$time, ts$hs, type = "l")
 get_parameters <- function(
-    parameters = "hs",
-    node = 42,
-    start = as.POSIXct("1994-01-01 00:00:00", tz = "UTC"),
-    end = as.POSIXct("1994-12-31 23:00:00", tz = "UTC")) {
+  parameters = "hs",
+  node = 42,
+  start = as.POSIXct("1994-01-01 00:00:00", tz = "UTC"),
+  end = as.POSIXct("1994-12-31 23:00:00", tz = "UTC")
+) {
   parameters <- tolower(parameters)
 
   if (any(parameters %nin% c("tp", resourcecodedata::rscd_variables$name))) {
-    errors <- parameters[parameters %nin% c("tp", resourcecodedata::rscd_variables$name)]
+    errors <- parameters[
+      parameters %nin% c("tp", resourcecodedata::rscd_variables$name)
+    ]
     stop(
       "Requested parameters do not exists in the database: ",
-      paste0(errors, collapse = ", "), "."
+      paste0(errors, collapse = ", "),
+      "."
     )
   }
 
@@ -144,7 +190,8 @@ get_parameters <- function(
     stop(
       "'start' is outside the covered period: ",
       paste(
-        format(c(rscd_casandra_start_date, rscd_casandra_end_date),
+        format(
+          c(rscd_casandra_start_date, rscd_casandra_end_date),
           format = "%Y-%m-%d %H:%M %Z"
         ),
         collapse = " \u2014 "
@@ -155,7 +202,8 @@ get_parameters <- function(
     stop(
       "'end' is outside the covered period: ",
       paste(
-        format(c(rscd_casandra_start_date, rscd_casandra_end_date),
+        format(
+          c(rscd_casandra_start_date, rscd_casandra_end_date),
           format = "%Y-%m-%d %H:%M %Z"
         ),
         collapse = " \u2014 "
@@ -173,6 +221,12 @@ get_parameters <- function(
     end = end
   )
 
+  # If first parameter retrieval failed, return NULL
+  if (is.null(out)) {
+    message("Failed to retrieve parameter: ", parameters[1])
+    return(NULL)
+  }
+
   for (i in seq_len(length(parameters) - 1)) {
     temp <- get_parameters_raw(
       parameters[i + 1],
@@ -180,7 +234,14 @@ get_parameters <- function(
       start = start,
       end = end
     )
-    out <- cbind(out, temp[, 2])
+
+    # If any subsequent parameter retrieval fails, return NULL
+    if (is.null(temp)) {
+      message("Failed to retrieve parameter: ", parameters[i + 1])
+      return(NULL)
+    }
+
+    out <- cbind.data.frame(out, temp[, 2])
   }
   out
 }
