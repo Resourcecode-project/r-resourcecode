@@ -4,7 +4,7 @@ test_that("obital speed computation works", {
     \(h) jonswap(h, tp = 12)$spec,
     FUN.VALUE = numeric(36)
   ))
-  expected_orb_speed_bottom = matrix(
+  expected_orb_speed_bottom <- matrix(
     c(
       0.06908343,
       0,
@@ -31,7 +31,7 @@ test_that("obital speed computation works", {
     nrow = 10,
     ncol = 2
   )
-  expected_orb_speed_half = matrix(
+  expected_orb_speed_half <- matrix(
     c(
       0.09500958,
       0.065225,
@@ -59,7 +59,7 @@ test_that("obital speed computation works", {
     ncol = 2
   )
 
-  expected_orb_speed_top = matrix(
+  expected_orb_speed_top <- matrix(
     c(
       0.2561765,
       0.2466858,

@@ -100,11 +100,13 @@ usethis::use_rcpp("ww_calc_cpp.cpp")
 install.packages("lintr")
 install.packages("styler")
 lintr::use_lintr()
+
 lintr::lint_package()
 usethis::use_github_action("lint")
 
 devtools::load_all()
 devtools::spell_check()
+
 attachment::att_amend_desc()
 
 devtools::document()
