@@ -306,10 +306,10 @@ compute_sea_state_2d_spectrum <- function(spec, ...) {
 #' @param spec 1D spectrum data, e.g. from `get_1Dspectrum`
 #' @param ... currently unused
 #'
-#' @return a tibble with the sea-state parameters computed from the time series of 2D spectrum
+#' @return a tibble with the sea-state parameters computed from the time series of 1D spectrum
 #' @export
 #'
-#' @examples
+#' @examplesIf identical(tolower(Sys.getenv("NOT_CRAN")), "true")
 #' rscd_params <- get_parameters(
 #'   node = "134865",
 #'   start = "1994-01-01",
