@@ -2,6 +2,9 @@
 
 ## resourcecode (development version)
 
+- Custom labels are now handeled properly in
+  [`cut_seasons()`](https://resourcecode-project.github.io/r-resourcecode/reference/cut_seasons.md)
+
 ## resourcecode 0.5.2
 
 CRAN release: 2026-01-09

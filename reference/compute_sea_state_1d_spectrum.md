@@ -21,7 +21,7 @@ compute_sea_state_1d_spectrum(spec, ...)
 ## Value
 
 a tibble with the sea-state parameters computed from the time series of
-2D spectrum
+1D spectrum
 
 ## Examples
 
