@@ -12,12 +12,13 @@ compute_sea_state_1d_spectrum(spec, ...)
 \item{...}{currently unused}
 }
 \value{
-a tibble with the sea-state parameters computed from the time series of 2D spectrum
+a tibble with the sea-state parameters computed from the time series of 1D spectrum
 }
 \description{
 Compute sea_state parameter from wave spectrum
 }
 \examples{
+\dontshow{if (identical(tolower(Sys.getenv("NOT_CRAN")), "true")) withAutoprint(\{ # examplesIf}
 rscd_params <- get_parameters(
   node = "134865",
   start = "1994-01-01",
@@ -32,4 +33,5 @@ lines(rscd_params$time, rscd_params$hs, col = "red")
 plot(param_calc$time, param_calc$tp, type = "l", xlab = "Time", ylab = "Tp (s)")
 lines(rscd_params$time, rscd_params$tp, col = "red")
 par(oldpar)
+\dontshow{\}) # examplesIf}
 }
