@@ -11,7 +11,10 @@ download_nc <- function(url, destfile) {
   tryCatch(
     {
       req <- httr2::request(url) |>
+        httr2::req_error(is_error = \(resp) FALSE) |> # Don't auto-error on HTTP errors
+        httr2::req_retry(max_tries = 3) |> # Retry transient failures
         httr2::req_timeout(60) |>
+        httr2::req_user_agent("Resourcecode R package") |>
         httr2::req_error(is_error = ~ .x$status_code >= 400)
 
       httr2::req_perform(req, path = destfile)

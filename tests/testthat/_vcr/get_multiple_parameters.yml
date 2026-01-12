@@ -5,7 +5,7 @@ http_interactions:
   response:
     status: 200
     headers:
-      Date: Mon, 12 Jan 2026 11:03:09 GMT
+      Date: Mon, 12 Jan 2026 14:22:18 GMT
       Server: Microsoft-IIS/8.0
       Content-Type: application/json;charset=UTF-8
       Vary: Accept-Encoding
@@ -16,14 +16,14 @@ http_interactions:
       Transfer-Encoding: chunked
     body:
       string: '{"errorcode":0,"errormessage":"","query":{"downsampling":"none","samplingparameter":"none","platform":"41","parameterCode":"hs","startTimeMillis":"757382400000","endTimeMillis":"757468800000","startTimeFormat":"1994-01-01T00:00:00Z","endTimeFormat":"1994-01-02T00:00:00Z"},"result":{"dataSetSizeBeforeRegression":25,"dataSetSizeAfterRegression":25,"dataSetSize":25,"data":[[757382400000,0.124],[757386000000,0.112],[757389600000,0.098],[757393200000,0.082],[757396800000,0.07],[757400400000,0.058],[757404000000,0.052],[757407600000,0.05],[757411200000,0.048],[757414800000,0.046],[757418400000,0.046],[757422000000,0.044],[757425600000,0.044],[757429200000,0.044],[757432800000,0.042],[757436400000,0.038],[757440000000,0.034],[757443600000,0.028],[757447200000,0.024],[757450800000,0.022],[757454400000,0.022],[757458000000,0.022],[757461600000,0.026],[757465200000,0.03],[757468800000,0.034]]}}'
-  recorded_at: 2026-01-12 11:03:10
+  recorded_at: 2026-01-12 14:22:18
 - request:
     method: GET
     uri: https://resourcecode-datacharts.ifremer.fr/api/timeseries?parameter=fp&node=41&start=1994-01-01T00%3A00%3A00Z&end=1994-01-02T00%3A00%3A00Z
   response:
     status: 200
     headers:
-      Date: Mon, 12 Jan 2026 11:03:10 GMT
+      Date: Mon, 12 Jan 2026 14:22:18 GMT
       Server: Microsoft-IIS/8.0
       Content-Type: application/json;charset=UTF-8
       Vary: Accept-Encoding
@@ -34,5 +34,5 @@ http_interactions:
       Transfer-Encoding: chunked
     body:
       string: '{"errorcode":0,"errormessage":"","query":{"downsampling":"none","samplingparameter":"none","platform":"41","parameterCode":"fp","startTimeMillis":"757382400000","endTimeMillis":"757468800000","startTimeFormat":"1994-01-01T00:00:00Z","endTimeFormat":"1994-01-02T00:00:00Z"},"result":{"dataSetSizeBeforeRegression":25,"dataSetSizeAfterRegression":25,"dataSetSize":25,"data":[[757382400000,0.067],[757386000000,0.067],[757389600000,0.068],[757393200000,0.069],[757396800000,0.069],[757400400000,0.069],[757404000000,0.068],[757407600000,0.068],[757411200000,0.068],[757414800000,0.068],[757418400000,0.068],[757422000000,0.069],[757425600000,0.07],[757429200000,0.071],[757432800000,0.072],[757436400000,0.073],[757440000000,0.074],[757443600000,0.074],[757447200000,0.074],[757450800000,0.073],[757454400000,0.072],[757458000000,0.072],[757461600000,0.072],[757465200000,0.072],[757468800000,0.072]]}}'
-  recorded_at: 2026-01-12 11:03:10
+  recorded_at: 2026-01-12 14:22:19
 recorded_with: VCR-vcr/2.1.0

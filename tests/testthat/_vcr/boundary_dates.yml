@@ -5,7 +5,7 @@ http_interactions:
   response:
     status: 200
     headers:
-      Date: Mon, 12 Jan 2026 11:03:11 GMT
+      Date: Mon, 12 Jan 2026 14:22:22 GMT
       Server: Microsoft-IIS/8.0
       Content-Type: application/json;charset=UTF-8
       Vary: Accept-Encoding
@@ -16,5 +16,5 @@ http_interactions:
       Transfer-Encoding: chunked
     body:
       string: '{"errorcode":0,"errormessage":"","query":{"downsampling":"none","samplingparameter":"none","platform":"41","parameterCode":"hs","startTimeMillis":"757382400000","endTimeMillis":"757386000000","startTimeFormat":"1994-01-01T00:00:00Z","endTimeFormat":"1994-01-01T01:00:00Z"},"result":{"dataSetSizeBeforeRegression":2,"dataSetSizeAfterRegression":2,"dataSetSize":2,"data":[[757382400000,0.124],[757386000000,0.112]]}}'
-  recorded_at: 2026-01-12 11:03:16
+  recorded_at: 2026-01-12 14:22:22
 recorded_with: VCR-vcr/2.1.0

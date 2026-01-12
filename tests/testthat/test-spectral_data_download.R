@@ -1,6 +1,6 @@
 # Tests for get_1d_spectrum()
 test_that("get_1d_spectrum retrieves data successfully", {
-  #vcr::local_cassette("get_1d_spectrum_basic")
+  skip_if_offline()
 
   spec <- get_1d_spectrum(
     "SEMREVO",
@@ -33,6 +33,7 @@ test_that("get_1d_spectrum retrieves data successfully", {
 
 test_that("get_1d_spectrum handles numeric node input", {
   #vcr::local_cassette("get_1d_spectrum_numeric_node")
+  skip_if_offline()
 
   spec_by_name <- get_1d_spectrum(
     "SEMREVO",
@@ -54,6 +55,7 @@ test_that("get_1d_spectrum handles numeric node input", {
 
 test_that("get_1d_spectrum handles character date inputs", {
   #vcr::local_cassette("get_1d_spectrum_character_dates")
+  skip_if_offline()
 
   spec <- get_1d_spectrum(
     "SEMREVO",
@@ -67,6 +69,7 @@ test_that("get_1d_spectrum handles character date inputs", {
 
 test_that("get_1d_spectrum handles numeric (UNIX timestamp) date inputs", {
   # vcr::local_cassette("get_1d_spectrum_numeric_dates")
+  skip_if_offline()
 
   start_unix <- as.numeric(as.POSIXct("1994-01-01", tz = "UTC"))
   end_unix <- as.numeric(as.POSIXct("1994-01-31", tz = "UTC"))
@@ -83,6 +86,7 @@ test_that("get_1d_spectrum handles numeric (UNIX timestamp) date inputs", {
 
 test_that("get_1d_spectrum handles multi-month requests", {
   # vcr::local_cassette("get_1d_spectrum_multi_month")
+  skip_if_offline()
 
   spec <- get_1d_spectrum(
     "SEMREVO",
@@ -97,6 +101,7 @@ test_that("get_1d_spectrum handles multi-month requests", {
 
 test_that("get_1d_spectrum validates forcings data structure", {
   # vcr::local_cassette("get_1d_spectrum_forcings_structure")
+  skip_if_offline()
 
   spec <- get_1d_spectrum(
     "SEMREVO",
@@ -129,6 +134,7 @@ test_that("get_1d_spectrum validates forcings data structure", {
 
 test_that("get_1d_spectrum validates spectral arrays dimensions", {
   # vcr::local_cassette("get_1d_spectrum_array_dimensions")
+  skip_if_offline()
 
   spec <- get_1d_spectrum(
     "SEMREVO",
@@ -198,7 +204,7 @@ test_that("get_1d_spectrum validates end date is within coverage", {
   )
 })
 
-# Network failure tests - using mocks (no vcr needed)
+# Network failure tests - using mocks
 test_that("get_1d_spectrum fails gracefully when first download fails", {
   # Mock the internal raw function to return NULL (simulating download failure)
   mockery::stub(
@@ -221,11 +227,12 @@ test_that("get_1d_spectrum fails gracefully when first download fails", {
 # Tests for get_2d_spectrum()
 test_that("get_2d_spectrum retrieves data successfully", {
   # vcr::local_cassette("get_2d_spectrum_basic")
+  skip_if_offline()
 
   spec <- get_2d_spectrum(
     "SEMREVO",
     start = "1994-01-01",
-    end = "1994-02-28"
+    end = "1994-01-31"
   )
 
   expect_type(spec, "list")
@@ -244,12 +251,13 @@ test_that("get_2d_spectrum retrieves data successfully", {
     )
   )
   expect_s3_class(spec$forcings, "data.frame")
-  expect_shape(spec$forcings, dim = c(1416, 6))
+  expect_shape(spec$forcings, dim = c(744, 6))
   expect_equal(spec$station, "SEMREVO")
 })
 
 test_that("get_2d_spectrum handles numeric node input", {
   # vcr::local_cassette("get_2d_spectrum_numeric_node")
+  skip_if_offline()
 
   spec_by_name <- get_2d_spectrum(
     "SEMREVO",
@@ -268,21 +276,9 @@ test_that("get_2d_spectrum handles numeric node input", {
   expect_equal(spec_by_name$station, spec_by_index$station)
 })
 
-test_that("get_2d_spectrum handles character date inputs", {
-  # vcr::local_cassette("get_2d_spectrum_character_dates")
-
-  spec <- get_2d_spectrum(
-    "SEMREVO",
-    start = "1994-01-01",
-    end = "1994-01-31"
-  )
-
-  expect_type(spec, "list")
-  expect_shape(spec$forcings, dim = c(744, 6))
-})
-
 test_that("get_2d_spectrum handles numeric date inputs", {
   # vcr::local_cassette("get_2d_spectrum_numeric_dates")
+  skip_if_offline()
 
   start_unix <- as.numeric(as.POSIXct("1994-01-01", tz = "UTC"))
   end_unix <- as.numeric(as.POSIXct("1994-01-31", tz = "UTC"))
@@ -299,25 +295,16 @@ test_that("get_2d_spectrum handles numeric date inputs", {
 
 test_that("get_2d_spectrum handles multi-month requests", {
   # vcr::local_cassette("get_2d_spectrum_multi_month")
+  skip_if_offline()
 
   spec <- get_2d_spectrum(
     "SEMREVO",
     start = "1994-01-01",
-    end = "1994-03-31"
+    end = "1994-02-28"
   )
 
   expect_type(spec, "list")
-  expect_gt(nrow(spec$forcings), 2000)
-})
-
-test_that("get_2d_spectrum validates forcings data structure", {
-  # vcr::local_cassette("get_2d_spectrum_forcings_structure")
-
-  spec <- get_2d_spectrum(
-    "SEMREVO",
-    start = "1994-01-01",
-    end = "1994-01-31"
-  )
+  expect_shape(spec$forcings, dim = c(1416, 6))
 
   # Check forcings has expected columns
   expected_cols <- c("time", "dpt", "wnd", "wnddir", "cur", "curdir")
@@ -325,18 +312,8 @@ test_that("get_2d_spectrum validates forcings data structure", {
 
   # Check time is POSIXct
   expect_s3_class(spec$forcings$time, "POSIXct")
-})
 
-test_that("get_2d_spectrum validates spectral array dimensions", {
-  # vcr::local_cassette("get_2d_spectrum_array_dimensions")
-
-  spec <- get_2d_spectrum(
-    "SEMREVO",
-    start = "1994-01-01",
-    end = "1994-01-31"
-  )
-
-  # Check that spectral array has correct dimensions
+  #Spectral data
   expect_true(is.array(spec$efth))
   expect_equal(length(dim(spec$efth)), 3)
   expect_equal(dim(spec$efth)[1], length(spec$dir))
