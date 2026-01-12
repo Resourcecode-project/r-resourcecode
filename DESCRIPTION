@@ -37,7 +37,6 @@ Imports:
     tibble,
     tidyr
 Suggests: 
-    curl,
     knitr,
     mockery,
     rmarkdown,
