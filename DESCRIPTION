@@ -20,7 +20,6 @@ Depends:
     R (>= 3.6)
 Imports: 
     abind,
-    curl,
     geosphere,
     ggplot2,
     grid,
@@ -38,6 +37,7 @@ Imports:
     tibble,
     tidyr
 Suggests: 
+    curl,
     knitr,
     mockery,
     rmarkdown,

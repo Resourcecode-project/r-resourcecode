@@ -124,27 +124,6 @@ test_that("get_parameters produces expected data structure over time range", {
   expect_type(result$tp, "double")
 })
 
-# Error handling tests using mockery
-# test_that("get_parameters_raw handles network timeout", {
-#   mockery::stub(
-#     get_parameters_raw,
-#     "httr2::req_perform",
-#     stop("Timeout was reached")
-#   )
-#
-#   expect_message(
-#     result <- get_parameters_raw(
-#       parameter = "hs",
-#       node = 42,
-#       start = as.POSIXct("1994-01-01 00:00:00", tz = "UTC"),
-#       end = as.POSIXct("1994-01-02 00:00:00", tz = "UTC")
-#     ),
-#     "Network error"
-#   )
-#
-#   expect_null(result)
-# })
-
 test_that("get_parameters_raw handles HTTP 404 error", {
   mock_resp <- structure(
     list(status_code = 404),
@@ -195,32 +174,26 @@ test_that("get_parameters_raw handles HTTP 500 server error", {
   expect_null(result)
 })
 
-# test_that("get_parameters_raw handles invalid JSON response", {
-#   mock_resp <- structure(
-#     list(status_code = 200),
-#     class = "httr2_response"
-#   )
-#
-#   mockery::stub(get_parameters_raw, "httr2::req_perform", mock_resp)
-#   mockery::stub(get_parameters_raw, "httr2::resp_status", 200)
-#   mockery::stub(
-#     get_parameters_raw,
-#     "httr2::resp_body_json",
-#     stop("Invalid JSON")
-#   )
-#
-#   expect_message(
-#     result <- get_parameters_raw(
-#       parameter = "hs",
-#       node = 42,
-#       start = as.POSIXct("1994-01-01 00:00:00", tz = "UTC"),
-#       end = as.POSIXct("1994-01-02 00:00:00", tz = "UTC")
-#     ),
-#     "Error parsing response"
-#   )
-#
-#   expect_null(result)
-# })
+test_that("get_parameters handles network connection failure gracefully", {
+  # Mock the internal function to simulate network failure
+  mockery::stub(
+    get_parameters,
+    "get_parameters_raw",
+    NULL # Simulates what get_parameters_raw returns on network failure
+  )
+
+  expect_message(
+    result <- get_parameters(
+      parameters = "hs",
+      node = 42,
+      start = as.POSIXct("1994-01-01 00:00:00", tz = "UTC"),
+      end = as.POSIXct("1994-01-02 00:00:00", tz = "UTC")
+    ),
+    "Failed to retrieve parameter: hs"
+  )
+
+  expect_null(result)
+})
 
 test_that("get_parameters_raw handles API-level error in response", {
   mock_resp <- structure(
@@ -346,4 +319,32 @@ test_that("Errors in 'get_parameters()' are handled correcly", {
     ),
     "'end' must be after 'start'"
   )
+})
+
+test_that("get_parameters accepts dates at exact boundaries", {
+  vcr::local_cassette("boundary_dates")
+
+  expect_no_error(
+    get_parameters(
+      parameters = "hs",
+      node = 42,
+      start = resourcecode:::rscd_casandra_start_date,
+      end = resourcecode:::rscd_casandra_start_date + 3600 # 1 hour later
+    )
+  )
+})
+
+test_that("tp parameter conversion handles edge cases", {
+  vcr::local_cassette("tp_conversion")
+
+  result <- get_parameters(
+    parameters = "tp",
+    node = 42,
+    start = as.POSIXct("1994-01-01 00:00:00", tz = "UTC"),
+    end = as.POSIXct("1994-01-02 00:00:00", tz = "UTC")
+  )
+
+  # All tp values should be positive and finite
+  expect_true(all(is.finite(result$tp)))
+  expect_true(all(result$tp > 0))
 })
