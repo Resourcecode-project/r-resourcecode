@@ -28,8 +28,6 @@ If the remote resource is unavailable or returns an error, the function returns 
 and emits an informative message.
 }
 \examples{
-\dontshow{if (curl::has_internet()) withAutoprint(\{ # examplesIf}
-ts <- get_parameters(parameters = c("hs", "tp"), node = 42)
-plot(ts$time, ts$hs, type = "l")
-\dontshow{\}) # examplesIf}
+rscd_data <- get_parameters(parameters = c("hs", "tp"), node = 42)
+if(!is.null(rscd_data)) plot(rscd_data$time, rscd_data$hs, type = "l")
 }

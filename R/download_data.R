@@ -47,6 +47,7 @@ get_parameters_raw <- function(
       httr2::req_error(is_error = \(resp) FALSE) |> # Don't auto-error on HTTP errors
       httr2::req_retry(max_tries = 3) |> # Retry transient failures
       httr2::req_timeout(30) |> # 30 second timeout
+      httr2::req_user_agent("Resourcecode R package") |>
       httr2::req_perform(),
     httr2_failure = function(cnd) {
       message(
@@ -133,9 +134,9 @@ get_parameters_raw <- function(
 #' @return a tibble with N-rows and `length(parameters)` columns.
 #' @export
 #'
-#' @examplesIf curl::has_internet()
-#' ts <- get_parameters(parameters = c("hs", "tp"), node = 42)
-#' plot(ts$time, ts$hs, type = "l")
+#' @examples
+#' rscd_data <- get_parameters(parameters = c("hs", "tp"), node = 42)
+#' if(!is.null(rscd_data)) plot(rscd_data$time, rscd_data$hs, type = "l")
 get_parameters <- function(
   parameters = "hs",
   node = 42,

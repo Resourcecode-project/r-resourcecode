@@ -240,12 +240,14 @@ get_1d_spectrum_raw <- function(point, year, month) {
 #' }
 #' @export
 #'
-#' @examplesIf curl::has_internet()
+#' @examples
 #' spec2D <- get_2d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
-#' image(spec2D$dir, spec2D$freq, spec2D$efth[, , 1],
-#'   xlab = "Direction (°)",
-#'   ylab = "Frequency (Hz"
-#' )
+#' if(!is.null(spec2D)){
+#'   image(spec2D$dir, spec2D$freq, spec2D$efth[, , 1],
+#'     xlab = "Direction (°)",
+#'     ylab = "Frequency (Hz"
+#'   )
+#' }
 get_2d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
   stopifnot(length(point) == 1)
 
@@ -364,17 +366,19 @@ get_2d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
 #' }
 #' @export
 #'
-#' @examplesIf curl::has_internet()
+#' @examples
 #' spec1D <- get_1d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
-#' r <- as.POSIXct(round(range(spec1D$forcings$time), "month"))
-#' image(spec1D$forcings$time, spec1D$freq, t(spec1D$ef),
-#'   xaxt = "n", xlab = "Time",
-#'   ylab = "Frequency (Hz)"
-#' )
-#' axis.POSIXct(1, spec1D$forcings$time,
-#'   at = seq(r[1], r[2], by = "week"),
-#'   format = "%Y-%m-%d", las = 2
-#' )
+#' if(!is.null(spec1D)){
+#'   r <- as.POSIXct(round(range(spec1D$forcings$time), "month"))
+#'   image(spec1D$forcings$time, spec1D$freq, t(spec1D$ef),
+#'     xaxt = "n", xlab = "Time",
+#'     ylab = "Frequency (Hz)"
+#'   )
+#'   axis.POSIXct(1, spec1D$forcings$time,
+#'     at = seq(r[1], r[2], by = "week"),
+#'     format = "%Y-%m-%d", las = 2
+#'   )
+#' }
 get_1d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
   stopifnot(length(point) == 1)
 
