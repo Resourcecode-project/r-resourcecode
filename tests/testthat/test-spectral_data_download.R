@@ -1,6 +1,6 @@
 # Tests for get_1d_spectrum()
 test_that("get_1d_spectrum retrieves data successfully", {
-  #vcr::local_cassette("get_1d_spectrum_basic", match_requests_on = c("method", "uri", "path", "body"))
+  #vcr::local_cassette("get_1d_spectrum_basic")
 
   spec <- get_1d_spectrum(
     "SEMREVO",
