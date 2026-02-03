@@ -164,20 +164,20 @@ node
 #>         [,1]
 #> [1,] 288.974
 ts <- get_parameters(node = node$point, parameters = c("hs", "tp", "dp", "cge"))
-ggplot(tidyr::pivot_longer(ts, -1), aes(x = time, y = value, col = name)) +
-  geom_line() +
-  coord_cartesian(expand = FALSE) +
-  facet_wrap(~name, ncol = 2, scales = "free_y") +
-  scale_x_datetime(name = NULL, date_breaks = "month") +
-  scale_y_continuous(name = NULL) +
-  theme_minimal() +
-  theme(
-    legend.position = "none",
-    axis.text.x = element_text(angle = 60, hjust = 1)
-  )
+if (!is.null(ts)) {
+  ggplot(tidyr::pivot_longer(ts, -1), aes(x = time, y = value, col = name)) +
+    geom_line() +
+    coord_cartesian(expand = FALSE) +
+    facet_wrap(~name, ncol = 2, scales = "free_y") +
+    scale_x_datetime(name = NULL, date_breaks = "month") +
+    scale_y_continuous(name = NULL) +
+    theme_minimal() +
+    theme(
+      legend.position = "none",
+      axis.text.x = element_text(angle = 60, hjust = 1)
+    )
+}
 ```
-
-![](resourcecode_files/figure-html/unnamed-chunk-8-1.png)
 
 - 1D and 2D spectra of the SPEC grid can be downloaded directly from
   IFREMER FTP using functions `get_1Dspectrum()` and `get_2Dspectrum()`.
@@ -269,7 +269,7 @@ spectra for any given time, which can be specified by the time index or
 directly the date:
 
 ``` r
-plot_2d_specta(spec_2d, "1994-01-15 18:00")
+if (!is.null(spec_2d)) plot_2d_specta(spec_2d, "1994-01-15 18:00")
 ```
 
 ![](resourcecode_files/figure-html/unnamed-chunk-12-1.png)

@@ -108,8 +108,10 @@ A list with 9 elements:
 
 ``` r
 spec2D <- get_2d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
-image(spec2D$dir, spec2D$freq, spec2D$efth[, , 1],
-  xlab = "Direction (°)",
-  ylab = "Frequency (Hz"
-)
+if(!is.null(spec2D)){
+  image(spec2D$dir, spec2D$freq, spec2D$efth[, , 1],
+    xlab = "Direction (°)",
+    ylab = "Frequency (Hz"
+  )
+}
 ```

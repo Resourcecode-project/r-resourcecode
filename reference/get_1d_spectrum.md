@@ -136,13 +136,15 @@ A list with 12 elements:
 
 ``` r
 spec1D <- get_1d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
-r <- as.POSIXct(round(range(spec1D$forcings$time), "month"))
-image(spec1D$forcings$time, spec1D$freq, t(spec1D$ef),
-  xaxt = "n", xlab = "Time",
-  ylab = "Frequency (Hz)"
-)
-axis.POSIXct(1, spec1D$forcings$time,
-  at = seq(r[1], r[2], by = "week"),
-  format = "%Y-%m-%d", las = 2
-)
+if(!is.null(spec1D)){
+  r <- as.POSIXct(round(range(spec1D$forcings$time), "month"))
+  image(spec1D$forcings$time, spec1D$freq, t(spec1D$ef),
+    xaxt = "n", xlab = "Time",
+    ylab = "Frequency (Hz)"
+  )
+  axis.POSIXct(1, spec1D$forcings$time,
+    at = seq(r[1], r[2], by = "week"),
+    format = "%Y-%m-%d", las = 2
+  )
+}
 ```

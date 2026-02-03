@@ -2,8 +2,10 @@
 
 ## resourcecode (development version)
 
-- Custom labels are now handeled properly in
+- Custom labels are now handled properly in
   [`cut_seasons()`](https://resourcecode-project.github.io/r-resourcecode/reference/cut_seasons.md)
+  ;
+- Switch to {httr2} to download files and API request.
 
 ## resourcecode 0.5.2
 
