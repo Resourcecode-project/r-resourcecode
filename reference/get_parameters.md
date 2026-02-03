@@ -40,7 +40,5 @@ a tibble with N-rows and `length(parameters)` columns.
 
 ``` r
 rscd_data <- get_parameters(parameters = c("hs", "tp"), node = 42)
-#> Network error: Could not connect to the remote resource. The server may be unavailable.
-#> Failed to retrieve parameter: hs
 if(!is.null(rscd_data)) plot(rscd_data$time, rscd_data$hs, type = "l")
 ```

@@ -32,8 +32,6 @@ rscd_params <- get_parameters(
   end = "1994-01-31 23:00:00",
   parameters = c("hs", "tp")
 )
-#> HTTP error 404: Not Found
-#> Failed to retrieve parameter: hs
 spec <- resourcecodedata::rscd_1d_spectra
 param_calc <- compute_sea_state_1d_spectrum(spec)
 oldpar <- par(mfcol = c(2, 1))

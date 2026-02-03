@@ -179,6 +179,8 @@ if (!is.null(ts)) {
 }
 ```
 
+![](resourcecode_files/figure-html/unnamed-chunk-8-1.png)
+
 - 1D and 2D spectra of the SPEC grid can be downloaded directly from
   IFREMER FTP using functions `get_1Dspectrum()` and `get_2Dspectrum()`.
   We also provide a plotting function for the 2D spectrum.
