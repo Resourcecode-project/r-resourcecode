@@ -7,36 +7,32 @@
 #'
 #' @noRd
 #' @keywords internal
-download_nc_data <- function(url, destfile) {
-  # Ensure destfile exists only if successful
-  success <- tryCatch(
+download_nc <- function(url, destfile) {
+  tryCatch(
     {
-      curl::curl_download(url, destfile = destfile, mode = "wb")
-      TRUE
+      req <- httr2::request(url) |>
+        httr2::req_error(is_error = \(resp) FALSE) |> # Don't auto-error on HTTP errors
+        httr2::req_retry(max_tries = 3) |> # Retry transient failures
+        httr2::req_timeout(60) |>
+        httr2::req_user_agent("Resourcecode R package") |>
+        httr2::req_error(is_error = ~ .x$status_code >= 400)
+
+      httr2::req_perform(req, path = destfile)
+
+      if (!file.exists(destfile)) {
+        return(NULL)
+      }
+
+      destfile
     },
     error = function(e) {
-      message(
-        "Could not download spectral data.
-              The remote server may be unavailable or the URL may have changed."
-      )
-      FALSE
-    },
-    warning = function(w) {
-      message(
-        "A warning occurred while downloading the spectral data.
-              The resource may have changed.\n",
-        w
-      )
-      FALSE
+      message("Download failed: ", conditionMessage(e))
+      if (file.exists(destfile)) {
+        file.remove(destfile)
+      }
+      NULL
     }
   )
-
-  # If download failed, return NULL (do not leave partial file)
-  if (!success || !file.exists(destfile)) {
-    NULL
-  } else {
-    destfile
-  }
 }
 
 
@@ -68,7 +64,7 @@ get_2d_spectrum_raw <- function(point, year, month) {
 
   temp <- tempfile(fileext = ".nc")
 
-  file <- download_nc_data(url, temp)
+  file <- download_nc(url, temp)
 
   if (is.null(file)) {
     message(
@@ -145,7 +141,7 @@ get_1d_spectrum_raw <- function(point, year, month) {
   )
   temp <- tempfile(fileext = ".nc")
 
-  file <- download_nc_data(url, temp)
+  file <- download_nc(url, temp)
 
   if (is.null(file)) {
     message(
@@ -247,12 +243,14 @@ get_1d_spectrum_raw <- function(point, year, month) {
 #' }
 #' @export
 #'
-#' @examplesIf curl::has_internet()
+#' @examples
 #' spec2D <- get_2d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
-#' image(spec2D$dir, spec2D$freq, spec2D$efth[, , 1],
-#'   xlab = "Direction (°)",
-#'   ylab = "Frequency (Hz"
-#' )
+#' if(!is.null(spec2D)){
+#'   image(spec2D$dir, spec2D$freq, spec2D$efth[, , 1],
+#'     xlab = "Direction (°)",
+#'     ylab = "Frequency (Hz"
+#'   )
+#' }
 get_2d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
   stopifnot(length(point) == 1)
 
@@ -294,8 +292,35 @@ get_2d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
 
   out <- get_2d_spectrum_raw(point, years[1], months[1])
 
+  if (is.null(out)) {
+    message(
+      "Failed to download data for ",
+      point,
+      " (",
+      years[1],
+      "-",
+      months[1],
+      ")"
+    )
+    return(NULL)
+  }
+
   for (m in seq_along(years[-1])) {
     temp <- get_2d_spectrum_raw(point, years[m + 1], months[m + 1])
+
+    if (is.null(temp)) {
+      message(
+        "Failed to download data for ",
+        point,
+        " (",
+        years[m + 1],
+        "-",
+        months[m + 1],
+        ")"
+      )
+      return(NULL)
+    }
+
     out$efth <- abind::abind(out$efth, temp$efth, along = 3)
     out$forcings <- rbind(out$forcings, temp$forcings)
   }
@@ -344,17 +369,19 @@ get_2d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
 #' }
 #' @export
 #'
-#' @examplesIf curl::has_internet()
+#' @examples
 #' spec1D <- get_1d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
-#' r <- as.POSIXct(round(range(spec1D$forcings$time), "month"))
-#' image(spec1D$forcings$time, spec1D$freq, t(spec1D$ef),
-#'   xaxt = "n", xlab = "Time",
-#'   ylab = "Frequency (Hz)"
-#' )
-#' axis.POSIXct(1, spec1D$forcings$time,
-#'   at = seq(r[1], r[2], by = "week"),
-#'   format = "%Y-%m-%d", las = 2
-#' )
+#' if(!is.null(spec1D)){
+#'   r <- as.POSIXct(round(range(spec1D$forcings$time), "month"))
+#'   image(spec1D$forcings$time, spec1D$freq, t(spec1D$ef),
+#'     xaxt = "n", xlab = "Time",
+#'     ylab = "Frequency (Hz)"
+#'   )
+#'   axis.POSIXct(1, spec1D$forcings$time,
+#'     at = seq(r[1], r[2], by = "week"),
+#'     format = "%Y-%m-%d", las = 2
+#'   )
+#' }
 get_1d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
   stopifnot(length(point) == 1)
 
@@ -396,8 +423,35 @@ get_1d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
 
   out <- get_1d_spectrum_raw(point, years[1], months[1])
 
+  if (is.null(out)) {
+    message(
+      "Failed to download data for ",
+      point,
+      " (",
+      years[1],
+      "-",
+      months[1],
+      ")"
+    )
+    return(NULL)
+  }
+
   for (m in seq_along(years[-1])) {
     temp <- get_1d_spectrum_raw(point, years[m + 1], months[m + 1])
+
+    if (is.null(temp)) {
+      message(
+        "Failed to download data for ",
+        point,
+        " (",
+        years[m + 1],
+        "-",
+        months[m + 1],
+        ")"
+      )
+      return(NULL)
+    }
+
     out$ef <- abind::abind(out$ef, temp$ef, along = 2)
     out$th1m <- abind::abind(out$th1m, temp$th1m, along = 2)
     out$th2m <- abind::abind(out$th2m, temp$th2m, along = 2)

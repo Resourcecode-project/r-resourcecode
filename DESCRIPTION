@@ -20,12 +20,11 @@ Depends:
     R (>= 3.6)
 Imports: 
     abind,
-    curl,
     geosphere,
     ggplot2,
     grid,
     gridtext,
-    jsonlite,
+    httr2,
     lubridate,
     ncdf4,
     patchwork,
@@ -41,7 +40,8 @@ Suggests:
     knitr,
     mockery,
     rmarkdown,
-    testthat
+    testthat,
+    vcr
 LinkingTo: 
     Rcpp,
     RcppArmadillo
