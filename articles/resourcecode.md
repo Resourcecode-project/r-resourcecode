@@ -8,22 +8,6 @@ sea-states. More information on the database can be found
 vignette the way to retrieve data from this database and some the
 functionalities offered by this package.
 
-This package depends on data in a data package
-[resourcecodedata](https://github.com/Resourcecode-project/r-resourcecodedata/)
-that is available through a `drat` repository on GitHub. To use the
-[resourcecode](https://github.com/Resourcecode-project/r-resourcecode)
-package, you will need to install
-[resourcecodedata](https://github.com/Resourcecode-project/r-resourcecodedata/)
-on your computer, using the following `install.packages` function (and
-later update it using the `update.packages` function):
-
-``` r
-install.packages("resourcecodedata",
-  repos = "https://resourcecode-project.github.io/drat/",
-  type = "source"
-)
-```
-
 Once the packages are installed, we can proceed as usual:
 
 ``` r
@@ -100,7 +84,7 @@ field_bzh <- ggplot(rscd_field, aes(x = longitude, y = latitude)) +
 field_bzh
 ```
 
-![](resourcecode_files/figure-html/unnamed-chunk-5-1.png)
+![](resourcecode_files/figure-html/unnamed-chunk-4-1.png)
 
 - **SPEC** grid
 
@@ -130,7 +114,7 @@ head(rscd_spectral)
 field_bzh + geom_point(data = rscd_spectral, col = "orange", size = .1)
 ```
 
-![](resourcecode_files/figure-html/unnamed-chunk-7-1.png)
+![](resourcecode_files/figure-html/unnamed-chunk-6-1.png)
 
 - Helpers to find points
 
@@ -179,7 +163,7 @@ if (!is.null(ts)) {
 }
 ```
 
-![](resourcecode_files/figure-html/unnamed-chunk-8-1.png)
+![](resourcecode_files/figure-html/unnamed-chunk-7-1.png)
 
 - 1D and 2D spectra of the SPEC grid can be downloaded directly from
   IFREMER FTP using functions `get_1Dspectrum()` and `get_2Dspectrum()`.
@@ -195,75 +179,23 @@ these downloaded data.
 ``` r
 spec_1d <- get_1d_spectrum(node_spectral_grid$point, start = "1994-01-01", end = "1994-02-28")
 str(spec_1d)
-#> List of 12
-#>  $ longitude : num -4.68
-#>  $ latitude  : num 48.3
-#>  $ frequency1: num [1:36(1d)] 0.0339 0.0356 0.0392 0.0431 0.0474 ...
-#>  $ frequency2: num [1:36(1d)] 0.0356 0.0392 0.0431 0.0474 0.0521 ...
-#>  $ ef        : num [1:36, 1:1416] 0.000526 0.0028 0.009767 0.145907 1.126401 ...
-#>   ..- attr(*, "dimnames")=List of 2
-#>   .. ..$ : NULL
-#>   .. ..$ : NULL
-#>  $ th1m      : num [1:36, 1:1416] 202 203 205 226 230 ...
-#>   ..- attr(*, "dimnames")=List of 2
-#>   .. ..$ : NULL
-#>   .. ..$ : NULL
-#>  $ th2m      : num [1:36, 1:1416] 202 203 205 180 180 ...
-#>   ..- attr(*, "dimnames")=List of 2
-#>   .. ..$ : NULL
-#>   .. ..$ : NULL
-#>  $ sth1m     : num [1:36, 1:1416] 13.5 13.9 14.5 16.6 14.7 ...
-#>   ..- attr(*, "dimnames")=List of 2
-#>   .. ..$ : NULL
-#>   .. ..$ : NULL
-#>  $ sth2m     : num [1:36, 1:1416] 26.1 26.8 28 32.2 28.7 ...
-#>   ..- attr(*, "dimnames")=List of 2
-#>   .. ..$ : NULL
-#>   .. ..$ : NULL
-#>  $ freq      : num [1:36(1d)] 0.0339 0.0373 0.041 0.0451 0.0496 ...
-#>  $ forcings  : tibble [1,416 × 14] (S3: tbl_df/tbl/data.frame)
-#>   ..$ time  : POSIXct[1:1416], format: "1994-01-01 00:00:00" "1994-01-01 01:00:00" ...
-#>   ..$ dpt   : num [1:1416] 27 27.5 29 30.5 31.5 32.5 32.5 32 31 29.5 ...
-#>   ..$ wnd   : num [1:1416] 12.2 11.6 10.8 10.9 10.8 ...
-#>   ..$ wnddir: num [1:1416] 301 299 298 295 294 ...
-#>   ..$ cur   : num [1:1416] 0.1 0.2 0.3 0.4 0.3 ...
-#>   ..$ curdir: num [1:1416] 325 27.5 41.2 48.6 55.9 ...
-#>   ..$ hs    : num [1:1416] 3.02 3.11 3.23 3.35 3.43 ...
-#>   ..$ fp    : num [1:1416] 0.0672 0.067 0.0671 0.0672 0.0727 ...
-#>   ..$ f02   : num [1:1416] 0.132 0.129 0.124 0.121 0.12 ...
-#>   ..$ f0m1  : num [1:1416] 0.0905 0.0882 0.0864 0.0858 0.0862 ...
-#>   ..$ th1p  : num [1:1416] 234 234 235 237 238 ...
-#>   ..$ sth1p : num [1:1416] 13.4 13.3 13.1 12.9 12.7 ...
-#>   ..$ dir   : num [1:1416] 239 239 239 240 241 ...
-#>   ..$ spr   : num [1:1416] 19.6 19.5 18.8 18 17.4 ...
-#>  $ station   : chr "W004679N48304"
 ```
 
-The same applies to 2D spectra.
+We also provide in the package
+[resourcecodedata](https://github.com/Resourcecode-project/r-resourcecodedata/)
+pre-loaded time series of 1D spectra, mainly for testing and example
+purpose:
+
+``` r
+spec_1d <- resourcecodedata::rscd_1d_spectra
+str(spec_1d)
+```
+
+The same applies to 2D spectra:
 
 ``` r
 spec_2d <- get_2d_spectrum(node_spectral_grid$point, start = "1994-01-01", end = "1994-02-28")
-str(spec_2d)
-#> List of 9
-#>  $ longitude : num -4.68
-#>  $ latitude  : num 48.3
-#>  $ frequency1: num [1:36(1d)] 0.0339 0.0356 0.0392 0.0431 0.0474 ...
-#>  $ frequency2: num [1:36(1d)] 0.0356 0.0392 0.0431 0.0474 0.0521 ...
-#>  $ efth      : num [1:36, 1:36, 1:1416] 0.00024 0.000629 0.000872 0.000705 0.000423 ...
-#>   ..- attr(*, "dimnames")=List of 3
-#>   .. ..$ : NULL
-#>   .. ..$ : NULL
-#>   .. ..$ : NULL
-#>  $ freq      : num [1:36(1d)] 0.0339 0.0373 0.041 0.0451 0.0496 ...
-#>  $ dir       : num [1:36(1d)] 0 10 20 30 40 50 60 70 80 90 ...
-#>  $ forcings  : tibble [1,416 × 6] (S3: tbl_df/tbl/data.frame)
-#>   ..$ time  : POSIXct[1:1416], format: "1994-01-01 00:00:00" "1994-01-01 01:00:00" ...
-#>   ..$ dpt   : num [1:1416] 27 27.5 29 30.5 31.5 32.5 32.5 32 31 29.5 ...
-#>   ..$ wnd   : num [1:1416] 12.2 11.6 10.8 10.9 10.8 ...
-#>   ..$ wnddir: num [1:1416] 301 299 298 295 294 ...
-#>   ..$ cur   : num [1:1416] 0.1 0.2 0.3 0.4 0.3 ...
-#>   ..$ curdir: num [1:1416] 145 208 221 229 236 ...
-#>  $ station   : chr "W004679N48304"
+str(resourcecodedata::rscd_2d_spectra)
 ```
 
 In addition, it is possible to plot the wave elevation directional
@@ -271,7 +203,7 @@ spectra for any given time, which can be specified by the time index or
 directly the date:
 
 ``` r
-if (!is.null(spec_2d)) plot_2d_specta(spec_2d, "1994-01-15 18:00")
+plot_2d_specta(resourcecodedata::rscd_2d_spectra, "1994-01-15 18:00")
 ```
 
 ![](resourcecode_files/figure-html/unnamed-chunk-12-1.png)
