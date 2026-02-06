@@ -1,11 +1,12 @@
-# resourcecode (development version)
+# resourcecode 0.5.3
 
 - Custom labels are now handled properly in `cut_seasons()` ;
-- Switch to {httr2} to download files and API request.
+- Switch to {httr2} to download files and API request ;
+- Skip plots when the remote database is not available.
 
 # resourcecode 0.5.2
 
-- Give informative message when remote database is not available
+- Give informative message when remote database is not available.
 
 # resourcecode 0.5.1
 

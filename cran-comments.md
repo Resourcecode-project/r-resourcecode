@@ -1,6 +1,6 @@
-This is Resourcecode 0.5.1.
+This is Resourcecode 0.5.3.
 
-This only a patch release to remove dependency on `{latex2exp}`, that is scheduled for archival on 2026-01-03
+This is only a patch release to update the failure message when remote resource is not available.
 
 ## R CMD check results
 
