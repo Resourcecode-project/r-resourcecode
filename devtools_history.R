@@ -114,7 +114,7 @@ devtools::run_examples()
 urlchecker::url_check()
 devtools::build_readme()
 devtools::install()
-testthat::test_dir("tests/testthat/", package = "resourcecode")
+testthat::test_local(".")
 
 # Check content
 # install.packages('checkhelper', repos = 'https://thinkr-open.r-universe.dev')

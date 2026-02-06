@@ -62,7 +62,7 @@ library(resourcecodedata)
 resourcecode::rscd_mapplot(rscd_field$depth, name = "Depth (m)", transform = "sqrt")
 ```
 
-<img src="man/figures/README-bathymetry-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="man/figures/README-bathymetry-1.png" alt="" width="100%" style="display: block; margin: auto;" />
 
 See the variables available in the database:
 
@@ -90,4 +90,4 @@ str(data)
 plot(data, type = "l")
 ```
 
-<img src="man/figures/README-data_fetcher-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="man/figures/README-data_fetcher-1.png" alt="" width="100%" style="display: block; margin: auto;" />
