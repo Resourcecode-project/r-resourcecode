@@ -1,17 +1,18 @@
 # Changelog
 
-## resourcecode (development version)
+## resourcecode 0.5.3
 
 - Custom labels are now handled properly in
   [`cut_seasons()`](https://resourcecode-project.github.io/r-resourcecode/reference/cut_seasons.md)
   ;
-- Switch to {httr2} to download files and API request.
+- Switch to {httr2} to download files and API request ;
+- Skip plots when the remote database is not available.
 
 ## resourcecode 0.5.2
 
 CRAN release: 2026-01-09
 
-- Give informative message when remote database is not available
+- Give informative message when remote database is not available.
 
 ## resourcecode 0.5.1
 
