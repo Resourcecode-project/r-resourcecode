@@ -72,5 +72,5 @@ Download a time series of significant wave height next to the coast of Finistèr
 ```{r data_fetcher, fig.retina=3}
 data <- get_parameters(node = "134865", parameters = "hs")
 str(data)
-plot(data, type = "l")
+if (!is.null(data)) plot(data, type = "l")
 ```
