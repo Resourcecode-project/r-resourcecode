@@ -78,7 +78,7 @@ str(data)
 #>  $ time: POSIXct[1:8760], format: "1994-01-01 00:00:00" "1994-01-01 01:00:00" ...
 #>  $ hs  : num [1:8760] 4.82 4.98 5.19 5.37 5.48 ...
 #>  - attr(*, "node")= num 134864
-plot(data, type = "l")
+if (!is.null(data)) plot(data, type = "l")
 ```
 
 ![](reference/figures/README-data_fetcher-1.png)
