@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/Resourcecode-project/r-resourcecode/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/Resourcecode-project/r-resourcecode/blob/v0.5.3/inst/CITATION)
 
 Raillard N (????). *resourcecode: R package to access and process the
 Resourcecode hindcast database of sea-states*. R package version 0.5.3,
