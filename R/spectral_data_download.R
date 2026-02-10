@@ -243,7 +243,7 @@ get_1d_spectrum_raw <- function(point, year, month) {
 #' }
 #' @export
 #'
-#' @examplesIf (identical(Sys.getenv("NOT_CRAN"), "true") || identical(Sys.getenv("IN_PKGDOWN"), "true"))
+#' @examplesIf (identical(Sys.getenv("NOT_CRAN"), "true") || identical(Sys.getenv("IN_PKGDOWN"), "true")) # nolint
 #' spec2D <- get_2d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
 #' if(!is.null(spec2D)){
 #'   image(spec2D$dir, spec2D$freq, spec2D$efth[, , 1],
@@ -369,7 +369,7 @@ get_2d_spectrum <- function(point, start = "1994-01-01", end = "1994-02-28") {
 #' }
 #' @export
 #'
-#' @examplesIf (identical(Sys.getenv("NOT_CRAN"), "true") || identical(Sys.getenv("IN_PKGDOWN"), "true"))
+#' @examplesIf (identical(Sys.getenv("NOT_CRAN"), "true") || identical(Sys.getenv("IN_PKGDOWN"), "true")) # nolint
 #' spec1D <- get_1d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
 #' if(!is.null(spec1D)){
 #'   r <- as.POSIXct(round(range(spec1D$forcings$time), "month"))
