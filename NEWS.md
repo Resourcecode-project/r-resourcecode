@@ -1,5 +1,7 @@
 # resourcecode (development version)
 
+- Add node coordinates as attributes of the output from `get_parameters()` to solve #4;
+
 # resourcecode 0.5.3
 
 - Custom labels are now handled properly in `cut_seasons()` ;

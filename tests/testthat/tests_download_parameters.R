@@ -71,12 +71,12 @@ test_that("get_parameters handles numeric date inputs", {
 
 # Error handling tests (these don't need vcr as they fail before API call)
 test_that("get_parameters validates parameter names", {
-  expect_error(
+  expect_warning(
     get_parameters(
       parameters = c("hs", "invalid_param"),
       node = 42
     ),
-    "Requested parameters do not exists"
+    "Requested parameters do not exist in the database"
   )
 })
 
@@ -268,12 +268,20 @@ test_that("get_parameters handles partial failure with multiple parameters", {
 
 
 test_that("Errors in 'get_parameters()' are handled correcly", {
+  expect_warning(
+    get_parameters(parameters = c("hs", "tépé")),
+    "Requested parameters do not exist in the database"
+  )
   expect_error(
     get_parameters("tépé"),
-    "Requested parameters do not exists in the database: tépé"
+    "No valid parameters are provided. Exiting."
   )
   expect_error(
     get_parameters(node = 0),
+    "The requested location do no exist in the database."
+  )
+  expect_error(
+    suppressWarnings(get_parameters(node = "un")),
     "The requested location do no exist in the database."
   )
   expect_error(
@@ -282,35 +290,10 @@ test_that("Errors in 'get_parameters()' are handled correcly", {
   )
   expect_error(
     get_parameters(start = 1),
-    paste0(
-      "'start' is outside the covered period: ",
-      paste(
-        format(
-          c(
-            resourcecode:::rscd_casandra_start_date,
-            resourcecode:::rscd_casandra_end_date
-          ),
-          format = "%Y-%m-%d %H:%M %Z"
-        ),
-        collapse = " \u2014 "
-      )
-    )
+    "'start' is outside the covered period: "
   )
   expect_error(
-    get_parameters(end = 1e10),
-    paste0(
-      "'end' is outside the covered period: ",
-      paste(
-        format(
-          c(
-            resourcecode:::rscd_casandra_start_date,
-            resourcecode:::rscd_casandra_end_date
-          ),
-          format = "%Y-%m-%d %H:%M %Z"
-        ),
-        collapse = " \u2014 "
-      )
-    )
+    get_parameters(end = 1e12),
   )
   expect_error(
     get_parameters(

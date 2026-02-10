@@ -26,7 +26,7 @@ get_parameters_raw <- function(
   end_str <- strftime(end, format = "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
 
   # Cassandra database start indexing at 1, so decrements node number
-  node <- node - 1
+  node_cassandra <- node - 1
 
   request_url <- paste0(
     rcd_cassandra_url,
@@ -34,7 +34,7 @@ get_parameters_raw <- function(
     "?parameter=",
     single_parameter,
     "&node=",
-    node,
+    node_cassandra,
     "&start=",
     start_str,
     "&end=",
@@ -117,6 +117,8 @@ get_parameters_raw <- function(
     tz = "UTC"
   ) # Convert UNIX time (ms) to POSIXct format
   attr(data, "node") <- node
+  attr(data, "longitude") <- resourcecodedata::rscd_field$longitude[node]
+  attr(data, "latitude") <- resourcecodedata::rscd_field$latitude[node]
   data
 }
 
@@ -143,26 +145,48 @@ get_parameters <- function(
   start = as.POSIXct("1994-01-01 00:00:00", tz = "UTC"),
   end = as.POSIXct("1994-12-31 23:00:00", tz = "UTC")
 ) {
-  parameters <- tolower(parameters)
+  valid_parameters <- tolower(parameters)
 
-  if (any(parameters %nin% c("tp", resourcecodedata::rscd_variables$name))) {
-    errors <- parameters[
-      parameters %nin% c("tp", resourcecodedata::rscd_variables$name)
+  if (any(c("lon", "longitude", "lat", "latitude") %in% valid_parameters)) {
+    valid_parameters = valid_parameters[
+      valid_parameters %nin% c("lon", "longitude", "lat", "latitude")
     ]
-    stop(
-      "Requested parameters do not exists in the database: ",
-      paste0(errors, collapse = ", "),
-      "."
+    warning(
+      "Coordinates are given as attributes of the resulting data.frame and should not be requested."
     )
+  }
+
+  if (length(valid_parameters) == 0) {
+    rlang::abort("No valid parameters are provided. Exiting.")
+  }
+
+  if (
+    any(valid_parameters %nin% c("tp", resourcecodedata::rscd_variables$name))
+  ) {
+    errors <- valid_parameters[
+      valid_parameters %nin% c("tp", resourcecodedata::rscd_variables$name)
+    ]
+    valid_parameters = valid_parameters[
+      valid_parameters %in% c("tp", resourcecodedata::rscd_variables$name)
+    ]
+    if (length(valid_parameters) == 0) {
+      rlang::abort("No valid parameters are provided. Exiting.")
+    } else {
+      warning(
+        "Requested parameters do not exist in the database and are ignored: ",
+        paste0(errors, collapse = ", "),
+        "."
+      )
+    }
   }
 
   node <- as.integer(node)
 
   if (length(node) != 1) {
-    stop("The function can retreive only one location a time.")
+    rlang::abort("The function can retreive only one location a time.")
   }
   if (node %nin% resourcecodedata::rscd_field$node) {
-    stop("The requested location do no exist in the database.")
+    rlang::abort("The requested location do no exist in the database.")
   }
 
   if (is.character(start)) {
@@ -216,7 +240,7 @@ get_parameters <- function(
   }
 
   out <- get_parameters_raw(
-    parameters[1],
+    valid_parameters[1],
     node = node,
     start = start,
     end = end
@@ -224,13 +248,13 @@ get_parameters <- function(
 
   # If first parameter retrieval failed, return NULL
   if (is.null(out)) {
-    message("Failed to retrieve parameter: ", parameters[1])
+    message("Failed to retrieve parameter: ", valid_parameters[1])
     return(NULL)
   }
 
-  for (i in seq_len(length(parameters) - 1)) {
+  for (i in seq_len(length(valid_parameters) - 1)) {
     temp <- get_parameters_raw(
-      parameters[i + 1],
+      valid_parameters[i + 1],
       node = node,
       start = start,
       end = end
@@ -238,11 +262,11 @@ get_parameters <- function(
 
     # If any subsequent parameter retrieval fails, return NULL
     if (is.null(temp)) {
-      message("Failed to retrieve parameter: ", parameters[i + 1])
+      message("Failed to retrieve parameter: ", valid_parameters[i + 1])
       return(NULL)
     }
 
-    out <- cbind.data.frame(out, temp[, 2])
+    out[valid_parameters[i + 1]] <- temp[2]
   }
   out
 }

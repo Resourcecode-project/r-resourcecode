@@ -83,10 +83,12 @@ Finistère:
 ``` r
 data <- get_parameters(node = "134865", parameters = "hs")
 str(data)
-#> tibble [8,760 × 2] (S3: tbl_df/tbl/data.frame)
+#> tibble [8,760 x 2] (S3: tbl_df/tbl/data.frame)
 #>  $ time: POSIXct[1:8760], format: "1994-01-01 00:00:00" "1994-01-01 01:00:00" ...
 #>  $ hs  : num [1:8760] 4.82 4.98 5.19 5.37 5.48 ...
-#>  - attr(*, "node")= num 134864
+#>  - attr(*, "node")= int 134865
+#>  - attr(*, "longitude")= num -4.96
+#>  - attr(*, "latitude")= num 48.3
 if (!is.null(data)) plot(data, type = "l")
 ```
 

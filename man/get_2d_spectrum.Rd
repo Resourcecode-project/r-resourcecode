@@ -44,11 +44,13 @@ A list with 9 elements:
 Download the 2D spectrum data from IFREMER ftp
 }
 \examples{
+\dontshow{if ((identical(Sys.getenv("NOT_CRAN"), "true") || identical(Sys.getenv("IN_PKGDOWN"), "true"))) withAutoprint(\{ # examplesIf}
 spec2D <- get_2d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
 if(!is.null(spec2D)){
   image(spec2D$dir, spec2D$freq, spec2D$efth[, , 1],
-    xlab = "Direction (°)",
-    ylab = "Frequency (Hz"
+    xlab = "Direction (\u00B0)",
+    ylab = "Frequency (Hz)"
   )
 }
+\dontshow{\}) # examplesIf}
 }

@@ -51,6 +51,7 @@ A list with 12 elements:
 Download the 1D spectrum data from IFREMER ftp
 }
 \examples{
+\dontshow{if ((identical(Sys.getenv("NOT_CRAN"), "true") || identical(Sys.getenv("IN_PKGDOWN"), "true"))) withAutoprint(\{ # examplesIf}
 spec1D <- get_1d_spectrum("SEMREVO", start = "1994-01-01", end = "1994-02-28")
 if(!is.null(spec1D)){
   r <- as.POSIXct(round(range(spec1D$forcings$time), "month"))
@@ -63,4 +64,5 @@ if(!is.null(spec1D)){
     format = "\%Y-\%m-\%d", las = 2
   )
 }
+\dontshow{\}) # examplesIf}
 }
