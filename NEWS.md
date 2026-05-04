@@ -1,5 +1,7 @@
 # resourcecode (development version)
 
+- `get_parameters` now correctly handles `Date` format as inputs by spanning on the right period
+
 # resourcecode 0.5.3
 
 - Custom labels are now handled properly in `cut_seasons()` ;
