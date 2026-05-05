@@ -3,6 +3,12 @@ usethis::use_gpl3_license()
 usethis::use_readme_md()
 usethis::use_news_md()
 
+usethis::use_description()
+
+usethis::use_build_ignore("dev/")
+usethis::use_git()
+usethis::use_github()
+
 # This data now lives in the {resourcecodedata} package
 #
 # rscd_field = as.data.frame(arrow::read_feather("\\\\datawork\\datawork-resourcecode\\EFTP\\RESULTS\\stats\\grid_FIELD.arrow"))
@@ -22,13 +28,6 @@ rscd_data_example = resourcecode::get_parameters(
   parameters = c("hs", "tp", "dp", "uwnd", "vwnd", "dpt")
 )
 usethis::use_data(rscd_data_example, version = 3, overwrite = TRUE)
-tools::resaveRdaFiles("data/")
-
-usethis::use_description()
-
-usethis::use_build_ignore("dev/")
-usethis::use_git()
-usethis::use_github()
 
 rcd_cassandra_url = "https://resourcecode-datacharts.ifremer.fr/"
 rscd_hindcast_start_date = as.POSIXct("1994-01-01 00:00:00", tz = 'UTC')
@@ -37,19 +36,22 @@ rscd_hindcast_end_date = as.POSIXct("2024-12-31 23:00:00", tz = 'UTC')
 rscd_casandra_start_date = as.POSIXct("1994-01-01 00:00:00", tz = 'UTC')
 rscd_casandra_end_date = as.POSIXct("2025-12-31 23:00:00", tz = 'UTC')
 
+rscd_freq <- array(0.0339 * 1.1^(0:35))
+rscd_dir <- array(seq(from = 0, to = 350, by = 10))
+
 usethis::use_data(
   rcd_cassandra_url,
   rscd_hindcast_start_date,
   rscd_hindcast_end_date,
   rscd_casandra_start_date,
   rscd_casandra_end_date,
-  #rscd_freq,
-  #rscd_dir,
+  rscd_freq,
+  rscd_dir,
   internal = TRUE,
   version = 3,
   overwrite = TRUE
 )
-
+tools::resaveRdaFiles("data/")
 
 #set up automatic "check" on several plateforms
 usethis::use_github_action()
