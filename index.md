@@ -15,6 +15,7 @@ The
 package is on CRAN so you can simply run :
 
 ``` r
+
 install.packages("resourcecode")
 ```
 
@@ -24,6 +25,7 @@ thanks to
 [r-universe](https://resourcecode-project.r-universe.dev/resourcecode):
 
 ``` r
+
 install.packages("resourcecode",
   repos = c(
     "https://resourcecode-project.r-universe.dev",
@@ -35,6 +37,7 @@ install.packages("resourcecode",
 or using the classical:
 
 ``` r
+
 devtools::install_github("Resourcecode-project/r-resourcecode")
 ```
 
@@ -48,6 +51,7 @@ package for the first time.
 Plot the bathymetry used in the project
 
 ``` r
+
 library(resourcecode)
 library(resourcecodedata)
 resourcecode::rscd_mapplot(rscd_field$depth, name = "Depth (m)", transform = "sqrt")
@@ -58,6 +62,7 @@ resourcecode::rscd_mapplot(rscd_field$depth, name = "Depth (m)", transform = "sq
 See the variables available in the database:
 
 ``` r
+
 head(rscd_variables)
 #>        name         longname         unit
 #> 1 longitude        longitude  degree_east
@@ -72,6 +77,7 @@ Download a time series of significant wave height next to the coast of
 Finistère:
 
 ``` r
+
 data <- get_parameters(node = "134865", parameters = "hs")
 str(data)
 #> tibble [8,760 × 2] (S3: tbl_df/tbl/data.frame)

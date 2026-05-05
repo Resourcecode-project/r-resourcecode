@@ -11,6 +11,7 @@ functionalities offered by this package.
 Once the packages are installed, we can proceed as usual:
 
 ``` r
+
 library(resourcecodedata)
 library(resourcecode)
 library(ggplot2)
@@ -31,6 +32,7 @@ along with the depth of these points and `d50`, the bottom sediment
 type.
 
 ``` r
+
 str(rscd_field)
 #> 'data.frame':    328030 obs. of  5 variables:
 #>  $ node     : int  1 2 3 4 5 6 7 8 9 10 ...
@@ -52,6 +54,7 @@ At each location, a large number of sea-state parameters are available,
 described in `rscd_variables`:
 
 ``` r
+
 str(rscd_variables)
 #> 'data.frame':    88 obs. of  3 variables:
 #>  $ name    : chr  "longitude" "latitude" "tri" "MAPSTA" ...
@@ -73,6 +76,7 @@ It can be noticed here that the variables `rscd_coastline` and
 respectively.
 
 ``` r
+
 lim_lon <- c(-5.25, -4.25)
 lim_lat <- c(47.75, 48.75)
 field_bzh <- ggplot(rscd_field, aes(x = longitude, y = latitude)) +
@@ -93,6 +97,7 @@ nodes where the full 2D spectra are available. The grid can be added to
 the previous plot to see the differences in the spatial coverage.
 
 ``` r
+
 str(rscd_spectral)
 #> 'data.frame':    24276 obs. of  5 variables:
 #>  $ longitude: num  1.5 -5.5 -6 -6.5 -7 4.5 4 3.5 3 2.5 ...
@@ -111,6 +116,7 @@ head(rscd_spectral)
 ```
 
 ``` r
+
 field_bzh + geom_point(data = rscd_spectral, col = "orange", size = .1)
 ```
 
@@ -137,6 +143,7 @@ For example, if one is interested in the time series of sea-state
 parameters at some location, the following code can be adapted:
 
 ``` r
+
 point_of_interest <- c(longitude = -4.6861533, latitude = 48.3026514)
 node <- closest_point_field(point_of_interest)
 node
@@ -170,6 +177,7 @@ if (!is.null(ts)) {
   We also provide a plotting function for the 2D spectrum.
 
 ``` r
+
 node_spectral_grid <- closest_point_spec(point_of_interest)
 ```
 
@@ -177,6 +185,7 @@ Then one can extract the 1D spectrum time-series and see the contents of
 these downloaded data.
 
 ``` r
+
 spec_1d <- get_1d_spectrum(node_spectral_grid$point, start = "1994-01-01", end = "1994-02-28")
 str(spec_1d)
 ```
@@ -187,6 +196,7 @@ pre-loaded time series of 1D spectra, mainly for testing and example
 purpose:
 
 ``` r
+
 spec_1d <- resourcecodedata::rscd_1d_spectra
 str(spec_1d)
 ```
@@ -194,6 +204,7 @@ str(spec_1d)
 The same applies to 2D spectra:
 
 ``` r
+
 spec_2d <- get_2d_spectrum(node_spectral_grid$point, start = "1994-01-01", end = "1994-02-28")
 str(resourcecodedata::rscd_2d_spectra)
 ```
@@ -203,6 +214,7 @@ spectra for any given time, which can be specified by the time index or
 directly the date:
 
 ``` r
+
 plot_2d_specta(resourcecodedata::rscd_2d_spectra, "1994-01-15 18:00")
 ```
 
