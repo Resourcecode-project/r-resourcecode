@@ -186,7 +186,12 @@ get_parameters <- function(
       origin = as.POSIXct("1970-01-01 00:00:00", tz = "UTC")
     )
   }
-
+  if (lubridate::is.Date(start)) {
+    start = as.POSIXct(paste(start, "00:00:00"), tz = "UTC")
+  }
+  if (lubridate::is.Date(end)) {
+    end = as.POSIXct(paste(end, "23:00:00"), tz = "UTC")
+  }
   if (start < rscd_casandra_start_date) {
     stop(
       "'start' is outside the covered period: ",

@@ -1,5 +1,8 @@
 # resourcecode (development version)
 
+- `get_parameters` now correctly handles `Date` format as inputs by spanning on the right period;
+- Update `rscd_casandra_end_date` with new data availability: 2025-12-31 23:00:00.
+
 # resourcecode 0.5.3
 
 - Custom labels are now handled properly in `cut_seasons()` ;

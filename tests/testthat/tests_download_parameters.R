@@ -53,6 +53,19 @@ test_that("get_parameters handles character date inputs", {
   expect_true(nrow(result) > 0)
 })
 
+test_that("get_parameters handles Date format as input", {
+  vcr::local_cassette("Date_dates")
+  result <- get_parameters(
+    parameters = "hs",
+    node = 42,
+    start = as.Date("1994-01-01"),
+    end = as.Date("1994-01-01")
+  )
+
+  expect_s3_class(result, "data.frame")
+  expect_true(nrow(result) > 1)
+})
+
 test_that("get_parameters handles numeric date inputs", {
   vcr::local_cassette("numeric_dates")
   start_num <- as.numeric(as.POSIXct("1994-01-01 00:00:00", tz = "UTC"))
