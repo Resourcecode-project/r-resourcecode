@@ -92,17 +92,10 @@ usethis::use_coverage(type = "codecov")
 devtools::build_readme()
 usethis::use_github_action("test-coverage")
 
-#Rcpp Armadillo for fast multivariate trapz
-usethis::use_rcpp_armadillo("fast_trapz.cpp")
-usethis::use_rcpp("ww_calc_cpp.cpp")
-
-# Lintr checks and GHA
-install.packages("lintr")
-install.packages("styler")
-lintr::use_lintr()
-
-lintr::lint_package()
-usethis::use_github_action("lint")
+#Air formating and GHA
+usethis::use_github_action(
+  url = "https://github.com/posit-dev/setup-air/blob/main/examples/format-suggest.yaml"
+)
 
 devtools::load_all()
 devtools::spell_check()
