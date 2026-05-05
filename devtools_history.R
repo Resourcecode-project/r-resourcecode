@@ -35,7 +35,7 @@ rscd_hindcast_start_date = as.POSIXct("1994-01-01 00:00:00", tz = 'UTC')
 rscd_hindcast_end_date = as.POSIXct("2024-12-31 23:00:00", tz = 'UTC')
 
 rscd_casandra_start_date = as.POSIXct("1994-01-01 00:00:00", tz = 'UTC')
-rscd_casandra_end_date = as.POSIXct("2020-12-31 23:00:00", tz = 'UTC')
+rscd_casandra_end_date = as.POSIXct("2025-12-31 23:00:00", tz = 'UTC')
 
 usethis::use_data(
   rcd_cassandra_url,
@@ -43,8 +43,8 @@ usethis::use_data(
   rscd_hindcast_end_date,
   rscd_casandra_start_date,
   rscd_casandra_end_date,
-  rscd_freq,
-  rscd_dir,
+  #rscd_freq,
+  #rscd_dir,
   internal = TRUE,
   version = 3,
   overwrite = TRUE
