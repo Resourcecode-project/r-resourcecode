@@ -12,7 +12,12 @@
 #'
 #' @return POSIXct vector of detected window start times.
 #' @export
-weather_windows <- function(valid_periods, window_length, allow_overlap = TRUE, time_step = 3600) {
+weather_windows <- function(
+  valid_periods,
+  window_length,
+  allow_overlap = TRUE,
+  time_step = 3600
+) {
   if ("time" %nin% names(valid_periods)) {
     stop("'valid_periods' must be a data frame with a 'time' column (POSIXct)")
   }

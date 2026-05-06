@@ -16,7 +16,7 @@
 #' S <- t(sapply(1:10, function(h) {
 #'   jonswap(h)$spec
 #' }))
-#' orb_speeds <- compute_orbital_speeds(S, rscd_freq, depth = 100, z = 10)
+#' orb_speeds <- compute_orbital_speeds(S, resourcecodedata::rscd_freq, depth = 100, z = 10)
 #' plot(1:10, orb_speeds[, 1],
 #'   type = "l",
 #'   ylim = range(orb_speeds),
@@ -25,11 +25,12 @@
 #' )
 #' lines(1:10, orb_speeds[, 2], type = "l", col = "red")
 compute_orbital_speeds <- function(
-    spec,
-    freq,
-    z = 0,
-    depth = Inf,
-    output_speeds = FALSE) {
+  spec,
+  freq,
+  z = 0,
+  depth = Inf,
+  output_speeds = FALSE
+) {
   # z: distance above sea floor
 
   dims <- dim(spec)
@@ -69,8 +70,8 @@ compute_orbital_speeds <- function(
 
   if (output_speeds) {
     out <- array(NA, dim = c(dim(spectral_u_component), 2))
-    out[, , 1] <- spectral_u_component
-    out[, , 2] <- spectral_v_component
+    out[,, 1] <- spectral_u_component
+    out[,, 2] <- spectral_v_component
     out
   } else {
     u_rms <- sqrt(2 * resourcecode::fastTrapz(freq, spectral_u_component, 2))

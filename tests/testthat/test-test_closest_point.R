@@ -2,7 +2,6 @@
 # Test Suite 1: Input Validation
 # ==============================================================================
 
-
 test_that("Input validation works correctly", {
   # Test ill-formed coordinates input
   expect_error(
@@ -52,13 +51,15 @@ test_that("Unique node selection works", {
     node_test
   )
   expect_equal(closest_point_spec(point_test)$point, spec_test)
-  expect_equal(closest_point_spec(point_test[1], point_test[2])$point, spec_test)
+  expect_equal(
+    closest_point_spec(point_test[1], point_test[2])$point,
+    spec_test
+  )
 })
 
 # ==============================================================================
 # Test Suite 3: Multiple nodes selection
 # ==============================================================================
-
 
 test_that("Multiple nodes selection works", {
   skip_if(!requireNamespace("resourcecodedata", quietly = TRUE))
@@ -72,7 +73,6 @@ test_that("Multiple nodes selection works", {
   )
   node_test <- matrix(c(100, 1000), ncol = 2)
   spec_test <- matrix(c(23045, 22274), ncol = 2)
-
 
   output <- closest_point_field(point_test)
   expect_named(output, c("points", "distances"))
@@ -98,7 +98,6 @@ test_that("Multiple nodes selection works", {
 # Test Suite 4: Several closest points selection
 # ==============================================================================
 
-
 test_that("List of closest nodes selection works", {
   skip_if(!requireNamespace("resourcecodedata", quietly = TRUE))
 
@@ -119,7 +118,11 @@ test_that("List of closest nodes selection works", {
   expect_equal(output$point, node_test)
   expect_true(all(output$distance[, 1] == 0))
 
-  output2 <- closest_point_field(point_test[, 1], point_test[, 2], closest = closest)
+  output2 <- closest_point_field(
+    point_test[, 1],
+    point_test[, 2],
+    closest = closest
+  )
   expect_equal(output2, output)
 
   output_spec <- closest_point_spec(point_test, closest = 3)
@@ -127,6 +130,10 @@ test_that("List of closest nodes selection works", {
   expect_identical(dim(output_spec$points), c(2L, 3L))
   expect_identical(dim(output_spec$distances), c(2L, 3L))
 
-  output2_spec <- closest_point_spec(point_test[, 1], point_test[, 2], closest = 3)
+  output2_spec <- closest_point_spec(
+    point_test[, 1],
+    point_test[, 2],
+    closest = 3
+  )
   expect_equal(output2_spec, output_spec)
 })
