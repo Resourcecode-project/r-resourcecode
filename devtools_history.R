@@ -28,6 +28,7 @@ rscd_data_example = resourcecode::get_parameters(
   parameters = c("hs", "tp", "dp", "uwnd", "vwnd", "dpt")
 )
 usethis::use_data(rscd_data_example, version = 3, overwrite = TRUE)
+tools::resaveRdaFiles("data/")
 
 rcd_cassandra_url = "https://resourcecode-datacharts.ifremer.fr/"
 rscd_hindcast_start_date = as.POSIXct("1994-01-01 00:00:00", tz = 'UTC')
@@ -35,9 +36,6 @@ rscd_hindcast_end_date = as.POSIXct("2024-12-31 23:00:00", tz = 'UTC')
 
 rscd_casandra_start_date = as.POSIXct("1994-01-01 00:00:00", tz = 'UTC')
 rscd_casandra_end_date = as.POSIXct("2025-12-31 23:00:00", tz = 'UTC')
-
-rscd_freq <- array(0.0339 * 1.1^(0:35))
-rscd_dir <- array(seq(from = 0, to = 350, by = 10))
 
 usethis::use_data(
   rcd_cassandra_url,
@@ -51,7 +49,8 @@ usethis::use_data(
   version = 3,
   overwrite = TRUE
 )
-tools::resaveRdaFiles("data/")
+tools::resaveRdaFiles("R/")
+
 
 #set up automatic "check" on several plateforms
 usethis::use_github_action()
@@ -135,7 +134,7 @@ devtools::check_mac_release()
 
 
 # Upgrade version number
-usethis::use_version(which = c("patch", "minor", "major", "dev")[3])
+usethis::use_version(which = c("patch", "minor", "major", "dev")[1])
 
 usethis::use_release_issue()
 

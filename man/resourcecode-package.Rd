@@ -23,5 +23,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Nicolas Raillard \email{nicolas.raillard@ifremer.fr} (\href{https://orcid.org/0000-0003-3385-5104}{ORCID})
 
+Authors:
+\itemize{
+  \item Nicolas Raillard \email{nicolas.raillard@ifremer.fr} (\href{https://orcid.org/0000-0003-3385-5104}{ORCID})
+}
+
 }
 \keyword{internal}

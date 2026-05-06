@@ -1,7 +1,9 @@
 # Helper: create hourly sequence with optional gaps
 make_times <- function(start, end, by = "hour", gaps = NULL) {
   t <- seq.POSIXt(as.POSIXct(start), as.POSIXct(end), by = by)
-  if (!is.null(gaps)) t <- t[-gaps]
+  if (!is.null(gaps)) {
+    t <- t[-gaps]
+  }
   data.frame(time = t)
 }
 
@@ -9,7 +11,12 @@ test_that("'weather_windows()' detects windows correctly with overlap", {
   df <- make_times("2020-01-01 00:00:00", "2020-01-02 23:00:00")
 
   # 24-hour windows, allow overlap
-  res <- weather_windows(df, window_length = 24, allow_overlap = TRUE, time_step = 3600)
+  res <- weather_windows(
+    df,
+    window_length = 24,
+    allow_overlap = TRUE,
+    time_step = 3600
+  )
 
   expect_true(length(res) > 0)
   expect_true(all(res >= df$time[1]))
@@ -20,7 +27,11 @@ test_that("'weather_windows()' respects allow_overlap = FALSE", {
   df <- make_times("2020-01-01 00:00:00", "2020-01-03 23:00:00")
 
   res_overlap <- weather_windows(df, window_length = 24, allow_overlap = TRUE)
-  res_no_overlap <- weather_windows(df, window_length = 24, allow_overlap = FALSE)
+  res_no_overlap <- weather_windows(
+    df,
+    window_length = 24,
+    allow_overlap = FALSE
+  )
 
   expect_true(length(res_overlap) <= length(res_no_overlap))
   expect_true(all(diff(res_overlap, units = "hours") >= 24)) # no overlapping windows
@@ -28,7 +39,11 @@ test_that("'weather_windows()' respects allow_overlap = FALSE", {
 
 test_that("'weather_windows()' handles gaps correctly", {
   # Remove some timestamps to simulate gaps
-  df <- make_times("2020-01-01 00:00:00", "2020-01-02 23:00:00", gaps = c(10, 11, 12))
+  df <- make_times(
+    "2020-01-01 00:00:00",
+    "2020-01-02 23:00:00",
+    gaps = c(10, 11, 12)
+  )
 
   res <- weather_windows(df, window_length = 5, allow_overlap = TRUE)
   # Ensure all returned starts are within the original data
@@ -47,6 +62,11 @@ test_that("'weather_windows()' returns empty for insufficient data", {
 test_that("'weather_windows()' handles non-hourly time_step", {
   df <- make_times("2020-01-01 00:00:00", "2020-01-01 06:00:00", by = "2 hours")
 
-  res <- weather_windows(df, window_length = 4, allow_overlap = TRUE, time_step = 2 * 3600)
+  res <- weather_windows(
+    df,
+    window_length = 4,
+    allow_overlap = TRUE,
+    time_step = 2 * 3600
+  )
   expect_true(length(res) > 0)
 })

@@ -235,7 +235,13 @@ metconv2zmcomp <- function(speed, direction, names = c("uwnd", "vwnd")) {
 #' plot(S1, type = "l", ylim = c(0, 72))
 #' lines(S2, col = "red")
 #' abline(v = 1 / 15)
-jonswap <- function(hs = 5, tp = 15, fmax = rscd_freq, df = NULL, gam = 3.3) {
+jonswap <- function(
+  hs = 5,
+  tp = 15,
+  fmax = resourcecodedata::rscd_freq,
+  df = NULL,
+  gam = 3.3
+) {
   if (length(fmax) > 1) {
     # Case when the frequency vector if given
     freq <- fmax

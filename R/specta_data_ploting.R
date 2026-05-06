@@ -13,8 +13,8 @@
 #' @examples
 #' plot_2d_specta(resourcecodedata::rscd_2d_spectra, 1)
 #' @importFrom ggplot2 ggplot geom_rect scale_x_continuous scale_y_continuous
-#'                     theme_linedraw coord_polar scale_color_distiller scale_fill_distiller
-#'                     labs expansion
+#' @importFrom ggplot2 theme_linedraw coord_polar scale_color_distiller scale_fill_distiller
+#' @importFrom ggplot2 labs expansion
 plot_2d_specta <- function(
   spec,
   time = 1L,
@@ -36,7 +36,7 @@ plot_2d_specta <- function(
   df_freq$frequency2 <- spec$frequency2[df_freq$frequency1]
   df_freq$frequency1 <- spec$frequency1[df_freq$frequency1]
 
-  df <- tibble::tibble(df_freq, ef = c(spec$efth[, , time]))
+  df <- tibble::tibble(df_freq, ef = c(spec$efth[,, time]))
 
   legend_text <- "Power spectrum\n(m^2.s)"
 
@@ -116,8 +116,7 @@ plot_2d_specta <- function(
 #' @examples
 #' plot_1d_specta(resourcecodedata::rscd_1d_spectra, 1)
 #' @importFrom ggplot2 ggplot geom_line scale_x_continuous scale_y_continuous
-#'                     theme_linedraw
-#'                     labs expansion
+#' @importFrom ggplot2 theme_linedraw labs expansion
 plot_1d_specta <- function(
   spec,
   time = 1L,
@@ -136,7 +135,7 @@ plot_1d_specta <- function(
     warning(
       "Frequency vector not provided: using the default Resourcecode frequency vector."
     )
-    freq_plot <- rscd_freq
+    freq_plot <- resourcecodedata::rscd_freq
   } else {
     freq_plot <- spec$freq
   }
