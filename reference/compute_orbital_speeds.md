@@ -47,7 +47,7 @@ of horizontal and vertical components of (spectral) orbital speed.
 S <- t(sapply(1:10, function(h) {
   jonswap(h)$spec
 }))
-orb_speeds <- compute_orbital_speeds(S, rscd_freq, depth = 100, z = 10)
+orb_speeds <- compute_orbital_speeds(S, resourcecodedata::rscd_freq, depth = 100, z = 10)
 plot(1:10, orb_speeds[, 1],
   type = "l",
   ylim = range(orb_speeds),

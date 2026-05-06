@@ -6,7 +6,13 @@ parameters.
 ## Usage
 
 ``` r
-jonswap(hs = 5, tp = 15, fmax = rscd_freq, df = NULL, gam = 3.3)
+jonswap(
+  hs = 5,
+  tp = 15,
+  fmax = resourcecodedata::rscd_freq,
+  df = NULL,
+  gam = 3.3
+)
 ```
 
 ## Arguments

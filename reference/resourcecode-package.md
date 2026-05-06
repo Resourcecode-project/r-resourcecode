@@ -25,3 +25,8 @@ Useful links:
 
 **Maintainer**: Nicolas Raillard <nicolas.raillard@ifremer.fr>
 ([ORCID](https://orcid.org/0000-0003-3385-5104))
+
+Authors:
+
+- Nicolas Raillard <nicolas.raillard@ifremer.fr>
+  ([ORCID](https://orcid.org/0000-0003-3385-5104))

@@ -161,12 +161,6 @@ if (!is.null(data)) plot(data, type = "l")
 - [`rscd_data_example`](https://resourcecode-project.github.io/r-resourcecode/reference/rscd_data_example.md)
   : Resourcecode data extract
 
-- [`rscd_dir`](https://resourcecode-project.github.io/r-resourcecode/reference/rscd_dir.md)
-  : Resourcecode directional bins
-
-- [`rscd_freq`](https://resourcecode-project.github.io/r-resourcecode/reference/rscd_freq.md)
-  : Resourcecode frequency vector of 1D and 2D spectra
-
 - [`rscd_mapplot()`](https://resourcecode-project.github.io/r-resourcecode/reference/rscd_mapplot.md)
   : Create a map of the provided variable on the RESOURCECODE field grid
 
