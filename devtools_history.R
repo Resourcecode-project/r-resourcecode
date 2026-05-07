@@ -138,8 +138,6 @@ usethis::use_version(which = c("patch", "minor", "major", "dev")[1])
 
 usethis::use_release_issue()
 
-devtools::release()
-
 # After the package is accepted:
 usethis::use_github_release()
 usethis::use_dev_version(push = TRUE)
