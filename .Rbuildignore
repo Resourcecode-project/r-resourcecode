@@ -20,3 +20,5 @@
 ^Meta$
 ^tests/testthat/_snaps$
 [.]svg$
+^\.positai$
+^\.claude$
