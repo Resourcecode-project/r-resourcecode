@@ -14,8 +14,6 @@ Useful links:
 
 - <https://github.com/Resourcecode-project/r-resourcecode>
 
-- <https://resourcecode-project.github.io/r-resourcecode/>
-
 - <https://resourcecode-project.r-universe.dev/resourcecode>
 
 - Report bugs at
