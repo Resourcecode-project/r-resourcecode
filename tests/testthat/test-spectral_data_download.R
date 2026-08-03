@@ -1,6 +1,7 @@
 # Tests for get_1d_spectrum()
 test_that("get_1d_spectrum retrieves data successfully", {
   skip_if_offline()
+  skip_on_cran()
 
   spec <- get_1d_spectrum(
     "SEMREVO",
@@ -34,6 +35,7 @@ test_that("get_1d_spectrum retrieves data successfully", {
 test_that("get_1d_spectrum handles numeric node input", {
   #vcr::local_cassette("get_1d_spectrum_numeric_node")
   skip_if_offline()
+  skip_on_cran()
 
   spec_by_name <- get_1d_spectrum(
     "SEMREVO",
@@ -56,6 +58,7 @@ test_that("get_1d_spectrum handles numeric node input", {
 test_that("get_1d_spectrum handles character date inputs", {
   #vcr::local_cassette("get_1d_spectrum_character_dates")
   skip_if_offline()
+  skip_on_cran()
 
   spec <- get_1d_spectrum(
     "SEMREVO",
@@ -70,6 +73,7 @@ test_that("get_1d_spectrum handles character date inputs", {
 test_that("get_1d_spectrum handles numeric (UNIX timestamp) date inputs", {
   # vcr::local_cassette("get_1d_spectrum_numeric_dates")
   skip_if_offline()
+  skip_on_cran()
 
   start_unix <- as.numeric(as.POSIXct("1994-01-01", tz = "UTC"))
   end_unix <- as.numeric(as.POSIXct("1994-01-31", tz = "UTC"))
@@ -87,6 +91,7 @@ test_that("get_1d_spectrum handles numeric (UNIX timestamp) date inputs", {
 test_that("get_1d_spectrum handles multi-month requests", {
   # vcr::local_cassette("get_1d_spectrum_multi_month")
   skip_if_offline()
+  skip_on_cran()
 
   spec <- get_1d_spectrum(
     "SEMREVO",
@@ -102,6 +107,7 @@ test_that("get_1d_spectrum handles multi-month requests", {
 test_that("get_1d_spectrum validates forcings data structure", {
   # vcr::local_cassette("get_1d_spectrum_forcings_structure")
   skip_if_offline()
+  skip_on_cran()
 
   spec <- get_1d_spectrum(
     "SEMREVO",
@@ -135,6 +141,7 @@ test_that("get_1d_spectrum validates forcings data structure", {
 test_that("get_1d_spectrum validates spectral arrays dimensions", {
   # vcr::local_cassette("get_1d_spectrum_array_dimensions")
   skip_if_offline()
+  skip_on_cran()
 
   spec <- get_1d_spectrum(
     "SEMREVO",
@@ -228,6 +235,7 @@ test_that("get_1d_spectrum fails gracefully when first download fails", {
 test_that("get_2d_spectrum retrieves data successfully", {
   # vcr::local_cassette("get_2d_spectrum_basic")
   skip_if_offline()
+  skip_on_cran()
 
   spec <- get_2d_spectrum(
     "SEMREVO",
@@ -258,6 +266,7 @@ test_that("get_2d_spectrum retrieves data successfully", {
 test_that("get_2d_spectrum handles numeric node input", {
   # vcr::local_cassette("get_2d_spectrum_numeric_node")
   skip_if_offline()
+  skip_on_cran()
 
   spec_by_name <- get_2d_spectrum(
     "SEMREVO",
@@ -279,6 +288,7 @@ test_that("get_2d_spectrum handles numeric node input", {
 test_that("get_2d_spectrum handles numeric date inputs", {
   # vcr::local_cassette("get_2d_spectrum_numeric_dates")
   skip_if_offline()
+  skip_on_cran()
 
   start_unix <- as.numeric(as.POSIXct("1994-01-01", tz = "UTC"))
   end_unix <- as.numeric(as.POSIXct("1994-01-31", tz = "UTC"))
@@ -296,6 +306,7 @@ test_that("get_2d_spectrum handles numeric date inputs", {
 test_that("get_2d_spectrum handles multi-month requests", {
   # vcr::local_cassette("get_2d_spectrum_multi_month")
   skip_if_offline()
+  skip_on_cran()
 
   spec <- get_2d_spectrum(
     "SEMREVO",

@@ -9,6 +9,8 @@
 
 #Tests for get_parameters function (which also tests get_parameters_raw internally)
 test_that("get_parameters retrieves single parameter and tests basic functionality", {
+  skip_if_offline()
+  skip_on_cran()
   vcr::local_cassette("get_single_parameter")
   result <- get_parameters(
     parameters = "hs",
@@ -25,6 +27,8 @@ test_that("get_parameters retrieves single parameter and tests basic functionali
 })
 
 test_that("get_parameters retrieves multiple parameters including tp conversion", {
+  skip_if_offline()
+  skip_on_cran()
   vcr::local_cassette("get_multiple_parameters")
   result <- get_parameters(
     parameters = c("hs", "tp"),
@@ -41,6 +45,8 @@ test_that("get_parameters retrieves multiple parameters including tp conversion"
 })
 
 test_that("get_parameters handles character date inputs", {
+  skip_if_offline()
+  skip_on_cran()
   vcr::local_cassette("character_dates")
   result <- get_parameters(
     parameters = "hs",
@@ -54,6 +60,8 @@ test_that("get_parameters handles character date inputs", {
 })
 
 test_that("get_parameters handles Date format as input", {
+  skip_if_offline()
+  skip_on_cran()
   vcr::local_cassette("Date_dates")
   result <- get_parameters(
     parameters = "hs",
@@ -67,6 +75,8 @@ test_that("get_parameters handles Date format as input", {
 })
 
 test_that("get_parameters handles numeric date inputs", {
+  skip_if_offline()
+  skip_on_cran()
   vcr::local_cassette("numeric_dates")
   start_num <- as.numeric(as.POSIXct("1994-01-01 00:00:00", tz = "UTC"))
   end_num <- as.numeric(as.POSIXct("1994-01-02 00:00:00", tz = "UTC"))
@@ -117,6 +127,8 @@ test_that("get_parameters validates date range", {
 
 # Test with recorded fixtures to ensure consistent behavior
 test_that("get_parameters produces expected data structure over time range", {
+  skip_if_offline()
+  skip_on_cran()
   vcr::local_cassette("week_of_data")
   result <- get_parameters(
     parameters = c("hs", "tp"),

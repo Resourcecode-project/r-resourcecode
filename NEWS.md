@@ -1,6 +1,7 @@
 # resourcecode0.5.5
 
-- Remove `-DARMA_USE_CURRENT' flag which is not needed anymore
+- Remove `-DARMA_USE_CURRENT' flag which is not needed anymore;
+- Update tests to fail more gracefully on CRAN
 
 # resourcecode 0.5.4
 
