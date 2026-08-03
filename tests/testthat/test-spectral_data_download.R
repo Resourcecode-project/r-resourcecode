@@ -222,12 +222,13 @@ test_that("get_1d_spectrum fails gracefully when first download fails", {
 
   # Should fail or return NULL depending on your implementation
   # Update this based on how you handle NULL in get_1d_spectrum
-  expect_null(
+  expect_null(suppressMessages(
     get_1d_spectrum(
       "SEMREVO",
       start = "1994-01-01",
       end = "1994-01-31"
     )
+  )
   )
 })
 
@@ -396,12 +397,13 @@ test_that("get_2d_spectrum fails gracefully when first download fails", {
     NULL
   )
 
-  expect_null(
+  expect_null(suppressMessages(
     get_2d_spectrum(
       "SEMREVO",
       start = "1994-01-01",
       end = "1994-01-31"
     )
+  )
   )
 })
 

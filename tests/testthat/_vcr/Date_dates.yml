@@ -5,12 +5,12 @@ http_interactions:
   response:
     status: 200
     headers:
-      date: Mon, 03 Aug 2026 08:30:43 GMT
+      date: Mon, 03 Aug 2026 11:53:52 GMT
       server: Apache
       content-type: application/json;charset=UTF-8
       x-content-type-options: nosniff
       referrer-policy: same-origin
     body:
       string: '{"errorcode":0,"errormessage":"","query":{"downsampling":"none","samplingparameter":"none","platform":"41","parameterCode":"hs","startTimeMillis":"757382400000","endTimeMillis":"757465200000","startTimeFormat":"1994-01-01T00:00:00Z","endTimeFormat":"1994-01-01T23:00:00Z"},"result":{"dataSetSizeBeforeRegression":24,"dataSetSizeAfterRegression":24,"dataSetSize":24,"data":[[757382400000,0.124],[757386000000,0.112],[757389600000,0.098],[757393200000,0.082],[757396800000,0.07],[757400400000,0.058],[757404000000,0.052],[757407600000,0.05],[757411200000,0.048],[757414800000,0.046],[757418400000,0.046],[757422000000,0.044],[757425600000,0.044],[757429200000,0.044],[757432800000,0.042],[757436400000,0.038],[757440000000,0.034],[757443600000,0.028],[757447200000,0.024],[757450800000,0.022],[757454400000,0.022],[757458000000,0.022],[757461600000,0.026],[757465200000,0.03]]}}'
-  recorded_at: 2026-08-03 08:30:43
+  recorded_at: 2026-08-03 11:53:52
 recorded_with: VCR-vcr/2.1.0
