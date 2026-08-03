@@ -409,7 +409,9 @@ test_that("get_2d_spectrum fails gracefully when first download fails", {
 
 # Edge case: Boundary dates
 test_that("get_1d_spectrum accepts dates at exact boundaries", {
-  # vcr::local_cassette("get_1d_spectrum_boundary_dates")
+  skip_if_offline()
+  skip_on_cran()
+  #vcr::local_cassette("get_1d_spectrum_boundary_dates")
 
   # Test with start date at exact boundary
   expect_no_error(
@@ -422,6 +424,8 @@ test_that("get_1d_spectrum accepts dates at exact boundaries", {
 })
 
 test_that("get_2d_spectrum accepts dates at exact boundaries", {
+  skip_if_offline()
+  skip_on_cran()
   # vcr::local_cassette("get_2d_spectrum_boundary_dates")
 
   # Test with start date at exact boundary
