@@ -1,5 +1,10 @@
 # Changelog
 
+## resourcecode 0.5.5
+
+- Remove \`-DARMA_USE_CURRENT’ flag which is not needed anymore;
+- Update tests to fail more gracefully on CRAN.
+
 ## resourcecode 0.5.4
 
 CRAN release: 2026-05-07
