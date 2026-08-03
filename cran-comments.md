@@ -1,6 +1,11 @@
-This is Resourcecode 0.5.4.
+This is Resourcecode 0.5.5.
 
-This is only a patch release to update internal variables due to update in the upstream database.
+This is only a patch release to prevent failures of tests on CRAN.
+
+win-devel reports a NOTE during ‘checking compiled code’: 'cc' is not on the path'.
+Package installs/tests/examples pass successfully; appears related to R-devel Windows toolchain.
+
+There is no NOTE on win-release.
 
 ## R CMD check results
 
