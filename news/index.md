@@ -1,5 +1,7 @@
 # Changelog
 
+## resourcecode (development version)
+
 ## resourcecode 0.5.5
 
 CRAN release: 2026-08-03
