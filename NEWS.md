@@ -1,3 +1,5 @@
+# resourcecode (development version)
+
 # resourcecode 0.5.5
 
 - Remove `-DARMA_USE_CURRENT' flag which is not needed anymore;
